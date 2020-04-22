@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="css预处理器主要是sass的相关操作">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="css预处理器"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="css预处理器主要是sass的相关操作" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>css预处理器 - Hexo</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="Hexo">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="Hexo">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/tags" 
+                    title="Tags">
+                    Tags
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/categories" 
+                    title="Categories">
+                    Categories
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about.html" 
+                    title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/contact.html" 
+                    title="Contact">
+                    Contact
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">css预处理器</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-04-22</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/sass/">#sass</a> <a class="fw3 ph1 dib" href="/tags/css/">#css</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <blockquote>
+<p>css预处理器包含：sass, lass<br>sass/less区别：less基于javascript通过客户端处理，sass基于Ruby语言开发通过服务端处理，所以less慢于sass</p>
+</blockquote>
+<h2 id="保持sass条理性和可读性最基本三个方法：嵌套、导入、注释"><a href="#保持sass条理性和可读性最基本三个方法：嵌套、导入、注释" class="headerlink" title="保持sass条理性和可读性最基本三个方法：嵌套、导入、注释"></a>保持sass条理性和可读性最基本三个方法：<a href="#nest">嵌套</a>、<a href="#import">导入</a>、<a href="#annotation">注释</a></h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote>
+<p>变量跟es6中的let一样具有块级作用域，必须先定义后使用。 <strong>less变量用的是<font color=#ec7259>@</font></strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$color:red;</span><br><span class="line">$fontSize:16px;</span><br><span class="line">$color:blue;</span><br><span class="line">body&#123;   </span><br><span class="line">    background:$color;    &#x2F;&#x2F;blue    使用前最后一处声明有效，前边的值被覆盖</span><br><span class="line">    font-size:$fontSize</span><br><span class="line">&#125;</span><br><span class="line">$color:green;</span><br></pre></td></tr></table></figure>
+<h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a><font id="nest">嵌套</font></h3><p>例1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.data&#123;</span><br><span class="line">    &amp; &gt; ul&#123;                       &#x2F;&#x2F;.data &gt; ul       </span><br><span class="line">        .li&#123;</span><br><span class="line">            &amp;:hover&#123;&#125;            &#x2F;&#x2F;.data ul .li:hover        &amp;：父选择器的标识符</span><br><span class="line">            body.id &amp; &#123;&#125;         &#x2F;&#x2F;body.id .data &gt;ul .li</span><br><span class="line">            &amp;-title&#123;&#125;            &#x2F;&#x2F;.data ul .li-title&#123;&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    h1,h2&#123;&#125;        &#x2F;&#x2F;.data h1, .data h2&#123;&#125;          &#x2F;&#x2F;群组选择器</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例2        嵌套属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.nav&#123;</span><br><span class="line">    border: &#123;</span><br><span class="line">        style:solid;</span><br><span class="line">        width:1px;</span><br><span class="line">        color:red;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;    &#x3D;&#x3D;&gt;.nav&#123;border:1px solid red;&#125;</span><br></pre></td></tr></table></figure>
+<p>例3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.nav&#123;</span><br><span class="line">    border: 1px solid #ccc &#123;</span><br><span class="line">      left: 0px;</span><br><span class="line">      right: 0px;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;        &#x3D;&#x3D;&gt;.nav&#123;border: 1px solid #ccc; border-left:0px;border-right:0px;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a><font id="import">导入</font></h3><blockquote>
+<p>css中的import跟sass中的import的区别：<br>css @import:在css文件中执行到@import时浏览器去下载css文件=》页面加载慢<br>sass @import:生成css文件时把文件导入进来，跟原有文件合成一个文件=》无需发起额外请求下载</p>
+</blockquote>
+<blockquote>
+<p>局部文件：以下划线开头，不生成css文件，只用来被引用，可被多文件引用<br>例：想导入style/_night-sky.scss    =&gt;@import “style/night-sky”</p>
+</blockquote>
+<blockquote>
+<p>导入文件又要修改文件中的全局变量：<strong><font color=#ec7259>!default</font></strong></p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$c:pink;</span><br><span class="line">@import &#39;src&#x2F;assets&#x2F;css&#x2F;ab&#39;;</span><br><span class="line">_ab.scss:</span><br><span class="line">  $c: green !default;</span><br><span class="line">  .cont &#123;color: $c;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a><font id="annotation">注释</font></h3><blockquote>
+<p>.a{}    /<em>这种注释内容会出现在生成的css文件中</em>/<br>.b{}    //这种注释不会出现在生成的css文件中，叫做：静默注释<br>.c{color/<em>这块注释也不会出现在生成的css文件中</em>/ :red;}   </p>
+</blockquote>
+<h3 id="混合器"><a href="#混合器" class="headerlink" title="混合器"></a>混合器</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@mixin background($color) &#123;</span><br><span class="line">    background: $color;</span><br><span class="line">&#125;</span><br><span class="line">body&#123;</span><br><span class="line">    @include background(green);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@mixin link-colors($normal:blue, $hover:red, $visited:green) &#123;    &#x2F;&#x2F;声明</span><br><span class="line">    color: $normal;</span><br><span class="line">    &amp;:hover &#123; color: $hover; &#125;</span><br><span class="line">    &amp;:visited &#123; color: $visited; &#125;</span><br><span class="line">&#125;</span><br><span class="line">@include link-colors( $normal: blue, $visited: green, $hover: red);    &#x2F;&#x2F;调用1</span><br><span class="line">@include link-colors( $hover: yellow);    &#x2F;&#x2F;调用2</span><br><span class="line">@include link-colors( green);    &#x2F;&#x2F;调用3</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>less:声明：<font color=#ec7259>.className{}</font> 调用：<font color=#ec7259>.className()</font></strong></p>
+</blockquote>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">.redC&#123;</span><br><span class="line">    background:red;</span><br><span class="line">    margin:10px;</span><br><span class="line">&#125;</span><br><span class="line">body&#123;</span><br><span class="line">    @extend .redC;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>混合器主要用于展示性样式的重用，而类名用于语义化样式的重用</p>
+</blockquote>
+<h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><blockquote>
+<p>+、-、*、/、%、calc()、</p>
+</blockquote>
+<h4 id="sass中的小技巧"><a href="#sass中的小技巧" class="headerlink" title="sass中的小技巧"></a>sass中的小技巧</h4><blockquote>
+<p>在有引号的文本字符串中使用 #{} 插值语句可以添加动态的值。使用 #{}可以避免 Sass 运行运算表达式，直接编译 CSS</p>
+</blockquote>
+<p>例1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">p:before &#123;content: &quot;I ate #&#123;5 + 10&#125; pies!&quot;;&#125;&#x3D;&gt;p:before &#123; content: &quot;I ate 15 pies!&quot;; &#125;</span><br></pre></td></tr></table></figure>
+<p>例2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@mixin mar($dir,$size)&#123;margin-#&#123;$dir&#125; : $size;&#125;</span><br><span class="line">.cont&#123;@include mar(&#39;left&#39;,20px)&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="for循环"><a href="#for循环" class="headerlink" title="@for循环"></a>@for循环</h4><blockquote>
+<p>@for $i from 开始值 throuth 结束值（包括结束值）<br>@for $i from 开始值 to 结束值（不包括结束值）</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@for $i from 1 throuth 3&#123;</span><br><span class="line">    .item-#&#123;$i&#125;&#123;width:(20px * $i)&#125;</span><br><span class="line">&#125;</span><br><span class="line">&#x3D;&#x3D;&gt; .item-1&#123;width:20px&#125;</span><br><span class="line">    .item-2&#123;width:40px&#125;</span><br><span class="line">    .item-3&#123;width:60px&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/sass/">#sass</a> <a class="fw3 ph1 dib" href="/tags/css/">#css</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="John Doe">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
+    
+        <p>
+            <a href="/categories/html-css/">html+css</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2020/04/22/sass/">css预处理器</a>
+        </p>
+    
+        <p>
+            <a href="/2020/04/11/hello-world/">Hello World</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/" target="_blank" rel="noopener">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
