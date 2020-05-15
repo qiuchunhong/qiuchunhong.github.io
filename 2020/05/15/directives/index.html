@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="directive的使用以及记录指令的场景、实现">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="John Doe">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="vue directive 指令"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="directive的使用以及记录指令的场景、实现" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="Hexo"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>vue directive 指令 - Hexo</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+
+<!-- Main Content -->
+<!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="Hexo">
+            <img src="http://www.codeblocq.com/assets/projects/hexo-theme-anodyne/assets/anodyne.svg" class="dib h3" alt="Hexo">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="Home">
+                    Home
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="Archives">
+                    Archives
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/tags" 
+                    title="Tags">
+                    Tags
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/categories" 
+                    title="Categories">
+                    Categories
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/about.html" 
+                    title="About">
+                    About
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/contact.html" 
+                    title="Contact">
+                    Contact
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">vue directive 指令</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-05-15</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+
+                    <!-- Main Post Content -->
+                    <h3 id="为什么要使用-VueDirective"><a href="#为什么要使用-VueDirective" class="headerlink" title="为什么要使用 VueDirective"></a>为什么要使用 VueDirective</h3><p>在 Vue 实例的方法中写 DOM 操作不可以吗？为什么使用 Vue Directive 来封装 DOM 操作呢？<br>为了实现 View 和 ViewModel 的分离，我们必须封装 DOM 操作，View 层负责页面上的显示，ViewModel 层负责改变操作数据，由于 Vue 是数据驱动的，属于 ViewModel 层，那么其中就不应该出现 View 层上的 DOM 操作，而且，使用 Vue Directive 是和 DOM 元素的创建、销毁绑定的。Vue Directive 的生命周期方法能让我们更优雅的去在合适的时机进行 DOM 的操作。而在 ViewModel 里则没有和 DOM 元素对应的方法。因为 Vue Directive 是属于 View 层面的，所以 DOM 操作应该被封装在 Vue Directive 里而不是出现在 Vue 实例中。</p>
+<p><a href="https://github.com/qiuchunhong/vueProject/blob/master/src/views/directives/index.vue" target="_blank" rel="noopener">基础使用</a></p>
+<h3 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h3><blockquote>
+<ul>
+<li>某个按钮按下去之前需要先判断它是否登陆，如果没有登陆需要跳转到对应的登陆页面，否则就继续该按钮之后的操作。</li>
+</ul>
+</blockquote>
+<p><strong>store 需要 import 进来</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">const directive &#x3D; Vue.directive(&#39;permission-click&#39;, &#123;</span><br><span class="line">  bind: (el, binding, vnode) &#x3D;&gt; &#123;</span><br><span class="line">    el.addEventListener(&#39;click&#39;, (e) &#x3D;&gt; &#123;</span><br><span class="line">      if (!store.getters.isLogin) &#123;</span><br><span class="line">        store.dispatch(&#39;showLogin&#39;)</span><br><span class="line">      &#125; else &#123;</span><br><span class="line">        typeof binding.value &#x3D;&#x3D;&#x3D; &#39;function&#39; &amp;&amp; binding.value()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">directives: &#123;</span><br><span class="line">    permissionClick: &#123;</span><br><span class="line">        bind (el, binding, vnode) &#123;</span><br><span class="line">            el.addEventListener(&#39;click&#39;, (e) &#x3D;&gt; &#123;</span><br><span class="line">                if (!store.getters.isLogin) &#123;</span><br><span class="line">                    store.dispatch(&#39;user&#x2F;showLogin&#39;)</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    typeof binding.value &#x3D;&#x3D;&#x3D; &#39;function&#39; &amp;&amp; binding.value()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>v-loading 全局加载</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;div v-loading&#x3D;&quot;loading&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">&lt;div @click&#x3D;&quot;showLoading&quot;&gt;change loading status&lt;&#x2F;div&gt;</span><br><span class="line">methods: &#123;</span><br><span class="line">    showLoading () &#123;</span><br><span class="line">        this.loading &#x3D; true</span><br><span class="line">        let timer &#x3D; setTimeout(() &#x3D;&gt; &#123;</span><br><span class="line">            this.loading &#x3D; false</span><br><span class="line">            &#x2F;&#x2F; clearTimeout(timer)</span><br><span class="line">        &#125;, 1000)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br><span class="line"> Vue.directive(&#39;loading&#39;, &#123;</span><br><span class="line">        update(el, binding, vnode) &#123;</span><br><span class="line">          if (binding.value) &#123;</span><br><span class="line">            const div &#x3D; document.createElement(&#39;div&#39;)</span><br><span class="line">            div.innerText &#x3D; &#39;加载中...&#39;</span><br><span class="line">            div.setAttribute(&#39;id&#39;, &#39;loading&#39;)</span><br><span class="line">            div.style.position &#x3D; &#39;absolute&#39;</span><br><span class="line">            div.style.left &#x3D; 0</span><br><span class="line">            div.style.top &#x3D; 0</span><br><span class="line">            div.style.width &#x3D; &#39;100%&#39;</span><br><span class="line">            div.style.height &#x3D; &#39;100%&#39;</span><br><span class="line">            div.style.display &#x3D; &#39;flex&#39;</span><br><span class="line">            div.style.justifyContent &#x3D; &#39;center&#39;</span><br><span class="line">            div.style.alignItems &#x3D; &#39;center&#39;</span><br><span class="line">            div.style.color &#x3D; &#39;white&#39;</span><br><span class="line">            div.style.background &#x3D; &#39;rgba(0, 0, 0, .7)&#39;</span><br><span class="line">            document.body.append(div)</span><br><span class="line">          &#125; else &#123;</span><br><span class="line">            document.body.removeChild(document.getElementById(&#39;loading&#39;))</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>根据路由角色控制 DOM <strong>(一般是按钮多)</strong> 是否显示</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> bind: function (el, binding, vnode) &#123;</span><br><span class="line">  &#x2F;&#x2F; 获取按钮权限  路由中 meta 中的角色</span><br><span class="line">  let btnPermissions &#x3D; vnode.context.$route.meta.btnPermissions.split(&quot;,&quot;);</span><br><span class="line">  if (btnPermissions.indexOf(&#39;admin&#39;)&lt;0) &#123;</span><br><span class="line">  	&#x2F;&#x2F; 不是admin 就不显示</span><br><span class="line">  	&#x2F;&#x2F; 当然此处也可以 将 el 样式隐藏也行</span><br><span class="line">   el.parentNode.removeChild(el);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<ul>
+<li>根据后台下发 权限 字段，控制当前 DOM 是否展示</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> &#x2F;&#x2F; 很多时候，服务器下发了  showBtn 字段就代表 显示某个 按钮，前端一般把控制权限的数据都放在内存中</span><br><span class="line"> &#x2F;&#x2F; 这样写 在 bind update 都会执行</span><br><span class="line">Vue.directive(&#39;check-permission&#39;, function (el, binding) &#123;</span><br><span class="line">  var success &#x3D; checkPermission(binding.value); &#x2F;&#x2F; 拿到绑定的值</span><br><span class="line">  if(!success)&#123;</span><br><span class="line">    el.style.display &#x3D; &#39;none&#39;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">function checkPermission(permissionKey) &#123;</span><br><span class="line">  var values &#x3D; localStorage.getItem(&quot;userPermissions&quot;);</span><br><span class="line">  if (!values) &#123;</span><br><span class="line">    console.log(&#39;can not find permissions config from localstorage, function access will be denied.&#39;);</span><br><span class="line">    return false;</span><br><span class="line">  &#125;</span><br><span class="line">  var ret &#x3D; values.split(&#39;,&#39;).find(item &#x3D;&gt; item &#x3D;&#x3D;&#x3D; permissionKey) !&#x3D; null;</span><br><span class="line">  console.log(&#39;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;check permission, key:&#39; + permissionKey + &quot;, result:&quot; + ret + &quot;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&quot;);</span><br><span class="line">  return ret;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 使用</span><br><span class="line">v-check-permission&#x3D;&quot;&#39;showBtn&#39;&quot;</span><br></pre></td></tr></table></figure>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="http://tachyons.io/img/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="John Doe">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
+    
+        <p>
+            <a href="/categories/vue/">vue</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2020/05/15/directives/">vue directive 指令</a>
+        </p>
+    
+        <p>
+            <a href="/2020/04/25/record/">有用的网站记录</a>
+        </p>
+    
+        <p>
+            <a href="/2020/04/22/sass/">css预处理器</a>
+        </p>
+    
+        <p>
+            <a href="/2020/04/11/hello-world/">Hello World</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/" target="_blank" rel="noopener">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+<!-- After Footer -->
+<!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
