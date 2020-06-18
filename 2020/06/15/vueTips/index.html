@@ -10,6 +10,8 @@
 
     <!--Description-->
     
+        <meta name="description" content="forceUpdate、">
+    
 
     <!--Author-->
     
@@ -18,10 +20,12 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="vue的一些小技巧"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="forceUpdate、" />
     
 
     <!--Open Graph Site Name-->
@@ -29,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>vue - Hexo</title>
+    <title>vue的一些小技巧 - Hexo</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
@@ -70,9 +74,7 @@
 <body>
 
     <!-- Main Content -->
-    
-
-<!-- Banner -->
+    <!-- Banner -->
 <!-- Banner -->
 <div class="w-100 bg-1 ph5-ns ph3 text-light">
     
@@ -112,50 +114,115 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">vue</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">vue的一些小技巧</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-06-15</p>
         </div>
     </div>
 
     <!-- Icon -->
     <div class="relative w-100 mw8 center white dn dn-m db-ns">
-        <i class="header-icon fa fa-folder-open"></i>
+        <i class="header-icon fa fa-file-text-o"></i>
     </div>
 </div>
 
+<!-- Content -->
 <div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
     <div class="content">
         <div class="mw8 center">
-            
-                <a href="/2020/05/15/directives/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">May 2020</span> 
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/vue/">#vue</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <h3 id="页面v-for中修改item属性值后页面v-if不改变的问题"><a href="#页面v-for中修改item属性值后页面v-if不改变的问题" class="headerlink" title="页面v-for中修改item属性值后页面v-if不改变的问题"></a>页面v-for中修改item属性值后页面v-if不改变的问题</h3><blockquote>
+<p>添加this.$forceUpdate();进行强制渲染，效果实现</p>
+</blockquote>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/vue/">#vue</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/assets/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="John Doe">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
             
         </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">vue directive 指令<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/15/vueTips/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">vue的一些小技巧<span>
-        </div>
-    </div>
-</a>
-            
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>Categories</h3>
+    
+        <p>
+            <a href="/categories/vue/">vue</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2020/06/15/vueTips/">vue的一些小技巧</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/02/hello-world/">Hello World</a>
+        </p>
+    
+        <p>
+            <a href="/2020/05/15/directives/">vue directive 指令</a>
+        </p>
+    
+        <p>
+            <a href="/2020/04/25/record/">有用的网站记录</a>
+        </p>
+    
+        <p>
+            <a href="/2020/04/22/sass/">css预处理器</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
     <!-- Footer -->
     <div class="bg-1 ph2 ph5-ns pv5">
