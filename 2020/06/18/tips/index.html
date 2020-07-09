@@ -144,13 +144,16 @@
                     <h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2><h3 id="页面v-for中修改item属性值后页面v-if不改变的问题"><a href="#页面v-for中修改item属性值后页面v-if不改变的问题" class="headerlink" title="页面v-for中修改item属性值后页面v-if不改变的问题"></a>页面v-for中修改item属性值后页面v-if不改变的问题</h3><blockquote>
 <p>添加this.$forceUpdate();进行强制渲染，效果实现</p>
 </blockquote>
+<hr>
 <h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><blockquote>
 <p>–hard : 回退版本库，暂存区，工作区。（因此我们修改过的代码在本地就没了）<br><br>–mixed: 回退版本库，暂存区。(–mixed为git reset的默认参数，即当任何参数都不加的时候的参数)<br><br>–soft: 回退版本库。</p>
 </blockquote>
-<h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><h3 id="js-v-k-k-v-总结"><a href="#js-v-k-k-v-总结" class="headerlink" title="js (v,k)||(k,v)总结"></a>js (v,k)||(k,v)总结</h3><blockquote>
-<p>ary.forEach((v,k)=&gt;{})</p>
+<hr>
+<h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><hr>
+<h2 id="手机"><a href="#手机" class="headerlink" title="手机"></a>手机</h2><blockquote>
+<p>安卓手机文本框获取焦点后，键盘把文本框挡住了</p>
 </blockquote>
-
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;resize&quot;, function() &#123;</span><br><span class="line">    if (</span><br><span class="line">        document.activeElement.tagName &#x3D;&#x3D;&#x3D; &quot;INPUT&quot; ||</span><br><span class="line">        document.activeElement.tagName &#x3D;&#x3D;&#x3D; &quot;TEXTAREA&quot;</span><br><span class="line">    ) &#123;</span><br><span class="line">        if (&quot;scrollIntoView&quot; in document.activeElement) &#123;</span><br><span class="line">            document.activeElement.scrollIntoView();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            document.activeElement.scrollIntoViewIfNeeded();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
                     
                     <!-- Tags Bottom -->
                     
@@ -203,6 +206,14 @@
     <h3>近期文章</h3>
     
         <p>
+            <a href="/2020/07/09/git/">git</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/21/jsStringMethods/">js 字符串常用方法总结</a>
+        </p>
+    
+        <p>
             <a href="/2020/06/21/jsArrayMethods/">js Array 方法总结</a>
         </p>
     
@@ -212,14 +223,6 @@
     
         <p>
             <a href="/2020/06/18/tips/">记录一些小技巧</a>
-        </p>
-    
-        <p>
-            <a href="/2020/06/18/sass/">css预处理器 - sass</a>
-        </p>
-    
-        <p>
-            <a href="/2020/06/18/record/">有用的网站记录</a>
         </p>
     
 </div>

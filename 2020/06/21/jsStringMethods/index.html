@@ -10,6 +10,14 @@
 
     <!--Description-->
     
+        <meta name="description" content="str.substr(start[, length]) 截取指定长度字符串    不推荐使用
+
+str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间
+
+str.slice(beginIndex[, endIndex])
+
+情景模式-参数为负数substr">
+    
 
     <!--Author-->
     
@@ -18,7 +26,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="Hexo"/>
+        <meta property="og:title" content="js 字符串常用方法总结"/>
     
 
     <!--Open Graph Description-->
@@ -29,7 +37,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -40,7 +48,7 @@
 
     <!-- Title -->
     
-    <title>归档 - Hexo</title>
+    <title>js 字符串常用方法总结 - Hexo</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="/css/tachyons.min.css">
@@ -70,9 +78,7 @@
 <body>
 
     <!-- Main Content -->
-    
-
-<!-- Banner -->
+    <!-- Banner -->
 <!-- Banner -->
 <div class="w-100 bg-1 ph5-ns ph3 text-light">
     
@@ -112,141 +118,145 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">归档</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">js 字符串常用方法总结</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-06-21</p>
         </div>
     </div>
 
     <!-- Icon -->
     <div class="relative w-100 mw8 center white dn dn-m db-ns">
-        <i class="header-icon fa fa-folder-open"></i>
+        <i class="header-icon fa fa-file-text-o"></i>
     </div>
 </div>
 
+<!-- Content -->
 <div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
     <div class="content">
         <div class="mw8 center">
-            
-                <a href="/2020/06/18/hello-world/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 18 2020</span> 
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <ul>
+<li><p>str.substr(start[, length]) 截取指定长度字符串    不推荐使用</p>
+</li>
+<li><p>str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间</p>
+</li>
+<li><p>str.slice(beginIndex[, endIndex])</p>
+<blockquote>
+<p>情景模式-参数为负数<br>substr() 会将第一个负参数与字符串长度相加，第二个负参数转化为 0<br>substring() 将所有的负参数转化为 0<br>slice() 会将所有的负数于字符串的长度相加</p>
+</blockquote>
+</li>
+<li><p>indexOf</p>
+</li>
+<li><p>lastIndexOf</p>
+</li>
+<li><p>includes str.includes(‘@’)</p>
+</li>
+<li><p>toUpperCase</p>
+</li>
+<li><p>toLowerCase</p>
+</li>
+<li><p>split 字符串转数组 </p>
+</li>
+<li><p>replace</p>
+</li>
+<li><p>match str.match(regexp)</p>
+</li>
+<li><p>trim 去掉两边的空格</p>
+</li>
+<li><p>trimEnd || trimRight</p>
+</li>
+<li><p>trimStart || trimLeft</p>
+</li>
+</ul>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/assets/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Qch">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
             
         </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">Hello World<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/18/directives/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 18 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">vue directive 指令<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/18/record/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 18 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">有用的网站记录<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/18/sass/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 18 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">css预处理器 - sass<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/18/tips/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 18 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">记录一些小技巧<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/21/jsArrayRecude/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 21 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">reduce - js<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/21/jsArrayMethods/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 21 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">js Array 方法总结<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/07/09/git/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jul 09 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">git<span>
-        </div>
-    </div>
-</a>
-            
-                <a href="/2020/06/21/jsStringMethods/">
-    <div class="dt w-100 hover-border-main-color pointer pa3 border-color bl mv3">
-        <div class="dtc v-mid w-20 black-50">
-            
-                <span class="f4 fw3 lh-copy">Jun 21 2020</span> 
-            
-        </div>
-        <div class="dtc v-mid w-80 black-70">
-            <span class="f4 fw3 lh-copy">js 字符串常用方法总结<span>
-        </div>
-    </div>
-</a>
-            
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>分类</h3>
+    
+        <p>
+            <a href="/categories/js/">js</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>近期文章</h3>
+    
+        <p>
+            <a href="/2020/07/09/git/">git</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/21/jsStringMethods/">js 字符串常用方法总结</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/21/jsArrayMethods/">js Array 方法总结</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/21/jsArrayRecude/">reduce - js</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/18/tips/">记录一些小技巧</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
 
     <!-- Footer -->
     <div class="bg-1 ph2 ph5-ns pv5">
