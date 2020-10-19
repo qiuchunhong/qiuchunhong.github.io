@@ -10,13 +10,17 @@
 
     <!--Description-->
     
-        <meta name="description" content="str.substr(start[, length]) 截取指定长度字符串    不推荐使用
-
-str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间
-
-str.slice(beginIndex[, endIndex])
-
-情景模式-参数为负数substr">
+        <meta name="description" content="css的选择符
+通配符选择器(*)
+id选择器
+类选择器
+标签选择器(div,h1,p)
+后代选择器(h1 p)
+相邻后代选择器(ul&amp;gt;li)
+兄弟选择器(li ~a)
+相邻兄弟选择器(li+a)
+属性选择器(a[rel=”ab”])
+伪元素选择器(a::before::after::firs">
     
 
     <!--Author-->
@@ -26,7 +30,7 @@ str.slice(beginIndex[, endIndex])
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="js 字符串常用方法总结"/>
+        <meta property="og:title" content="css兼容问题"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +52,7 @@ str.slice(beginIndex[, endIndex])
 
     <!-- Title -->
     
-    <title>js 字符串常用方法总结 - World wide tour yayayaya yaya</title>
+    <title>css兼容问题 - World wide tour yayayaya yaya</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="/css/tachyons.min.css">
@@ -118,8 +122,8 @@ str.slice(beginIndex[, endIndex])
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">js 字符串常用方法总结</h1>
-            <p class="f4 fw3 tc tc-m tl-ns">2020-06-21</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">css兼容问题</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-07-23</p>
             <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
         </div>
     </div>
@@ -140,51 +144,34 @@ str.slice(beginIndex[, endIndex])
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                                <a class="fw3 ph1 dib" href="/tags/css/">#css</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <ul>
-<li><p>str.substr(start[, length]) 截取指定长度字符串    不推荐使用</p>
-</li>
-<li><p>str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间</p>
-</li>
-<li><p>str.slice(beginIndex[, endIndex])</p>
-<blockquote>
-<p>情景模式-参数为负数<br>substr() 会将第一个负参数与字符串长度相加，第二个负参数转化为 0<br>substring() 将所有的负参数转化为 0<br>slice() 会将所有的负数于字符串的长度相加</p>
-</blockquote>
-</li>
-<li><p>indexOf</p>
-</li>
-<li><p>lastIndexOf</p>
-</li>
-<li><p>includes str.includes(‘@’)</p>
-</li>
-<li><p>toUpperCase</p>
-</li>
-<li><p>toLowerCase</p>
-</li>
-<li><p>split 字符串转数组 </p>
-</li>
-<li><p>replace</p>
-</li>
-<li><p>match str.match(regexp)</p>
-</li>
-<li><p>trim 去掉两边的空格</p>
-</li>
-<li><p>trimEnd || trimRight</p>
-</li>
-<li><p>trimStart || trimLeft</p>
-</li>
-</ul>
+                    <h3 id="css的选择符"><a href="#css的选择符" class="headerlink" title="css的选择符"></a>css的选择符</h3><ol>
+<li>通配符选择器(*)</li>
+<li>id选择器</li>
+<li>类选择器</li>
+<li>标签选择器(div,h1,p)</li>
+<li>后代选择器(h1 p)</li>
+<li>相邻后代选择器(ul&gt;li)</li>
+<li>兄弟选择器(li ~a)</li>
+<li>相邻兄弟选择器(li+a)</li>
+<li>属性选择器(a[rel=”ab”])</li>
+<li>伪元素选择器(a::before::after::firstLetter::firstLine::selection) 【伪类、伪元素详细列表】</li>
+<li>伪类选择器：链接伪类(:link:visited:target)、动态伪类(:hover:active) LVHA、表单相关伪类(:enabled:disable:checked:focus)、结构性伪类(:nth-child(2n):first-child:last-child\nth-last-child(index):only-child:nth-of-type(index):first-of-type:last-of-type\nth-last-type(index):only-of-type:not:empty)</li>
+</ol>
+<h3 id="input-disabled后手机端颜色比设置的浅"><a href="#input-disabled后手机端颜色比设置的浅" class="headerlink" title="input disabled后手机端颜色比设置的浅"></a>input disabled后手机端颜色比设置的浅</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input:disabled, input[disabled]&#123;</span><br><span class="line">    color: red;</span><br><span class="line">    -webkit-text-fill-color:red;</span><br><span class="line">    -webkit-opacity:1;</span><br><span class="line">    opacity: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="一个文字渐变效果"><a href="#一个文字渐变效果" class="headerlink" title="一个文字渐变效果"></a>一个文字渐变效果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text-fill-color&#123;</span><br><span class="line">    background:-webkit-linear-gradient(top,#eee,#aaa 50%,#333 51%,#000);</span><br><span class="line">	-webkit-background-clip:text;</span><br><span class="line">	-webkit-text-fill-color:transparent;</span><br><span class="line">	font:bold 95px&#x2F;1.231 georgia,sans-serif;</span><br><span class="line">	text-transform:uppercase;</span><br><span class="line">&#125;</span><br><span class="line">&lt;div class&#x3D;&quot;text-fill-color&quot;&gt;text-fill-color&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/2020/07/23/css%E5%85%BC%E5%AE%B9/gradient.png" alt="一个文字渐变效果"></p>
 
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/css/">#css</a>
                         </div>
                     
 
@@ -218,7 +205,7 @@ str.slice(beginIndex[, endIndex])
     <h3>分类</h3>
     
         <p>
-            <a href="/categories/js/">js</a>
+            <a href="/categories/css/">css</a>
         </p>
     
 </div>

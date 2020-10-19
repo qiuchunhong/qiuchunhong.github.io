@@ -10,13 +10,10 @@
 
     <!--Description-->
     
-        <meta name="description" content="str.substr(start[, length]) 截取指定长度字符串    不推荐使用
+        <meta name="description" content="判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()
 
-str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间
-
-str.slice(beginIndex[, endIndex])
-
-情景模式-参数为负数substr">
+判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()
+typeo">
     
 
     <!--Author-->
@@ -26,7 +23,7 @@ str.slice(beginIndex[, endIndex])
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="js 字符串常用方法总结"/>
+        <meta property="og:title" content="js题库"/>
     
 
     <!--Open Graph Description-->
@@ -48,7 +45,7 @@ str.slice(beginIndex[, endIndex])
 
     <!-- Title -->
     
-    <title>js 字符串常用方法总结 - World wide tour yayayaya yaya</title>
+    <title>js题库 - World wide tour yayayaya yaya</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="/css/tachyons.min.css">
@@ -118,8 +115,8 @@ str.slice(beginIndex[, endIndex])
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">js 字符串常用方法总结</h1>
-            <p class="f4 fw3 tc tc-m tl-ns">2020-06-21</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">js题库</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-07-14</p>
             <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
         </div>
     </div>
@@ -140,51 +137,31 @@ str.slice(beginIndex[, endIndex])
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                                <a class="fw3 ph1 dib" href="/tags/js-整合/">#js 整合</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
                     <ul>
-<li><p>str.substr(start[, length]) 截取指定长度字符串    不推荐使用</p>
-</li>
-<li><p>str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间</p>
-</li>
-<li><p>str.slice(beginIndex[, endIndex])</p>
-<blockquote>
-<p>情景模式-参数为负数<br>substr() 会将第一个负参数与字符串长度相加，第二个负参数转化为 0<br>substring() 将所有的负参数转化为 0<br>slice() 会将所有的负数于字符串的长度相加</p>
-</blockquote>
-</li>
-<li><p>indexOf</p>
-</li>
-<li><p>lastIndexOf</p>
-</li>
-<li><p>includes str.includes(‘@’)</p>
-</li>
-<li><p>toUpperCase</p>
-</li>
-<li><p>toLowerCase</p>
-</li>
-<li><p>split 字符串转数组 </p>
-</li>
-<li><p>replace</p>
-</li>
-<li><p>match str.match(regexp)</p>
-</li>
-<li><p>trim 去掉两边的空格</p>
-</li>
-<li><p>trimEnd || trimRight</p>
-</li>
-<li><p>trimStart || trimLeft</p>
-</li>
+<li><a href="@item1">判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()</a></li>
 </ul>
+<h4 id="判断数据类型：typeof-、instanceof、constructor、Objece-prototype-toString-call"><a href="#判断数据类型：typeof-、instanceof、constructor、Objece-prototype-toString-call" class="headerlink" title="判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()"></a><font id="item1">判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()</font></h4><ol>
+<li>typeof()<br>typeof 可以判断基础类型[null除外，null返回Object]，引用数据类型Function/Objece/Array反回的都是Object</li>
+<li>[] instanceof Array<br>判断引用对象的类型返回的是true||false，不能判断基础类型[全部返回false]<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">console.log(2 instanceof Number);                    &#x2F;&#x2F; false</span><br><span class="line">console.log(true instanceof Boolean);                &#x2F;&#x2F; false </span><br><span class="line">console.log(&#39;str&#39; instanceof String);                &#x2F;&#x2F; false  </span><br><span class="line">console.log([] instanceof Array);                    &#x2F;&#x2F; true</span><br><span class="line">console.log(function()&#123;&#125; instanceof Function);       &#x2F;&#x2F; true</span><br><span class="line">console.log(&#123;&#125; instanceof Object);                   &#x2F;&#x2F; true    </span><br><span class="line">&#x2F;&#x2F; console.log(undefined instanceof Undefined);      &#x2F;&#x2F; 报错</span><br><span class="line">&#x2F;&#x2F; console.log(null instanceof Null);                &#x2F;&#x2F; 报错</span><br></pre></td></tr></table></figure></li>
+<li>().constructor === Array<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">console.log((2).constructor &#x3D;&#x3D;&#x3D; Number); &#x2F;&#x2F; true</span><br><span class="line">console.log((true).constructor &#x3D;&#x3D;&#x3D; Boolean); &#x2F;&#x2F; true</span><br><span class="line">console.log((&#39;str&#39;).constructor &#x3D;&#x3D;&#x3D; String); &#x2F;&#x2F; true</span><br><span class="line">console.log(([]).constructor &#x3D;&#x3D;&#x3D; Array); &#x2F;&#x2F; true</span><br><span class="line">console.log((function() &#123;&#125;).constructor &#x3D;&#x3D;&#x3D; Function); &#x2F;&#x2F; true</span><br><span class="line">console.log((&#123;&#125;).constructor &#x3D;&#x3D;&#x3D; Object); &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里有一个坑，如果我创建一个对象，更改它的原型，constructor就会变得不可靠了</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function Fn()&#123;&#125;;</span><br><span class="line"> </span><br><span class="line">Fn.prototype&#x3D;new Array();</span><br><span class="line"> </span><br><span class="line">var f&#x3D;new Fn();</span><br><span class="line"> </span><br><span class="line">console.log(f.constructor&#x3D;&#x3D;&#x3D;Fn);    &#x2F;&#x2F; false</span><br><span class="line">console.log(f.constructor&#x3D;&#x3D;&#x3D;Array); &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure></li>
+<li>Object.prototype.toString.call() 使用 Object 对象的原型方法 toString ，使用 call 进行狸猫换太子，借用Object的 toString 方法<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var a &#x3D; Object.prototype.toString;</span><br><span class="line"> </span><br><span class="line">console.log(a.call(2));</span><br><span class="line">console.log(a.call(true));</span><br><span class="line">console.log(a.call(&#39;str&#39;));</span><br><span class="line">console.log(a.call([]));</span><br><span class="line">console.log(a.call(function()&#123;&#125;));</span><br><span class="line">console.log(a.call(&#123;&#125;));</span><br><span class="line">console.log(a.call(undefined));</span><br><span class="line">console.log(a.call(null));</span><br></pre></td></tr></table></figure></li>
+</ol>
 
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js-整合/">#js 整合</a>
                         </div>
                     
 
@@ -213,18 +190,6 @@ str.slice(beginIndex[, endIndex])
                     <hr class="dn-l mw4 black-50 mt5" />
                     
                     <!-- Widget 2: Categories -->
-                    
-                        <div class="mt5 tc tl-l">
-    <h3>分类</h3>
-    
-        <p>
-            <a href="/categories/js/">js</a>
-        </p>
-    
-</div>
-
-
-                        <hr class="dn-l mw4 black-50 mt5" />
                     
 
                     <!-- Widget 3: Recent Posts -->
