@@ -160,7 +160,7 @@
 </ul>
 <p><strong>注意</strong></p>
 <ul>
-<li>回调函数第一次执行时，<font color=#0099ff>accumulator</font> 和<font color=#0099ff>currentValue</font>的取值有两种情况：如果调用 reduce()时提供了<font color=#0099ff>initialValue</font>，<font color=#0099ff>accumulator</font>取值为<font color=#0099ff>initialValue</font>，<font color=#0099ff>currentValue</font>取数组中的第一个值；如果没有提供 <font color=#0099ff>initialValue</font>，那么<font color=#0099ff>accumulator</font>取数组中的第一个值，<font color=#0099ff>currentValue</font>取数组中的第二个值。<blockquote>
+<li>回调函数第一次执行时，<font color="#0099ff">accumulator</font> 和<font color="#0099ff">currentValue</font>的取值有两种情况：如果调用 reduce()时提供了<font color="#0099ff">initialValue</font>，<font color="#0099ff">accumulator</font>取值为<font color="#0099ff">initialValue</font>，<font color="#0099ff">currentValue</font>取数组中的第一个值；如果没有提供 <font color="#0099ff">initialValue</font>，那么<font color="#0099ff">accumulator</font>取数组中的第一个值，<font color="#0099ff">currentValue</font>取数组中的第二个值。<blockquote>
 <ul>
 <li>如果数组为空且没有提供 initialValue，会抛出 TypeError</li>
 <li>如果数组仅有一个元素并且没有提供 initialValue， 或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行</li>
