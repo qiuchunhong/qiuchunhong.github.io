@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="一个webpack的api,通过执行require.context函数获取一个特定的上下文,主要用来实现自动化导入模块,在前端工程中,如果遇到从一个文件夹引入很多模块的情况,可以使用这个api,它会遍历文件夹中的指定文件,然后自动导入,使得不需要每次显式的调用import导入模块">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Qch">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="require.context()"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="一个webpack的api,通过执行require.context函数获取一个特定的上下文,主要用来实现自动化导入模块,在前端工程中,如果遇到从一个文件夹引入很多模块的情况,可以使用这个api,它会遍历文件夹中的指定文件,然后自动导入,使得不需要每次显式的调用import导入模块" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="World wide tour yayayaya yaya"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>require.context() - World wide tour yayayaya yaya</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+
+    <!-- Main Content -->
+    <!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="World wide tour yayayaya yaya">
+            <img src="/assets/anodyne.svg" class="dib h3" alt="World wide tour yayayaya yaya">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="首页">
+                    首页
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="列表">
+                    列表
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/tags" 
+                    title="标签">
+                    标签
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/cssEffects" 
+                    title="css技巧">
+                    css技巧
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">require.context()</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-10-19</p>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">一个webpack的api,通过执行require.context函数获取一个特定的上下文,主要用来实现自动化导入模块,在前端工程中,如果遇到从一个文件夹引入很多模块的情况,可以使用这个api,它会遍历文件夹中的指定文件,然后自动导入,使得不需要每次显式的调用import导入模块</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/Webpack/">#Webpack</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require.context(directory, useSubdirectories &#x3D; true, regExp &#x3D; &#x2F;^\.\&#x2F;.*$&#x2F;, mode &#x3D; &#39;sync&#39;);</span><br></pre></td></tr></table></figure>
+<p>示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require.context(&#39;.&#x2F;test&#39;, false, &#x2F;\.test\.js$&#x2F;);</span><br><span class="line">&#x2F;&#x2F;（创建出）一个 context，其中文件来自 test 目录，request 以 &#96;.test.js&#96; 结尾。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require.context(&#39;..&#x2F;&#39;, true, &#x2F;\.stories\.js$&#x2F;);</span><br><span class="line">&#x2F;&#x2F; （创建出）一个 context，其中所有文件都来自父文件夹及其所有子级文件夹，request 以 &#96;.stories.js&#96; 结尾。</span><br></pre></td></tr></table></figure>
+<h2 id="context-module-API"><a href="#context-module-API" class="headerlink" title="context module API"></a>context module API</h2><p>一个 context module 会导出一个（require）函数，此函数可以接收一个参数：request。</p>
+<p>require.context函数接受三个参数</p>
+<ul>
+<li>directory {String} - 要搜索的目录</li>
+<li>useSubdirectories {Boolean} - 是否还搜索其子目录</li>
+<li>regExp {RegExp} - 匹配文件的正则</li>
+</ul>
+<p>此导出函数有三个属性：resolve, keys, id。</p>
+<ul>
+<li>resolve 是一个函数，它返回 request 被解析后得到的模块 id。</li>
+<li>keys 也是一个函数，它返回一个数组，由所有可能被此 context module 处理的请求组成。【由所有符合上下文模块处理的请求组成。 】</li>
+<li>id 是 context module 的模块 id【 是上下文模块里面所包含的模块 id】. 它可能在你使用 module.hot.accept 时会用到。</li>
+</ul>
+<blockquote>
+<p>注意：传递给 require.context 的参数必须是字面量(literal)！【不能是变量，否则在编译阶段无法定位目录】</p>
+</blockquote>
+<h2 id="实例：组织路由"><a href="#实例：组织路由" class="headerlink" title="实例：组织路由"></a>实例：组织路由</h2><ol>
+<li><p>分割路由<br>首先为了方便我们管理，我们把router目录下的文件分割为以下结构</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">router                           &#x2F;&#x2F; 路由文件夹</span><br><span class="line">  |__index.js                    &#x2F;&#x2F; 路由组织器：用来初始化路由等等</span><br><span class="line">  |__common.js                   &#x2F;&#x2F; 通用路由：声明通用路由</span><br><span class="line">  |__modules                     &#x2F;&#x2F; 业务逻辑模块：所以的业务逻辑模块</span><br><span class="line">        |__index.js              &#x2F;&#x2F; 自动化处理文件：自动引入路由的核心文件</span><br><span class="line">        |__home.js               &#x2F;&#x2F; 业务模块home：业务模块</span><br><span class="line">        |__a.js                  &#x2F;&#x2F; 业务模块a</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>modules文件夹中处理业务模块</p>
+</li>
+</ol>
+<p>我们通过上面提到的require.context()接下来编写自动化的核心部分index.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &quot;vue&quot;;</span><br><span class="line">import VueRouter from &quot;vue-router&quot;;</span><br><span class="line">Vue.use(VueRouter);</span><br><span class="line"></span><br><span class="line">let routeOptions &#x3D; []</span><br><span class="line">let files &#x3D; require.context(&quot;.&quot;, false, &#x2F;\.js$&#x2F;);</span><br><span class="line">files.keys().forEach(key&#x3D;&gt;&#123;</span><br><span class="line">  if(key &#x3D;&#x3D; &#39;.&#x2F;index.js&#39;) return ;</span><br><span class="line">  routeOptions &#x3D; routeOptions.concat(files(key).default)</span><br><span class="line">&#125;)</span><br><span class="line">const routes &#x3D; routeOptions.map(route&#x3D;&gt;&#123;</span><br><span class="line">  if(!route.component)&#123;</span><br><span class="line">    route &#x3D; &#123;</span><br><span class="line">      ...route,</span><br><span class="line">      component:()&#x3D;&gt;import(&#96;@&#x2F;views&#x2F;$&#123;route.filePath&#125;&#96;),</span><br><span class="line">      meta:&#123;</span><br><span class="line">        ...route.meta</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return route</span><br><span class="line">&#125;)</span><br><span class="line">const router &#x3D; new VueRouter(&#123;</span><br><span class="line">  mode: &quot;history&quot;,</span><br><span class="line">  routes,</span><br><span class="line">  scrollBehavior()&#123;</span><br><span class="line">    return&#123;x:0,y:0&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">export default router</span><br></pre></td></tr></table></figure>
+
+<p>其他模块模板</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export default [</span><br><span class="line">  &#123;</span><br><span class="line">    path: &quot;&#x2F;activityFroms&quot;,</span><br><span class="line">    name: &quot;activityFroms&quot;,</span><br><span class="line">    filePath: &quot;activity&#x2F;activityFroms.vue&quot;</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/Webpack/">#Webpack</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/assets/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Qch">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>分类</h3>
+    
+        <p>
+            <a href="/categories/Webpack/">Webpack</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>近期文章</h3>
+    
+        <p>
+            <a href="/2020/10/19/require.context/">require.context()</a>
+        </p>
+    
+        <p>
+            <a href="/2020/07/23/css%E5%85%BC%E5%AE%B9/">css兼容问题</a>
+        </p>
+    
+        <p>
+            <a href="/2020/07/14/questionBank-js/">js题库</a>
+        </p>
+    
+        <p>
+            <a href="/2020/07/09/git/">git</a>
+        </p>
+    
+        <p>
+            <a href="/2020/06/21/jsStringMethods/">js 字符串常用方法总结</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/" target="_blank" rel="noopener">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- After Footer -->
+    <!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>
