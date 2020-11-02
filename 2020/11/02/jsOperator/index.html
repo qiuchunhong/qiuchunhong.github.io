@@ -10,7 +10,14 @@
 
     <!--Description-->
     
-        <meta name="description" content="forceUpdate、git reset、">
+        <meta name="description" content="相等操作符会先转换操作数（通常称为强制转型），然后比较它们的相等性。
+在转换不同的数据类型时，相等操作符遵循下列基本规则：
+
+如果有一个操作数是布尔值，则在比较相等性之前，将其转换为数值；
+
+如果一个操作数是字符串，另一个操作数是数值，在比较之前先将字符串转换为数值；
+
+如果一个操作数是对象，另一个">
     
 
     <!--Author-->
@@ -20,12 +27,10 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="记录一些小技巧"/>
+        <meta property="og:title" content="JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )"/>
     
 
     <!--Open Graph Description-->
-    
-        <meta property="og:description" content="forceUpdate、git reset、" />
     
 
     <!--Open Graph Site Name-->
@@ -44,7 +49,7 @@
 
     <!-- Title -->
     
-    <title>记录一些小技巧 - World wide tour yayayaya yaya</title>
+    <title>JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} ) - World wide tour yayayaya yaya</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="/css/tachyons.min.css">
@@ -114,9 +119,9 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">记录一些小技巧</h1>
-            <p class="f4 fw3 tc tc-m tl-ns">2020-06-18</p>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">forceUpdate、git reset、</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-11-02</p>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
         </div>
     </div>
 
@@ -136,30 +141,63 @@
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/vue/">#vue</a>
+                                <a class="fw3 ph1 dib" href="/tags/js/">#js</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2><h3 id="页面v-for中修改item属性值后页面v-if不改变的问题"><a href="#页面v-for中修改item属性值后页面v-if不改变的问题" class="headerlink" title="页面v-for中修改item属性值后页面v-if不改变的问题"></a>页面v-for中修改item属性值后页面v-if不改变的问题</h3><blockquote>
-<p>添加this.$forceUpdate();进行强制渲染，效果实现</p>
+                    <p>相等操作符会先转换操作数（通常称为强制转型），然后比较它们的相等性。</p>
+<p>在转换不同的数据类型时，相等操作符遵循下列基本规则：</p>
+<ol>
+<li><p>如果有一个操作数是布尔值，则在比较相等性之前，将其转换为数值；</p>
+</li>
+<li><p>如果一个操作数是字符串，另一个操作数是数值，在比较之前先将字符串转换为数值；</p>
+</li>
+<li><p>如果一个操作数是对象，另一个操作数不是，则调用对象的 valueOf() 方法，用得到的基本类型值按照前面的规则进行比较；</p>
+</li>
+<li><p>如果有一个操作数是 NaN，无论另一个操作数是什么，相等操作符都返回 false；</p>
+</li>
+<li><p>如果两个操作数都是对象，则比较它们是不是同一个对象。如果指向同一个对象，则相等操作符返回 true；</p>
+</li>
+<li><p>在比较相等性之前，不能将 null 和 undefined 转成其他值。</p>
+</li>
+<li><p>null 和 undefined 是相等的。</p>
+</li>
+</ol>
+<h2 id="一、基本规则"><a href="#一、基本规则" class="headerlink" title="一、基本规则"></a>一、基本规则</h2><p>上面阐述的 1、2、3 三条规则，总结成一句话就是：</p>
+<p>如果相等操作符两边的操作数，不包含 null 或者 undefined，且两个操作数不全是对象，<br>在执行相等比较之前，会先调用 Number() 将两个操作数强制转为 Number 类型，然后进行比较<br>所以在使用相等操作符的时候，会有以下情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#39;55&#39; &#x3D;&#x3D; 55;       &#x2F;&#x2F;Number(&#39;55&#39;) &#x3D;&#x3D; 55 -&gt; true</span><br><span class="line">false &#x3D;&#x3D; 0;       &#x2F;&#x2F;Number(false) &#x3D;&#x3D; 0 -&gt; true</span><br><span class="line">&quot;wise&quot; &#x3D;&#x3D; 3;      &#x2F;&#x2F;Number(&quot;wise&quot;) &#x3D;&#x3D; 3 -&gt; NaN &#x3D;&#x3D; 3 -&gt; false</span><br><span class="line">[] &#x3D;&#x3D; 0;          &#x2F;&#x2F;Number([]) &#x3D;&#x3D; 0 -&gt; 0 &#x3D;&#x3D; 0 -&gt; true</span><br></pre></td></tr></table></figure>
+
+<p>但是在特殊情况下，也就是两边都有对象的时候，会产生看似不合理的结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NaN &#x3D;&#x3D; NaN;  &#x2F;&#x2F;false （参考第4条规则）</span><br><span class="line">[] &#x3D;&#x3D; [];    &#x2F;&#x2F;false</span><br><span class="line">[] &#x3D;&#x3D; ![];   &#x2F;&#x2F;true</span><br><span class="line">&#123;&#125; &#x3D;&#x3D; &#123;&#125;;    &#x2F;&#x2F;false</span><br><span class="line">&#123;&#125; &#x3D;&#x3D; !&#123;&#125;;   &#x2F;&#x2F;false</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="二、-和"><a href="#二、-和" class="headerlink" title="二、[] == [] 和 {} == {}"></a>二、[] == [] 和 {} == {}</h2><p>在 JavaScript 中，<b>Object、Array、Function、RegExp、Date 都是引用类型</b></p>
+<p>声明引用类型的时候，变量名保存在 js 的<b>栈内存</b>里面，而对应的值保存在<b>堆内存</b>里面</p>
+<p>而这个变量在栈内存中实际保存的是：这个值在堆内存中的地址，也就是指针</p>
+<p>所以 [] == [] 、{} == {} 都为false。</p>
+<p><b>如果两个对象指向同一个对象，相等操作符返回 true</b></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D;b;</span><br><span class="line">b &#x3D;&#x3D; a;  &#x2F;&#x2F; true（变量a保存的是b的指针，它们指向同一个对象）</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、-和"><a href="#三、-和" class="headerlink" title="三、[] == ![] 和 {} == !{}"></a>三、[] == ![] 和 {} == !{}</h2><blockquote>
+<p>ECMAScript 中规定，<b>逻辑非 (!) </b>的优先级高于<b>相等操作符 ( == )</b></p>
 </blockquote>
-<hr>
-<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><blockquote>
-<p>–hard : 回退版本库，暂存区，工作区。（因此我们修改过的代码在本地就没了）<br><br>–mixed: 回退版本库，暂存区。(–mixed为git reset的默认参数，即当任何参数都不加的时候的参数)<br><br>–soft: 回退版本库。</p>
-</blockquote>
-<hr>
-<h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><hr>
-<h2 id="手机"><a href="#手机" class="headerlink" title="手机"></a>手机</h2><blockquote>
-<p>安卓手机文本框获取焦点后，键盘把文本框挡住了</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">window.addEventListener(&quot;resize&quot;, function() &#123;</span><br><span class="line">    if (</span><br><span class="line">        document.activeElement.tagName &#x3D;&#x3D;&#x3D; &quot;INPUT&quot; ||</span><br><span class="line">        document.activeElement.tagName &#x3D;&#x3D;&#x3D; &quot;TEXTAREA&quot;</span><br><span class="line">    ) &#123;</span><br><span class="line">        if (&quot;scrollIntoView&quot; in document.activeElement) &#123;</span><br><span class="line">            document.activeElement.scrollIntoView();</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            document.activeElement.scrollIntoViewIfNeeded();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>在比较 [] == ![] 的时候，先计算 ![] 得到布尔值 false</p>
+<p>所以实际上比较的是 [] == false</p>
+<p>然后根据上面的第1条规则和第3条规则，将两个操作数转为数值类型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Number([]) &#x3D;&#x3D; Number(false);   &#x2F;&#x2F; -&gt;  0 &#x3D;&#x3D; 0  -&gt;  true</span><br></pre></td></tr></table></figure>
+
+<p>在比较 {} == !{} 的时候，也是遵守同样的规则：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125; &#x3D;&#x3D; !&#123;&#125;</span><br><span class="line">-&gt;  &#123;&#125; &#x3D;&#x3D; Boolean(!&#123;&#125;)</span><br><span class="line">-&gt;  &#123;&#125; &#x3D;&#x3D; false</span><br><span class="line">-&gt;  Number(&#123;&#125;) &#x3D;&#x3D; Number(false)</span><br><span class="line">-&gt;  NaN &#x3D;&#x3D; 0</span><br><span class="line">-&gt;  false</span><br></pre></td></tr></table></figure>
+<p>然后第4条规则规定：<b>如果有一个操作数是 NaN，相等操作符返回 false</b></p>
+<p>所以 {} == !{} 的结果是 false</p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Boolean([]) &#x2F;&#x2F; true</span><br><span class="line">Boolean(&#123;&#125;) &#x2F;&#x2F; true</span><br><span class="line">Number([])  &#x2F;&#x2F; 0</span><br><span class="line">Number(&#123;&#125;)  &#x2F;&#x2F; NaN</span><br></pre></td></tr></table></figure>
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/vue/">#vue</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js/">#js</a>
                         </div>
                     
 
@@ -188,18 +226,6 @@
                     <hr class="dn-l mw4 black-50 mt5" />
                     
                     <!-- Widget 2: Categories -->
-                    
-                        <div class="mt5 tc tl-l">
-    <h3>分类</h3>
-    
-        <p>
-            <a href="/categories/vue/">vue</a>
-        </p>
-    
-</div>
-
-
-                        <hr class="dn-l mw4 black-50 mt5" />
                     
 
                     <!-- Widget 3: Recent Posts -->
