@@ -105,28 +105,6 @@
     
   </li>
   
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/contact" class="waves-effect waves-light">
-      
-      <i class="fas fa-comments" style="zoom: 0.6;"></i>
-      
-      <span>留言板</span>
-    </a>
-    
-  </li>
-  
-  <li class="hide-on-med-and-down nav-item">
-    
-    <a href="/friends" class="waves-effect waves-light">
-      
-      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
-      
-      <span>友情链接</span>
-    </a>
-    
-  </li>
-  
   <li>
     <a href="#searchModal" class="modal-trigger waves-effect waves-light">
       <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
@@ -208,32 +186,10 @@
           
         </li>
         
-        <li class="m-nav-item">
-	  
-		<a href="/contact" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-comments"></i>
-			
-			留言板
-		</a>
-          
-        </li>
-        
-        <li class="m-nav-item">
-	  
-		<a href="/friends" class="waves-effect waves-light">
-			
-			    <i class="fa-fw fas fa-address-book"></i>
-			
-			友情链接
-		</a>
-          
-        </li>
-        
         
         <li><div class="divider"></div></li>
         <li>
-            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+            <a href="https://github.com/qiuchunhong" class="waves-effect waves-light" target="_blank">
                 <i class="fab fa-github-square fa-fw"></i>Fork Me
             </a>
         </li>
@@ -290,7 +246,7 @@
     }
 </style>
 
-<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+<a href="https://github.com/qiuchunhong" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
    data-tooltip="Fork Me" data-position="left" data-delay="50">
     <svg viewBox="0 0 250 250" aria-hidden="true">
         <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
@@ -312,7 +268,7 @@
         <div class="brand">
             <div class="title center-align">
                 
-                    subtitle
+                    <!-- subtitle -->
                 
             </div>
 
@@ -476,12 +432,7 @@
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    let age = 3;
-let obj = {
-    name:&#39;Jerry&#39;,
-    objAge:this.age,
-    myFun:function(fm,t){
-       console.log(thi
+                                    call()、apply()、bind() 都是用来重定义this这个对象的。
                                 
                             </div>
                             <div class="publish-info">
@@ -540,13 +491,7 @@ let obj = {
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    继承
-下面代码中，b是B类的实例，它的constructor方法就是B类原型的constructor方法。
-
-class B {}  // === function B(){}
-let b = new B();
-
-b.constructor
+                                    继承是为了子类可以使用父类的所有功能，并且能对这些功能进行扩展。
                                 
                             </div>
                             <div class="publish-info">
@@ -601,10 +546,7 @@ b.constructor
                         <div class="card-content article-content">
                             <div class="summary block-with-text">
                                 
-                                    概念
-js分为函数对象跟普通对象，每个对象都有__proto__属性，但只有函数对象才能prototype属性。
-
-Object、Function都是js内置的函数，类似的还有我们常用到的Array、RegExp、Date、Boolean、
+                                    js原型是指为其他对象提供共享属性的对象。在创建对象时，每个对象都包含一个隐式引用指向它的原型对象或者null。<br> 原型也是对象，因此它也有自己的原型，这样构成一个原型链。
                                 
                             </div>
                             <div class="publish-info">
@@ -790,13 +732,13 @@ Object、Function都是js内置的函数，类似的还有我们常用到的Arra
             
         </div>
         <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/blinkfox" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+    <a href="https://github.com/qiuchunhong" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
         <i class="fab fa-github"></i>
     </a>
 
 
 
-    <a href="mailto:1181062873@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+    <a href="mailto:527081722@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
         <i class="fas fa-envelope-open"></i>
     </a>
 
@@ -806,7 +748,7 @@ Object、Function都是js内置的函数，类似的还有我们常用到的Arra
 
 
 
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1181062873" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1181062873" data-position="top" data-delay="50">
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=527081722" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 527081722" data-position="top" data-delay="50">
         <i class="fab fa-qq"></i>
     </a>
 
@@ -815,10 +757,6 @@ Object、Function都是js内置的函数，类似的还有我们常用到的Arra
 
 
 
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fas fa-rss"></i>
-    </a>
 
 </div>
     </div>

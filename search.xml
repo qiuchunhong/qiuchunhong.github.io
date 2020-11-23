@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>js 中 call()、apply()、bind()</title>
+      <link href="2020/11/20/js-call-apply/"/>
+      <url>2020/11/20/js-call-apply/</url>
+      
+        <content type="html"><![CDATA[<pre><code>let age = 3;let obj = {    name:&#39;Jerry&#39;,    objAge:this.age,    myFun:function(fm,t){       console.log(this.name+&#39;年龄：&#39;+this.age+&#39;, 来自&#39;+fm+&#39;去往&#39;+t)    }}let db = {    name:&#39;Spike&#39;,    age:5}console.log(obj.objAge);    // undefinedobj.myFun(&#39;a&#39;,&#39;b&#39;);   // Jerry年龄：undefined, 来自a去往bobj.myFun.call(db,&#39;成都&#39;,&#39;上海&#39;);   // Spike年龄：5, 来自成都去往上海 obj.myFun.apply(db,[&#39;成都&#39;,&#39;上海&#39;]);   // Spike年龄：5, 来自成都去往上海obj.myFun.bind(db,&#39;成都&#39;,&#39;上海&#39;)();   // Spike年龄：5, 来自成都去往上海obj.myFun.bind(db,[&#39;成都&#39;,&#39;上海&#39;])();   // Spike年龄：5, 来自成都,上海去往undefined</code></pre><h2 id="模拟实现-call-和-apply"><a href="#模拟实现-call-和-apply" class="headerlink" title="模拟实现 call 和 apply"></a>模拟实现 call 和 apply</h2><p>可以从以下几点来考虑如何实现</p><ul><li>不传入第一个参数，那么默认为 window</li><li>改变了 this 指向，让新的对象可以执行该函数。那么思路是否可以变成给新的对象添加一个函数，然后在执行完以后删除？</li></ul><pre><code>Function.prototype.myCall = function(context){  let c = context || window;  c.fn = this;  let args = [...arguments].slice(1)  let result = c.fn(...args);  delete c.fn;  return result;}let a = {name:&#39;lee&#39;};let b = {  fn(f,t){    console.log(`my name is ${this.name}, from ${f} to ${t}`);  }}b.fn.myCall(null, &quot;上海&quot;, &quot;成都); // // my name is , from 上海 to 成都b.fn.myCall(undefined, &quot;上海&quot;, &quot;成都); // // my name is , from 上海 to 成都b.fn.myCall(a,&#39;上海&#39;,&#39;成都&#39;);  // my name is lee, from 上海 to 成都</code></pre><pre><code>Function.prototype.myApply = function(context){  let c = context || window;  c.fn = this;  let result;  if(arguments[1]){    result = c.fn(...arguments[1]);  }else{    result = c.fn()  }  delete c.fn;  return result;}let a = {  myfn(f,t){    console.log(&#39;我是&#39;+this.name+&#39;,我从&#39;+f +&#39;来，去往&#39;+t)  }}b = {  name:&#39;lee&#39;}a.myfn.myApply(b,[&#39;上海&#39;,&#39;成都&#39;]);  // 我是lee,我从上海来，去往成都</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js继承、class</title>
+      <link href="2020/11/19/js-%E7%BB%A7%E6%89%BF/"/>
+      <url>2020/11/19/js-%E7%BB%A7%E6%89%BF/</url>
+      
+        <content type="html"><![CDATA[<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><blockquote><p>下面代码中，b是B类的实例，它的constructor方法就是B类原型的constructor方法。</p></blockquote><pre><code>class B {}  // === function B(){}let b = new B();b.constructor === B.prototype.constructor // true</code></pre><blockquote><p>由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。</p></blockquote><pre><code>// es5写法function U(){}U.prototype.say = function(){console.log(&#39;hi&#39;)}let u = new U()u.say()// es6写法class P{}Object.assign(P.prototype,{say(){console.log(&#39;hello&#39;)}})let p = new P()p.say()</code></pre><p><strong>实例1</strong></p><pre><code>class Point {  constructor(x,y){    this.x = x;    this.y = y;  }  sum(){    return this.x+ this.y  }  static hello() {    console.log(&#39;hello world&#39;);  }}class ColorPoint extends Point{  constructor(x,y,color){    // this.color = color; // ReferenceError    super(x,y)    this.color = color; // 正确  }  say(){    console.log(&#39;x=&#39;+this.x +&#39;, y=&#39;+this.y+&#39;, color=&#39;+this.color+&#39;, x+y=&#39;+this.sum())  }}let a  = new ColorPoint(12,3,&#39;green&#39;)a.say();  //x=12, y=3, color=green, x+y=15console.log( a instanceof ColorPoint );  // trueconsole.log( a instanceof Point ); // trueColorPoint.hello(); // hello world</code></pre><p><strong>解析：</strong></p><ul><li>super()必须写到子类的constructor中的最上方。只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。如果子类没有定义constructor方法，这个方法会被默认添加，代码如下<pre><code>class ColorPoint extends Point {}// 等同于class ColorPoint extends Point {constructor(...args) {  super(...args);}}</code></pre><blockquote><ul><li>super作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</li><li>super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</li></ul></blockquote></li></ul><pre><code>class A {  constructor() {    this.x = 1;  }}class B extends A {  constructor() {    super();    this.x = 2;    super.x = 3;    console.log(super.x); // undefined    console.log(this.x); // 3  }}let b = new B();</code></pre><p>上面代码中，super.x赋值为3，这时等同于对this.x赋值为3。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。</p><ul><li>父类的静态方法，也会被子类继承。hello()是A类的静态方法，B继承A，也继承了A的静态方法。</li></ul>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js原型、原型链</title>
+      <link href="2020/11/16/js%E5%8E%9F%E5%9E%8B/"/>
+      <url>2020/11/16/js%E5%8E%9F%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul><li><p>js分为<strong>函数对象</strong>跟<strong>普通对象</strong>，每个对象都有<code>__proto__</code>属性，但只有函数对象才能<code>prototype</code>属性。</p></li><li><p>Object、Function都是js内置的函数，类似的还有我们常用到的Array、RegExp、Date、Boolean、Number、String。</p></li><li><p>属性<strong>proto</strong>是一个对象，它有两个属性，constructor和<strong>proto</strong>。</p></li><li><p>原型对象prototype有一个默认的constructor属性，用于记录实例是由哪个构造函数创建。</p></li></ul><p><img src="./images/js%E5%8E%9F%E5%9E%8B-01.jpeg" alt="js原型、原型链"></p><blockquote><p>除了Object的原型对象（Object.prototype）的<strong>proto</strong>指向null，其他内置函数对象的原型对象（例如：Array.prototype）和自定义构造函数的<br><strong>proto</strong>都指向Object.prototype, 因为原型对象本身是普通对象。<br>即：</p></blockquote><pre><code>Object.prototype.__proto__ = null;Array.prototype.__proto__ = Object.prototype;Foo.prototype.__proto__  = Object.prototype;</code></pre><h2 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h2><ol><li>Person.prototype.constructor == Person<br>// <strong>准则1：原型对象（即Person.prototype）的constructor指向构造函数本身</strong></li><li>person01.<strong>proto</strong> == Person.prototype<br>// <strong>准则2：实例（即person01）的<strong>proto</strong>和原型对象指向同一个地方</strong></li></ol><pre><code>Foo.__proto__ = Function.prototype; // 准则2Object.__proto__ = Function.prototype // 准则2 (Object本质也是函数)；Function.__proto__ = Function.prototype // 准则2</code></pre><pre><code>Foo.__proto__ == Function.prototypeFoo.__proto__.__proto__ == Function.prototype.__proto__ == Object.prototype</code></pre><h2 id="测试题"><a href="#测试题" class="headerlink" title="测试题"></a>测试题</h2><ul><li><p>测试题1</p><pre><code>function A(){}A.prototype.n = 1var b = new A()A.prototype = {    n:2,    m:3}var c = new A()console.log(b.n,b.m,c.n,c.m)    // 1 undefined 2 3</code></pre><p>A.prototype = {}是重写原型，<strong>重写后跟重写前就已经实例化的对象没有关系的</strong>，所以n=2,m=3不生效。若要有效,添加以下代码<code>b.__proto__.m=4</code></p></li><li><p>测试题2</p><pre><code>var F=function (){}Object.prototype.a = function(){    console.log(&#39;a()&#39;)}Function.prototype.b = function(){    console.log(&#39;b()&#39;)}var f= new F()f.a()//a()f.b()//无法执行b函数，报错F.a()//a()F.b()//b()</code></pre><p><img src="./images/js%E5%8E%9F%E5%9E%8B-02.png" alt="分析"></p></li><li><p>测试题3</p><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>User<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>sayHello <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token keyword">const</span> u1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token keyword">const</span> u2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>u1<span class="token punctuation">.</span>sayHello <span class="token operator">===</span> u2<span class="token punctuation">.</span>sayHello<span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// t</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>User<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>constructor<span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//User</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>User<span class="token punctuation">.</span>prototype <span class="token operator">===</span> Function<span class="token punctuation">.</span>prototype<span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//f</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>User<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> Function<span class="token punctuation">.</span>prototype<span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//t</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>User<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> Function<span class="token punctuation">.</span>__proto__<span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//f-t</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>u1<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> u2<span class="token punctuation">.</span>__proto__<span class="token punctuation">,</span><span class="token number">6</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">//t</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>u1<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> User<span class="token punctuation">.</span>__proto__<span class="token punctuation">,</span><span class="token number">7</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">//f</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Function<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> Object<span class="token punctuation">.</span>__proto__<span class="token punctuation">,</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//f-t</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__ <span class="token operator">===</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__<span class="token punctuation">,</span><span class="token number">9</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//f</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__<span class="token operator">===</span>Object<span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//t</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>u1<span class="token punctuation">.</span>constructor <span class="token operator">==</span> User <span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">//t</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre><pre><code>// 总结：User.__proto__ == Function.prototypeFunction.__proto__ == Function.prototypeObject.__proto__ == Function.prototype// ---分隔---15：u1.__proto__ == User.prototype  User.prototype.__proto__ == Object.prototype  User.prototype.constructor == User</code></pre></li><li><p>测试题4</p><pre><code>function A(){}function B(a){　　this.a = a;}function C(a){　　if(a){this.a = a;　　}}A.prototype.a = 1;B.prototype.a = 1;C.prototype.a = 1;</code></pre></li></ul><p>console.log(new A().a);<br>console.log(new B().a);<br>console.log(new C(2).a);</p><pre><code>console.log(new A().a);　　//new A()为构造函数创建的对象，本身没有a属性，所以向它的原型去找，发现原型的a属性的属性值为1，故该输出值为1；console.log(new B().a);　　//new B()为构造函数创建的对象，该构造函数有参数a，但该对象没有传参，故该输出值为undefined;console.log(new C(2).a);　　//new C()为构造函数创建的对象，该构造函数有参数a，且传的实参为2，执行函数内部，发现if为真，执行this.a = 2,故属性a的值为2；故这三个的输出值分别为：1、undefined、2</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> js原型、原型链 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )</title>
+      <link href="2020/11/02/jsOperator/"/>
+      <url>2020/11/02/jsOperator/</url>
+      
+        <content type="html"><![CDATA[<p>相等操作符会先转换操作数（通常称为强制转型），然后比较它们的相等性。</p><p>在转换不同的数据类型时，相等操作符遵循下列基本规则：</p><ol><li><p>如果有一个操作数是布尔值，则在比较相等性之前，将其转换为数值；</p></li><li><p>如果一个操作数是字符串，另一个操作数是数值，在比较之前先将字符串转换为数值；</p></li><li><p>如果一个操作数是对象，另一个操作数不是，则调用对象的 valueOf() 方法，用得到的基本类型值按照前面的规则进行比较；</p></li><li><p>如果有一个操作数是 NaN，无论另一个操作数是什么，相等操作符都返回 false；</p></li><li><p>如果两个操作数都是对象，则比较它们是不是同一个对象。如果指向同一个对象，则相等操作符返回 true；</p></li><li><p>在比较相等性之前，不能将 null 和 undefined 转成其他值。</p></li><li><p>null 和 undefined 是相等的。</p></li></ol><h2 id="一、基本规则"><a href="#一、基本规则" class="headerlink" title="一、基本规则"></a>一、基本规则</h2><p>上面阐述的 1、2、3 三条规则，总结成一句话就是：</p><p>如果相等操作符两边的操作数，不包含 null 或者 undefined，且两个操作数不全是对象，<br>在执行相等比较之前，会先调用 Number() 将两个操作数强制转为 Number 类型，然后进行比较<br>所以在使用相等操作符的时候，会有以下情况：</p><pre><code>&#39;55&#39; == 55;       //Number(&#39;55&#39;) == 55 -&gt; truefalse == 0;       //Number(false) == 0 -&gt; true&quot;wise&quot; == 3;      //Number(&quot;wise&quot;) == 3 -&gt; NaN == 3 -&gt; false[] == 0;          //Number([]) == 0 -&gt; 0 == 0 -&gt; true</code></pre><p>但是在特殊情况下，也就是两边都有对象的时候，会产生看似不合理的结果：</p><pre><code>NaN == NaN;  //false （参考第4条规则）[] == [];    //false[] == ![];   //true{} == {};    //false{} == !{};   //false</code></pre><h2 id="二、-和"><a href="#二、-和" class="headerlink" title="二、[] == [] 和 {} == {}"></a>二、[] == [] 和 {} == {}</h2><p>在 JavaScript 中，<b>Object、Array、Function、RegExp、Date 都是引用类型</b></p><p>声明引用类型的时候，变量名保存在 js 的<b>栈内存</b>里面，而对应的值保存在<b>堆内存</b>里面</p><p>而这个变量在栈内存中实际保存的是：这个值在堆内存中的地址，也就是指针</p><p>所以 [] == [] 、{} == {} 都为false。</p><p><b>如果两个对象指向同一个对象，相等操作符返回 true</b></p><pre><code>let a =b;b == a;  // true（变量a保存的是b的指针，它们指向同一个对象）</code></pre><h2 id="三、-和"><a href="#三、-和" class="headerlink" title="三、[] == ![] 和 {} == !{}"></a>三、[] == ![] 和 {} == !{}</h2><blockquote><p>ECMAScript 中规定，<b>逻辑非 (!) </b>的优先级高于<b>相等操作符 ( == )</b></p></blockquote><p>在比较 [] == ![] 的时候，先计算 ![] 得到布尔值 false</p><p>所以实际上比较的是 [] == false</p><p>然后根据上面的第1条规则和第3条规则，将两个操作数转为数值类型：</p><pre><code>Number([]) == Number(false);   // -&gt;  0 == 0  -&gt;  true</code></pre><p>在比较 {} == !{} 的时候，也是遵守同样的规则：</p><pre><code>{} == !{}-&gt;  {} == Boolean(!{})-&gt;  {} == false-&gt;  Number({}) == Number(false)-&gt;  NaN == 0-&gt;  false</code></pre><p>然后第4条规则规定：<b>如果有一个操作数是 NaN，相等操作符返回 false</b></p><p>所以 {} == !{} 的结果是 false</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><pre><code>Boolean([]) // trueBoolean({}) // trueNumber([])  // 0Number({})  // NaN</code></pre>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>有用的网站记录</title>
+      <link href="2020/10/26/record/"/>
+      <url>2020/10/26/record/</url>
+      
+        <content type="html"><![CDATA[<h3 id="前端代码规范-由凹凸实验室整理的"><a href="#前端代码规范-由凹凸实验室整理的" class="headerlink" title="前端代码规范-由凹凸实验室整理的"></a><a href="https://guide.aotu.io/docs/index.html" target="_blank" rel="noopener">前端代码规范-由凹凸实验室整理的</a></h3><h3 id="一个合格-优秀-的前端都应该阅读这些文章"><a href="#一个合格-优秀-的前端都应该阅读这些文章" class="headerlink" title="一个合格(优秀)的前端都应该阅读这些文章"></a><a href="https://juejin.im/post/5d387f696fb9a07eeb13ea60#heading-14" target="_blank" rel="noopener">一个合格(优秀)的前端都应该阅读这些文章</a></h3><h3 id="html模板"><a href="#html模板" class="headerlink" title="html模板"></a><a href="https://html5up.net/" target="_blank" rel="noopener">html模板</a></h3><h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><h3 id="正则-在线演示"><a href="#正则-在线演示" class="headerlink" title="正则-在线演示"></a><a href="https://regexr.com/" target="_blank" rel="noopener">正则-在线演示</a></h3><h3 id="js文档整理-超全的哟"><a href="#js文档整理-超全的哟" class="headerlink" title="js文档整理 - 超全的哟~"></a><a href="https://juejin.im/post/5ebb68796fb9a0435432df8e" target="_blank" rel="noopener">js文档整理 - 超全的哟~</a></h3><h2 id="ide"><a href="#ide" class="headerlink" title="ide"></a>ide</h2><h3 id="Visual-Studio文档-正则搜索"><a href="#Visual-Studio文档-正则搜索" class="headerlink" title="Visual Studio文档 - 正则搜索"></a><a href="https://docs.microsoft.com/zh-cn/visualstudio/ide/using-regular-expressions-in-visual-studio?view=vs-2015&redirectedfrom=MSDN#Visual%20Studio%20%E4%B8%AD%E7%9A%84%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="noopener">Visual Studio文档 - 正则搜索</a></h3>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue中mixins的理解及使用</title>
+      <link href="2020/10/20/vue-mixins/"/>
+      <url>2020/10/20/vue-mixins/</url>
+      
+        <content type="html"><![CDATA[<h2 id="Vue-中-mixin-和-mixins-的区别"><a href="#Vue-中-mixin-和-mixins-的区别" class="headerlink" title="Vue 中 mixin 和 mixins 的区别"></a>Vue 中 mixin 和 mixins 的区别</h2><blockquote><p>mixin 用于全局注册一个混入，如果有公共的组件使用频率很高的话，可以使用 mixin 很方便的引入公共的部分 mixins 选项接受一个混入对象的数组<br>mixins 在引入组件之后，则是将组件内部的内容如 data 属性，methods 方法与父组件的内容相对应进行合并，可以对父组件的属性进行扩充，mixins 混入的钩子函数会优先于组件内的钩子函数执行，并且在遇到同名选项的时候也会有选择性的进行合并。</p></blockquote><h2 id="vue-的-extends-和-mixins-的区别"><a href="#vue-的-extends-和-mixins-的区别" class="headerlink" title="vue 的 extends 和 mixins 的区别"></a>vue 的 extends 和 mixins 的区别</h2><blockquote><p>vue 的 extends 和 mixins 类似，通过暴露一个 extends 对象到组件中使用。</p></blockquote><blockquote><p>extends 会比 mixins 先执行； <a href="#item1">执行顺序</a>：extends &gt; mixins[引用的先后顺序] &gt; 组件</p></blockquote><blockquote><p>extends 只能暴露一个 extends 对象，暴露多个 extends 不会执行</p></blockquote><h3 id="Vue-mixin-示例："><a href="#Vue-mixin-示例：" class="headerlink" title="Vue.mixin()示例："></a>Vue.mixin()示例：</h3><p><strong>先定义 mixin.js</strong></p><pre><code>const mixins = {  data() {    return {      globalName: &quot;这是全局名称&quot;,      name: &#39;name&#39;    }  }  methods: {    two(num){        return num * num    }  }}export defaullt mixins</code></pre><p><strong>在 main.js 文件全局引入</strong></p><pre><code>import mixin from &#39;./mixin&#39;Vue.mixin(mixin)</code></pre><p><strong>其他 vue 页面里面就可以使用 mixin 里面定义好的变量、方法，如：</strong></p><pre><code>{{globalName}}  // 这是全局名称{{name}}        // abcdata() {  return {    name: &quot;abc&quot;,    square: this.two(3) // 9  }}</code></pre><h3 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h3><blockquote><p>在组件的调用中，mixins 的数据是独立的、不想干扰的如：</p></blockquote><p><img src="./vue-mixins/mixins1.gif" alt="在组件的调用中，mixins 的数据是独立的、不想干扰的"></p><pre><code>&lt;template&gt;  &lt;div&gt;    &lt;child&gt;&lt;/child&gt;    &lt;child&gt;&lt;/child&gt;    &lt;kid&gt;&lt;/kid&gt;  &lt;/div&gt;&lt;/template&gt;&lt;script&gt;import Vue from &quot;vue&quot;;import mixins2 from &quot;./mixins2&quot;;// const mixins2 = {//   data() {//     return {//       msg: 1,//     };//   },//   methods: {//     foo() {//       this.msg++;//     },//   },// };// export default mixins2Vue.component(&quot;child&quot;, {  template: &#39;&lt;h1 @click=&quot;foo&quot;&gt;child component- {{msg}}&lt;/h1&gt;&#39;,  mixins: [mixins2],});Vue.component(&quot;kid&quot;, {  template: &#39;&lt;h1 @click=&quot;foo&quot;&gt;kid component- {{msg}}&lt;/h1&gt;&#39;,  mixins: [mixins2],});export default {};&lt;/script&gt;</code></pre><blockquote><p>data 组件中引用 代替 mixins 中引用</p></blockquote><blockquote><p>methods 组件中调用 代替 mixins 中调用</p></blockquote><blockquote><p>生命周期调用顺序<img src="./vue-mixins/lifeCycle.png" alt="生命周期调用顺序"></p></blockquote><h2 id="实践-1：状态码统一过滤"><a href="#实践-1：状态码统一过滤" class="headerlink" title="实践 1：状态码统一过滤"></a>实践 1：状态码统一过滤</h2><p>一般情况下不要全局使用，因为会污染 vue 所有实例，这里通过一个简单的应用展示 mixin 的使用技巧，在所有 vue 实例中添加统一状态码过滤器。</p><p>因为自定义方法会在所有的实例中混入，如果按照以前的方法，难免会有覆盖原先的方法的危险，按照官方的建议，混入的自定义方法名增加前缀 $_ 用作区分。</p><p>创建一个 config.js 文件，用于保存状态码对应的含义，将其暴露出去</p><pre><code>export const typeConfig = {  1: &quot;type one&quot;,  2: &quot;type two&quot;,  3: &quot;type three&quot;}</code></pre><p>再创建一个 filters.js 文件，用于保存所有的自定义函数</p><pre><code>import { typeConfig } from &quot;./config&quot;export default {  filters: {    $_filterType: (value) =&gt; {      return typeConfig[value] || &quot;type undefined&quot;    }  }}</code></pre><p>最后，在 main.js 中引入我们的 filters 方法集</p><pre><code>import filter from &quot;./filters&quot;Vue.mixin(filter)</code></pre><p>接下来，我们就可以在 .vue 的模板文件中随意使用自定义函数了</p><pre><code>&lt;template&gt;  &lt;div&gt;{{typeStatus | $_filterType}}&lt;div&gt;&lt;/template&gt;</code></pre><h2 id="实践-2：大量表格页面中的分页功能"><a href="#实践-2：大量表格页面中的分页功能" class="headerlink" title="实践 2：大量表格页面中的分页功能"></a>实践 2：大量表格页面中的分页功能</h2><p>简单通用混入 list.js</p><pre><code>const list = {  data () {    return {      // 这些东西我们在list中处理，就不需要在每个页面再去手动的做这个了。      loading: false, // 伴随loading状态      pageNo: 1, // 页码      pageSize: 15, // 页长      totalCount: 0, // 总个数      pageSizes: [15, 20, 25, 30], //页长数      pageLayout: &#39;total, sizes, prev, pager, next, jumper&#39;, // 分页布局      list: []    }  },  methods: {    // 分页回掉事件    handleSizeChange(val) {      this.pageSize = val      // todo    },    handleCurrentChange (val) {      this.pageNo = val      // todo    },    /**     * 表格数据请求成功的回调 处理完公共的部分（分页，loading取消）之后把控制权交给页面     * @param {*} apiResult     * @returns {*} promise     */    listSuccessCb (apiResult = {}) {      return new Promise((reslove, reject) =&gt; {        let tempList = [] // 临时list        try {          this.loading = false          // todo          // 直接抛出          reslove(tempList)        } catch (error) {          reject(error)        }      })    },    /**     * 处理异常情况     * ==&gt; 简单处理  仅仅是对表格处理为空以及取消loading     */    listExceptionCb (error) {      this.loading = false      console.error(error)    }  },  created() {    // 这个生命周期是在使用组件的生命周期之前    this.$nextTick().then(() =&gt; {      // todo    })  }}export default list</code></pre><p>下面我们直接在组件中使用这个 mixins</p><pre><code>import mixin from &#39;@/mixins/list&#39; // 引入import {getList} from &#39;@/api/demo&#39;export default {  name: &#39;mixins-demo&#39;,  mixins: [mixin], // 使用mixins  data () {    return {    }  },  methods: {    // 加载列表    load () {      const para = {      }      this.loading = true      getList(para).then((result) =&gt; {        this.listSuccessCb(result).then((list) =&gt; {          this.list = list        }).catch((err) =&gt; {          console.log(err)        })      }).catch((err) =&gt; {        this.listExceptionCb(err)      })    }  },  created() {    this.load()  }}</code></pre><h2 id="实践-3：mixins-做公共数据的管理"><a href="#实践-3：mixins-做公共数据的管理" class="headerlink" title="实践 3：mixins 做公共数据的管理"></a>实践 3：mixins 做公共数据的管理</h2><p>有些时候我们有一些公共的数据它可能 3，4 个模块取使用但是又达不到全局的这种规模。这个时候我们就可以用 mixins 去管理他们，比如我们有几个模块要使用用户类型这个列表，我们来看使用 mixins 来实现共享。</p><pre><code>// types.jsimport {getTypes} from &#39;@/api/demo&#39; // ajaxexport default {  data () {    return {      types: [] // ==&gt;  {name: &#39;&#39;, value: &#39;&#39;}    }  },  methods: {    // 获取列表    getAllTypesList () {      getApiList().then((result) =&gt; {        // todo        this.types = result // 假设result就是我们需要使用的数据      }).catch((err) =&gt; {        console.error(err)      })    }  },  created() {    // 在需要使用这个mixins的时候取自动请求数据  这个可要可不要  你想在父组件中执行也是ok的    this.getAllTypesList()  }}</code></pre><p>在组件中引用</p><pre><code>import typeMixin from &#39;@/mixins/types&#39;export default {  name: &#39;template&#39;,  mixins: [typeMixin],  data () {    return {      // types这个数组在使用组件中不用多余的定义，直接拿来用就行      type: &#39;&#39;    }  },  methods: {  }}</code></pre><p>至于 mixins 中得数据我们可以在组件中直接使用</p><pre><code>&lt;el-select v-model=&quot;type&quot; clearable placeholder=&quot;请选择类型&quot;&gt;  &lt;el-option v-for=&quot;item in types&quot; :key=&quot;item.id&quot; :label=&quot;item.templateName&quot; :value=&quot;item.id&quot;&gt;&lt;/el-option&gt;&lt;/el-select&gt;</code></pre><p>我们这样就可以不用 vuex 来去管理那些只有在模块间复用几次的数据，而且非常方便得去取我们想要得数据，连定义都省了。但是这有一个缺点。就是每次都会去重新请求这些数据。如果你不在乎这一点点瑕疵的话，我觉得用起来是完全 ok 得。</p><h4 id="extends、-mixins-、组件的执行顺序"><a href="#extends、-mixins-、组件的执行顺序" class="headerlink" title="extends、 mixins 、组件的执行顺序"></a><font id="item1">extends、 mixins 、组件的执行顺序</font></h4><p>mixinsExtends.js</p><pre><code>//暴露两个mixins对象export const mixinsTest = {  methods: {    hello() {      console.log(&quot;mixinsTest 的created&quot;);    },  },  beforeCreate() {    console.log(&quot;mixinsTest的beforeCreated&quot;);  },  created() {    this.hello();  },};export const mixinsTest2 = {  methods: {    hello2() {      console.log(&quot;mixinsTest2 的created&quot;);    },  },  beforeCreate() {    console.log(&quot;mixinsTest2 的beforeCreated&quot;);  },  created() {    this.hello2();  },};//只能使用一个extends对象，多个无效，extends会先于mixins执行export const extendsTest = {  methods: {    hello3() {      console.log(&quot;extendsTest 的created&quot;);    },  },  beforeCreate() {    console.log(&quot;extendsTest 的beforeCreate&quot;);  },  created() {    this.hello3();  },};</code></pre><p>index.vue</p><pre><code>&lt;template&gt;  &lt;div&gt;home&lt;/div&gt;&lt;/template&gt;&lt;script&gt;import { mixinsTest, mixinsTest2, extendsTest } from &quot;./mixinsExtends&quot;;export default {  name: &quot;Home&quot;,  data() {    return {};  },  beforeCreate() {    console.log(&quot;组件的beforeCreated&quot;);  },  created() {    console.log(&quot;组件的created&quot;);  },  mixins: [mixinsTest2, mixinsTest], // 先调用那个mixins对象，就先执行哪个  extends: extendsTest, // 使用extends};&lt;/script&gt;&lt;style lang=&quot;css&quot; scoped&gt;&lt;/style&gt;</code></pre><blockquote><p>运行结果<br><img src="./vue-mixins/mixinsExtends.png" alt=""></p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue extends mixins </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>require.context()</title>
+      <link href="2020/10/19/require.context/"/>
+      <url>2020/10/19/require.context/</url>
+      
+        <content type="html"><![CDATA[<p>语法：</p><pre><code>require.context(directory, useSubdirectories = true, regExp = /^\.\/.*$/, mode = &#39;sync&#39;);</code></pre><p>示例：</p><pre><code>require.context(&#39;./test&#39;, false, /\.test\.js$/);//（创建出）一个 context，其中文件来自 test 目录，request 以 `.test.js` 结尾。</code></pre><pre><code>require.context(&#39;../&#39;, true, /\.stories\.js$/);// （创建出）一个 context，其中所有文件都来自父文件夹及其所有子级文件夹，request 以 `.stories.js` 结尾。</code></pre><h2 id="context-module-API"><a href="#context-module-API" class="headerlink" title="context module API"></a>context module API</h2><p>一个 context module 会导出一个（require）函数，此函数可以接收一个参数：request。</p><p>require.context函数接受三个参数</p><ul><li>directory {String} - 要搜索的目录</li><li>useSubdirectories {Boolean} - 是否还搜索其子目录</li><li>regExp {RegExp} - 匹配文件的正则</li></ul><p>此导出函数有三个属性：resolve, keys, id。</p><ul><li>resolve 是一个函数，它返回 request 被解析后得到的模块 id。</li><li>keys 也是一个函数，它返回一个数组，由所有可能被此 context module 处理的请求组成。【由所有符合上下文模块处理的请求组成。 】</li><li>id 是 context module 的模块 id【 是上下文模块里面所包含的模块 id】. 它可能在你使用 module.hot.accept 时会用到。</li></ul><blockquote><p>注意：传递给 require.context 的参数必须是字面量(literal)！【不能是变量，否则在编译阶段无法定位目录】</p></blockquote><h2 id="实例：组织路由"><a href="#实例：组织路由" class="headerlink" title="实例：组织路由"></a>实例：组织路由</h2><ol><li><p>分割路由<br>首先为了方便我们管理，我们把router目录下的文件分割为以下结构</p><pre><code>router                           // 路由文件夹|__index.js                    // 路由组织器：用来初始化路由等等|__common.js                   // 通用路由：声明通用路由|__modules                     // 业务逻辑模块：所以的业务逻辑模块     |__index.js              // 自动化处理文件：自动引入路由的核心文件     |__home.js               // 业务模块home：业务模块     |__a.js                  // 业务模块a</code></pre></li><li><p>modules文件夹中处理业务模块</p></li></ol><p>我们通过上面提到的require.context()接下来编写自动化的核心部分index.js</p><pre><code>import Vue from &quot;vue&quot;;import VueRouter from &quot;vue-router&quot;;Vue.use(VueRouter);let routeOptions = []let files = require.context(&quot;.&quot;, false, /\.js$/);files.keys().forEach(key=&gt;{  if(key == &#39;./index.js&#39;) return ;  routeOptions = routeOptions.concat(files(key).default)})const routes = routeOptions.map(route=&gt;{  if(!route.component){    route = {      ...route,      component:()=&gt;import(`@/views/${route.filePath}`),      meta:{        ...route.meta      }    }  }  return route})const router = new VueRouter({  mode: &quot;history&quot;,  routes,  scrollBehavior(){    return{x:0,y:0}  }})export default router</code></pre><p>其他模块模板</p><pre><code>export default [  {    path: &quot;/activityFroms&quot;,    name: &quot;activityFroms&quot;,    filePath: &quot;activity/activityFroms.vue&quot;  }];</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> Webpack </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Webpack </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>css兼容问题</title>
+      <link href="2020/07/23/css%E5%85%BC%E5%AE%B9/"/>
+      <url>2020/07/23/css%E5%85%BC%E5%AE%B9/</url>
+      
+        <content type="html"><![CDATA[<h3 id="css的选择符"><a href="#css的选择符" class="headerlink" title="css的选择符"></a>css的选择符</h3><ol><li>通配符选择器(*)</li><li>id选择器</li><li>类选择器</li><li>标签选择器(div,h1,p)</li><li>后代选择器(h1 p)</li><li>相邻后代选择器(ul&gt;li)</li><li>兄弟选择器(li ~a)</li><li>相邻兄弟选择器(li+a)</li><li>属性选择器(a[rel=”ab”])</li><li>伪元素选择器(a::before::after::firstLetter::firstLine::selection) 【伪类、伪元素详细列表】</li><li>伪类选择器：链接伪类(:link:visited:target)、动态伪类(:hover:active) LVHA、表单相关伪类(:enabled:disable:checked:focus)、结构性伪类(:nth-child(2n):first-child:last-child\nth-last-child(index):only-child:nth-of-type(index):first-of-type:last-of-type\nth-last-type(index):only-of-type:not:empty)</li></ol><h3 id="input-disabled后手机端颜色比设置的浅"><a href="#input-disabled后手机端颜色比设置的浅" class="headerlink" title="input disabled后手机端颜色比设置的浅"></a>input disabled后手机端颜色比设置的浅</h3><pre><code>input:disabled, input[disabled]{    color: red;    -webkit-text-fill-color:red;    -webkit-opacity:1;    opacity: 1;}</code></pre><h3 id="一个文字渐变效果"><a href="#一个文字渐变效果" class="headerlink" title="一个文字渐变效果"></a>一个文字渐变效果</h3><pre><code>.text-fill-color{    background:-webkit-linear-gradient(top,#eee,#aaa 50%,#333 51%,#000);    -webkit-background-clip:text;    -webkit-text-fill-color:transparent;    font:bold 95px/1.231 georgia,sans-serif;    text-transform:uppercase;}&lt;div class=&quot;text-fill-color&quot;&gt;text-fill-color&lt;/div&gt;</code></pre><p><img src="./css%E5%85%BC%E5%AE%B9/gradient.png" alt="一个文字渐变效果"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> css </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> css </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js题库</title>
+      <link href="2020/07/14/questionBank-js/"/>
+      <url>2020/07/14/questionBank-js/</url>
+      
+        <content type="html"><![CDATA[<ul><li><a href="@item1">判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()</a></li></ul><h4 id="判断数据类型：typeof-、instanceof、constructor、Objece-prototype-toString-call"><a href="#判断数据类型：typeof-、instanceof、constructor、Objece-prototype-toString-call" class="headerlink" title="判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()"></a><font id="item1">判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()</font></h4><ol><li>typeof()<br>typeof 可以判断基础类型[null除外，null返回Object]，引用数据类型Function/Objece/Array反回的都是Object</li><li>[] instanceof Array<br>判断引用对象的类型返回的是true||false，不能判断基础类型[全部返回false]<pre><code>console.log(2 instanceof Number);                    // falseconsole.log(true instanceof Boolean);                // false console.log(&#39;str&#39; instanceof String);                // false  console.log([] instanceof Array);                    // trueconsole.log(function(){} instanceof Function);       // trueconsole.log({} instanceof Object);                   // true    // console.log(undefined instanceof Undefined);      // 报错// console.log(null instanceof Null);                // 报错</code></pre></li><li>().constructor === Array<pre><code>console.log((2).constructor === Number); // trueconsole.log((true).constructor === Boolean); // trueconsole.log((&#39;str&#39;).constructor === String); // trueconsole.log(([]).constructor === Array); // trueconsole.log((function() {}).constructor === Function); // trueconsole.log(({}).constructor === Object); // true</code></pre><blockquote><p>这里有一个坑，如果我创建一个对象，更改它的原型，constructor就会变得不可靠了</p></blockquote><pre><code>function Fn(){};</code></pre></li></ol><p>Fn.prototype=new Array();</p><p>var f=new Fn();</p><p>console.log(f.constructor===Fn);    // false<br>console.log(f.constructor===Array); // true </p><pre><code>4. Object.prototype.toString.call() 使用 Object 对象的原型方法 toString ，使用 call 进行狸猫换太子，借用Object的 toString 方法</code></pre><p>var a = Object.prototype.toString;</p><p>console.log(a.call(2));<br>console.log(a.call(true));<br>console.log(a.call(‘str’));<br>console.log(a.call([]));<br>console.log(a.call(function(){}));<br>console.log(a.call({}));<br>console.log(a.call(undefined));<br>console.log(a.call(null));<br>```</p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> js 整合 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>git</title>
+      <link href="2020/07/09/git/"/>
+      <url>2020/07/09/git/</url>
+      
+        <content type="html"><![CDATA[<h3 id="工作区、暂存区、本地仓库、远程仓库"><a href="#工作区、暂存区、本地仓库、远程仓库" class="headerlink" title="工作区、暂存区、本地仓库、远程仓库"></a>工作区、暂存区、本地仓库、远程仓库</h3><ul><li>定义</li></ul><ol><li>工作区(workspace):即个人克隆项目到本地后,项目所在的文件夹目录.</li><li>暂存区(stash/index):用于储存工作区中的变更(增删改等改动)的文件的地方.操作时使用git add会将本地所有的变更提交到暂存区中</li><li>本地仓库(repository [rɪˈpɑːzətɔːri]):用于储存工作区和暂存区中提交上来的文件,使用git commit -m ‘提交内容的描述’</li><li>远程仓库(remote):当进行到这里的时候即一个人的开发完毕的时,需要将自己开发的功能合并到著主项目中去,但因为是多人开发,要保管好主项目中存储的代码和文件的话,就需要放在搭建好的远程git仓库中,即远程仓库.具体操作:git push origin 远程分支名即可.</li></ol><ul><li>工作区、暂存区、本地仓库、远程仓库关系图<br><img src="./git/git01.png" alt="工作区、暂存区、本地仓库、远程仓库关系图"></li></ul><h3 id="创建git项目"><a href="#创建git项目" class="headerlink" title="创建git项目"></a>创建git项目</h3><pre><code>// 如果已有项目cd 项目所在文件夹git init// 如果没有初始化项目无文件夹git init 项目名称/文件夹名称cd 文件夹名称// 克隆git项目git clone 路径</code></pre><h3 id="git-命令"><a href="#git-命令" class="headerlink" title="git 命令"></a>git 命令</h3><h5 id="分支-branch"><a href="#分支-branch" class="headerlink" title="分支 branch"></a>分支 branch</h5><table><thead><tr><th align="left">命令</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">git branch</td><td align="left">已经存在分支列表，当前分支前面加“*”号标记</td></tr><tr><td align="left">git branch -a</td><td align="left">本地分支和远程分支</td></tr><tr><td align="left">git branch -r</td><td align="left">远程分支</td></tr><tr><td align="left">git checkout -b hotfix-aboutus</td><td align="left">创建并切换新分支</td></tr><tr><td align="left">git branch -m/-M oldbranch newbranch</td><td align="left">分支重命名</td></tr><tr><td align="left">git branch -d/-D branchname</td><td align="left">删除分支</td></tr><tr><td align="left">git branch -d -r branchname</td><td align="left">删除远程分支</td></tr></tbody></table><h5 id="缓存-stash"><a href="#缓存-stash" class="headerlink" title="缓存 stash"></a>缓存 stash</h5><table><thead><tr><th align="left">命令</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">git stash</td><td align="left">将代码缓存</td></tr><tr><td align="left">git stash pop</td><td align="left">恢复缓存文件</td></tr><tr><td align="left">git stash list</td><td align="left">缓存列表</td></tr><tr><td align="left">git stash clear</td><td align="left">清除</td></tr><tr><td align="left">git stash drop + stash名字</td><td align="left">删除指定缓存</td></tr><tr><td align="left">git stash show</td><td align="left">最新缓存跟本地代码差异</td></tr><tr><td align="left">git stash show stash@{1} -p</td><td align="left">查看指定stash与本地目录差异详情</td></tr></tbody></table><h5 id="重置-reset"><a href="#重置-reset" class="headerlink" title="重置 reset"></a>重置 reset</h5><table><thead><tr><th align="left">命令</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">git reset –mixed commitId</td><td align="left">将本地仓库(commit)文件撤回至工作区(workspace)。【默认】可不带–mixed</td></tr><tr><td align="left">git reset –soft commitId</td><td align="left">将文件提交至本地仓库(commit)后撤回暂存区(add)</td></tr><tr><td align="left">git reset –hard commitId</td><td align="left">将工作区、暂存区、本地仓库的所有提交的文件全都撤销（会删除）</td></tr><tr><td align="left">HEAD</td><td align="left">当前版本</td></tr><tr><td align="left">HEAD^/~1</td><td align="left">上一版本</td></tr><tr><td align="left">HEAD^^/~2</td><td align="left">上两个版本</td></tr></tbody></table><h5 id="恢复-reset"><a href="#恢复-reset" class="headerlink" title="恢复 reset"></a>恢复 reset</h5><pre><code>git reloggit reset id</code></pre><h5 id="撤销-revert"><a href="#撤销-revert" class="headerlink" title="撤销 revert"></a>撤销 revert</h5><table><thead><tr><th align="left">命令</th><th align="left">解释</th></tr></thead><tbody><tr><td align="left">git revert commitId</td><td align="left">将这个commit撤回，不影响后面的commit</td></tr></tbody></table><p>vi语法：<br>  i -&gt;  insert 插入,编辑模式<br>  ESC -&gt;  退出编辑模式<br>  : -&gt;  进入命令行模式<br>  w -&gt;  保存<br>  q -&gt;  退出<br>  :wq -&gt;  保存并退出</p><h5 id="查看分支是从哪个分支创建的"><a href="#查看分支是从哪个分支创建的" class="headerlink" title="查看分支是从哪个分支创建的"></a>查看分支是从哪个分支创建的</h5><pre><code>git reflog --date=local | grep &lt;branchname&gt;git reflog --date=local   // 查看本机git操作记录git reflog show  --date=iso youhua  // 查看&#39;youhua&#39;分支所有git操作记录</code></pre><p>[show]可写可不写</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> git </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js 字符串常用方法总结</title>
+      <link href="2020/06/21/jsStringMethods/"/>
+      <url>2020/06/21/jsStringMethods/</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>str.substr(start[, length]) 截取指定长度字符串    不推荐使用</p></li><li><p>str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间</p></li><li><p>str.slice(beginIndex[, endIndex])</p><blockquote><p>情景模式-参数为负数<br>substr() 会将第一个负参数与字符串长度相加，第二个负参数转化为 0<br>substring() 将所有的负参数转化为 0<br>slice() 会将所有的负数于字符串的长度相加</p></blockquote></li><li><p>indexOf</p></li><li><p>lastIndexOf</p></li><li><p>includes str.includes(‘@’)</p></li><li><p>toUpperCase</p></li><li><p>toLowerCase</p></li><li><p>split 字符串转数组 </p></li><li><p>replace</p></li><li><p>match str.match(regexp)</p></li><li><p>trim 去掉两边的空格</p></li><li><p>trimEnd || trimRight</p></li><li><p>trimStart || trimLeft</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>js Array 方法总结</title>
+      <link href="2020/06/21/jsArrayMethods/"/>
+      <url>2020/06/21/jsArrayMethods/</url>
+      
+        <content type="html"><![CDATA[<h3 id="改变原数组的方法"><a href="#改变原数组的方法" class="headerlink" title="改变原数组的方法"></a>改变原数组的方法</h3><ul><li>push  数组末尾追加元素</li><li>pop   删除数组最后元素</li><li>unshift   数组开始添加元素</li><li>shift     删除数组开始元素</li><li><a href="#item1">splice   实现数组的增加、删除、修改</a></li><li>sort  数组排序</li><li>reverse   数组倒序</li></ul><p><a href="#item2">删除数组末尾一项的几种方法</a><br><a href="#item3">向数组末尾追加项的几种方法</a></p><h3 id="不改变原数组的方法"><a href="#不改变原数组的方法" class="headerlink" title="不改变原数组的方法"></a>不改变原数组的方法</h3><ul><li><a href="#item4">slice - 由begin和end决定的原数组的浅拷贝</a> </li><li>concat 拼接两个数组</li><li>toString()  数组转字符串，转换后用逗号分隔</li><li>join 数组转字符串 未指定分隔符用逗号分隔</li><li>indexOf/lastIndexOf 检测当前项的index值 - ary.indexOf(val)</li><li>includes 检测数组是否包含某项 ary.includes(val)=&gt;true||false</li><li>forEach 遍历数组中每一项，无返回值</li><li>map 数组映射 支持返回值 新数组跟旧数组长度一样</li><li><a href="https://qiuchunhong.github.io/2020/06/21/jsArrayRecude/" target="_blank" rel="noopener">reduce 累加器</a></li><li>filter((val,index,array)=&gt;{ return }) 过滤</li><li>find 返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。arr.find( (element,index,arry)=&gt;{return} )</li><li>findIndex 返回数组中满足提供的测试函数的第一个元素的索引。否则返回-1。arr.findIndex( (element,index,arry)=&gt;{return} )</li><li>some 一项条件成立就返回true都不成立返回false。arr.some(callback(element[, index[, array]])[, thisArg])</li><li>every 所有的都成立才返回true,有一项不成立返回false。arr.every(callback(element[, index[, array]])[, thisArg])</li><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat" target="_blank" rel="noopener">flat 扁平化 newArray = arr.flat([depth]) depth默认1，Infinity</a></li></ul><p><a href="#item5">slice 方法将一个类数组（Array-like）对象/集合转换成一个新数组</a></p><hr><h4 id="splice-实现数组的增加、删除、修改"><a href="#splice-实现数组的增加、删除、修改" class="headerlink" title="splice 实现数组的增加、删除、修改"></a><font id="item1">splice 实现数组的增加、删除、修改</font></h4><blockquote><p>使用方法：array.splice(start[, deleteCount[, item1[, item2[, …]]]])<br><strong>start​</strong><br>指定修改的开始位置（从0计数）。如果超出了数组的长度，则从数组末尾开始添加内容；如果是负值，则表示从数组末位开始的第几位（从-1计数，这意味着-n是倒数第n个元素并且等价于array.length-n）；如果负数的绝对值大于数组的长度，则表示开始位置为第0位。<br><strong>deleteCount</strong><font color=red>【可选】</font><br>整数，表示要移除的数组元素的个数<br>如果 deleteCount 大于 start 之后的元素的总数，则从 start 后面的元素都将被删除（含第 start 位）。<br>如果 deleteCount 被省略了，或者它的值大于等于array.length - start(也就是说，如果它大于或者等于start之后的所有元素的数量)，那么start之后数组的所有元素都会被删除。<br>如果 deleteCount 是 0 或者负数，则不移除元素。这种情况下，至少应添加一个新元素<br><strong>item1, item2, …</strong><font color=red>【可选】</font></p></blockquote><p>【删除】返回值是一个数组，里面是删除项</p><ul><li>ary.splice(0):可以清空数组，把原始数组中的内容基于新数组储存起来（有点类似于数组克隆）</li><li>ary.splice(ary.length-1):删除最后一项</li><li>ary.splice(n):从第n位开始删除后面所有元素</li><li>ary.splice(0,1):删除第一项</li></ul><p>【新增】 ary.splice(n,0,x);在索引n的前面添加了x项；</p><ul><li>ary.splice(ary.length,0,x)：在数组最后增加x项；</li><li>ary.splice(0,0,x):在数组开头增加x项；</li></ul><p>【修改】 用x替代删除的m即可</p><h4 id="删除数组末尾一项的几种方法"><a href="#删除数组末尾一项的几种方法" class="headerlink" title="删除数组末尾一项的几种方法 "></a><font id="item2">删除数组末尾一项的几种方法 </font></h4><ul><li>arr.length–</li><li>arr.pop()   ：返回结果 删除的项</li><li>arr.splice(arr.length-1)   ： 返回结果是 [删除的项]</li><li>delete arr[arr.length-1]    ： 虽然能删除，但是length长度不变（一般不用）</li></ul><h4 id="向数组末尾追加项的几种方法"><a href="#向数组末尾追加项的几种方法" class="headerlink" title="向数组末尾追加项的几种方法 "></a><font id="item3">向数组末尾追加项的几种方法 </font></h4><ul><li>arr.push(“增加的项”)</li><li>arr[arr.length]=”增加的项”</li><li>arr.splice(arr.length , 0 , “增加的项”)</li></ul><h3 id="slice"><a href="#slice" class="headerlink" title="slice"></a><font id="item4">slice</font></h3><blockquote><p>slice() 方法返回一个新的数组对象，这一对象是一个由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括end）。原始数组不会被改变。</p></blockquote><blockquote><p><strong>begin</strong><font color=red>【可选】</font><br>提取起始处的索引（从 0 开始），从该索引开始提取原数组元素。<br>如果该参数为负数，则表示从原数组中的倒数第几个元素开始提取，slice(-2) 表示提取原数组中的倒数第二个元素到最后一个元素（包含最后一个元素）。<br>如果省略 begin，则 slice 从索引 0 开始。<br>如果 begin 大于原数组的长度，则会返回空数组。<br><strong>end</strong><font color=red>【可选】</font><br>提取终止处的索引（从 0 开始），在该索引处结束提取原数组元素。slice 会提取原数组中索引从 begin 到 end 的所有元素（包含 begin，但不包含 end）。<br>slice(1,4) 会提取原数组中从第二个元素开始一直到第四个元素的所有元素 （索引为 1, 2, 3的元素）。<br>如果该参数为负数， 则它表示在原数组中的倒数第几个元素结束抽取。 slice(-2,-1) 表示抽取了原数组中的倒数第二个元素到最后一个元素（不包含最后一个元素，也就是只有倒数第二个元素）。<br>如果 end 被省略，则 slice 会一直提取到原数组末尾。<br>如果 end 大于数组的长度，slice 也会一直提取到原数组末尾。</p></blockquote><h3 id="slice-方法将一个类数组（Array-like）对象-集合转换成一个新数组"><a href="#slice-方法将一个类数组（Array-like）对象-集合转换成一个新数组" class="headerlink" title="slice 方法将一个类数组（Array-like）对象/集合转换成一个新数组"></a><font id="item5">slice 方法将一个类数组（Array-like）对象/集合转换成一个新数组</font></h3><pre><code>function list() {  return Array.prototype.slice.call(arguments);}var list1 = list(1, 2, 3); // [1, 2, 3]</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>reduce - js</title>
+      <link href="2020/06/21/jsArrayRecude/"/>
+      <url>2020/06/21/jsArrayRecude/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p><strong>reduce()</strong> 方法对数组中的每个元素执行一个由您提供的 reducer 函数(升序执行)，将其结果汇总为单个返回值。</p></blockquote><blockquote><p><strong>语法：</strong><br>arr.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])</p></blockquote><p><strong>reducer</strong> callback 接收 4 个参数:</p><ol><li>Accumulator (acc) (累计器)</li><li>Current Value (cur) (当前值)</li><li>Current Index (idx) (当前索引) <font color="red">[可选]</font></li><li>Source Array (src) (源数组) <font color="red">[可选]</font></li></ol><ul><li>initialValue 作为第一次调用 callback 函数时的第一个参数的值。 <font color="red">[可选]</font></li></ul><p><strong>注意</strong></p><ul><li>回调函数第一次执行时，<font color=#0099ff>accumulator</font> 和<font color=#0099ff>currentValue</font>的取值有两种情况：如果调用 reduce()时提供了<font color=#0099ff>initialValue</font>，<font color=#0099ff>accumulator</font>取值为<font color=#0099ff>initialValue</font>，<font color=#0099ff>currentValue</font>取数组中的第一个值；如果没有提供 <font color=#0099ff>initialValue</font>，那么<font color=#0099ff>accumulator</font>取数组中的第一个值，<font color=#0099ff>currentValue</font>取数组中的第二个值。<blockquote><ul><li>如果数组为空且没有提供 initialValue，会抛出 TypeError</li><li>如果数组仅有一个元素并且没有提供 initialValue， 或者有提供 initialValue 但是数组为空，那么此唯一值将被返回并且 callback 不会被执行</li></ul></blockquote></li></ul><h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><ul><li><a href="#item1">数组求和</a></li><li><a href="#item2">累加对象数组里的值</a></li><li><a href="#item3">将二维数组转化为一维</a></li><li><a href="#item4">计算数组中每个元素出现的次数</a></li><li><a href="#item5">按属性对 object 分类</a></li><li><a href="#item6">使用扩展运算符和 initialValue 绑定包含在对象数组中的数组</a></li><li><a href="#item7">数组去重</a></li><li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">更多…</a></li></ul><h4 id="数组求和"><a href="#数组求和" class="headerlink" title="数组求和"></a><font id="item1">数组求和</font></h4><pre><code>(()=&gt;{    var total = [ 0, 1, 2, 3 ].reduce(    ( acc, cur ) =&gt; acc + cur,    0    );    return total    // 6})()</code></pre><h4 id="累加对象数组里的值"><a href="#累加对象数组里的值" class="headerlink" title="累加对象数组里的值"></a><font id="item2">累加对象数组里的值</font></h4><pre><code>(()=&gt;{    var sum = [{x: 1}, {x:2}, {x:3}].reduce(        (accumulator, currentValue) =&gt; accumulator + currentValue.x        ,0    );    return sum  // 6})()</code></pre><h4 id="将二维数组转化为一维"><a href="#将二维数组转化为一维" class="headerlink" title="将二维数组转化为一维"></a><font id="item3">将二维数组转化为一维</font></h4><pre><code>(()=&gt;{    var flattened = [[0, 1], [2, 3], [4, 5]].reduce(    function(a, b) {        return a.concat(b);    },[]);    return flattened    // [0, 1, 2, 3, 4, 5]})()</code></pre><h4 id="计算数组中每个元素出现的次数"><a href="#计算数组中每个元素出现的次数" class="headerlink" title="计算数组中每个元素出现的次数"></a><font id="item4">计算数组中每个元素出现的次数</font></h4><pre><code>(()=&gt;{    var names = [&#39;Alice&#39;, &#39;Bob&#39;, &#39;Tiff&#39;, &#39;Bruce&#39;, &#39;Alice&#39;];    var countNames = names.reduce((allNames,name)=&gt;{        if(name in allNames){            allNames[name]++        }else{            allNames[name] = 1        }        return allNames    },{})    return countNames    // {Alice: 2, Bob: 1, Tiff: 1, Bruce: 1}})()</code></pre><h4 id="按属性对-object-分类"><a href="#按属性对-object-分类" class="headerlink" title="按属性对 object 分类"></a><font id="item5">按属性对 object 分类</font></h4><pre><code>(()=&gt;{    var people = [    { name: &#39;Alice&#39;, age: 21 },    { name: &#39;Max&#39;, age: 20 },    { name: &#39;Jane&#39;, age: 20 }    ];    function groupBy(arr,attr){        return a = arr.reduce((acc,cur)=&gt;{            if(cur[attr] in acc){                acc[cur[attr]].push(acc)            }else{                acc[cur[attr]] = [acc]            }            return acc        },{})    }    return groupBy(people,&#39;age&#39;)    // {     //   20: [    //     { name: &#39;Max&#39;, age: 20 },     //     { name: &#39;Jane&#39;, age: 20 }    //   ],     //   21: [{ name: &#39;Alice&#39;, age: 21 }]     // }})()</code></pre><h4 id="使用扩展运算符和-initialValue-绑定包含在对象数组中的数组"><a href="#使用扩展运算符和-initialValue-绑定包含在对象数组中的数组" class="headerlink" title="使用扩展运算符和 initialValue 绑定包含在对象数组中的数组"></a><font id="item6">使用扩展运算符和 initialValue 绑定包含在对象数组中的数组</font></h4><pre><code>(()=&gt;{    var friends = [{        name: &#39;Anna&#39;,        books: [&#39;Bible&#39;, &#39;Harry Potter&#39;],        age: 21    }, {        name: &#39;Bob&#39;,        books: [&#39;War and peace&#39;, &#39;Romeo and Juliet&#39;],        age: 26    }, {        name: &#39;Alice&#39;,        books: [&#39;The Lord of the Rings&#39;, &#39;The Shining&#39;],        age: 18    }];    var allbooks = friends.reduce((prev, curr) =&gt;{        return [...prev, ...curr.books];    }, [&#39;Alphabet&#39;]);    return allbooks    // [&quot;Alphabet&quot;, &quot;Bible&quot;, &quot;Harry Potter&quot;, &quot;War and peace&quot;, &quot;Romeo and Juliet&quot;, &quot;The Lord of the Rings&quot;, &quot;The Shining&quot;]})()</code></pre><h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><font id="item7">数组去重</font></h4><pre><code>(()=&gt;{    var myArray = [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;e&#39;, &#39;e&#39;, &#39;c&#39;, &#39;d&#39;, &#39;d&#39;, &#39;d&#39;, &#39;d&#39;];    var res = myArray.reduce((acc,cur)=&gt;{        if(!acc.includes(cur) ){    //acc.indexOf(cur) == -1             acc.push(cur)        }        return acc    },[])    return res  // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;e&quot;, &quot;d&quot;]})()(()=&gt;{    var myArray = [1,2,1,2,3,5,4,5,3,4,4,4,4];    var res = myArray.sort((a,b)=&gt;a-b).reduce((acc,cur)=&gt;{        if( acc.length ===0 || acc[acc.length - 1] !== cur){            acc.push(cur)        }        return acc    },[])    console.log( res ) // [1, 2, 3, 4, 5]})()</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> js </tag>
+            
+            <tag> reduce </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>记录一些小技巧</title>
+      <link href="2020/06/18/tips/"/>
+      <url>2020/06/18/tips/</url>
+      
+        <content type="html"><![CDATA[<h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2><h3 id="页面v-for中修改item属性值后页面v-if不改变的问题"><a href="#页面v-for中修改item属性值后页面v-if不改变的问题" class="headerlink" title="页面v-for中修改item属性值后页面v-if不改变的问题"></a>页面v-for中修改item属性值后页面v-if不改变的问题</h3><blockquote><p>添加this.$forceUpdate();进行强制渲染，效果实现</p></blockquote><hr><h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><blockquote><p>–hard : 回退版本库，暂存区，工作区。（因此我们修改过的代码在本地就没了）<br><br>–mixed: 回退版本库，暂存区。(–mixed为git reset的默认参数，即当任何参数都不加的时候的参数)<br><br>–soft: 回退版本库。</p></blockquote><hr><h2 id="js"><a href="#js" class="headerlink" title="js"></a>js</h2><hr><h2 id="手机"><a href="#手机" class="headerlink" title="手机"></a>手机</h2><blockquote><p>安卓手机文本框获取焦点后，键盘把文本框挡住了</p></blockquote><pre><code>window.addEventListener(&quot;resize&quot;, function() {    if (        document.activeElement.tagName === &quot;INPUT&quot; ||        document.activeElement.tagName === &quot;TEXTAREA&quot;    ) {        if (&quot;scrollIntoView&quot; in document.activeElement) {            document.activeElement.scrollIntoView();        } else {            document.activeElement.scrollIntoViewIfNeeded();        }    }})</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>css预处理器 - sass</title>
+      <link href="2020/06/18/sass/"/>
+      <url>2020/06/18/sass/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>css预处理器包含：sass, lass<br>sass/less区别：less基于javascript通过客户端处理，sass基于Ruby语言开发通过服务端处理，所以less慢于sass</p></blockquote><h2 id="保持sass条理性和可读性最基本三个方法：嵌套、导入、注释"><a href="#保持sass条理性和可读性最基本三个方法：嵌套、导入、注释" class="headerlink" title="保持sass条理性和可读性最基本三个方法：嵌套、导入、注释"></a>保持sass条理性和可读性最基本三个方法：<a href="#nest">嵌套</a>、<a href="#import">导入</a>、<a href="#annotation">注释</a></h2><h3 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h3><blockquote><p>变量跟es6中的let一样具有块级作用域，必须先定义后使用。 <strong>less变量用的是<font color=#ec7259>@</font></strong></p></blockquote><pre><code>$color:red;$fontSize:16px;$color:blue;body{       background:$color;    //blue    使用前最后一处声明有效，前边的值被覆盖    font-size:$fontSize}$color:green;</code></pre><h3 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a><font id="nest">嵌套</font></h3><p>例1</p><pre><code>.data{    &amp; &gt; ul{                       //.data &gt; ul               .li{            &amp;:hover{}            //.data ul .li:hover        &amp;：父选择器的标识符            body.id &amp; {}         //body.id .data &gt;ul .li            &amp;-title{}            //.data ul .li-title{}        }    }    h1,h2{}        //.data h1, .data h2{}          //群组选择器}</code></pre><p>例2        嵌套属性</p><pre><code>.nav{    border: {        style:solid;        width:1px;        color:red;    }}    ==&gt;.nav{border:1px solid red;}</code></pre><p>例3</p><pre><code>.nav{    border: 1px solid #ccc {      left: 0px;      right: 0px;  }}        ==&gt;.nav{border: 1px solid #ccc; border-left:0px;border-right:0px;}</code></pre><h3 id="导入"><a href="#导入" class="headerlink" title="导入"></a><font id="import">导入</font></h3><blockquote><p>css中的import跟sass中的import的区别：<br>css @import:在css文件中执行到@import时浏览器去下载css文件=》页面加载慢<br>sass @import:生成css文件时把文件导入进来，跟原有文件合成一个文件=》无需发起额外请求下载</p></blockquote><blockquote><p>局部文件：以下划线开头，不生成css文件，只用来被引用，可被多文件引用<br>例：想导入style/_night-sky.scss    =&gt;@import “style/night-sky”</p></blockquote><blockquote><p>导入文件又要修改文件中的全局变量：<strong><font color=#ec7259>!default</font></strong></p></blockquote><pre><code>$c:pink;@import &#39;src/assets/css/ab&#39;;_ab.scss:  $c: green !default;  .cont {color: $c;}</code></pre><h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a><font id="annotation">注释</font></h3><blockquote><p>.a{}    /<em>这种注释内容会出现在生成的css文件中</em>/<br>.b{}    //这种注释不会出现在生成的css文件中，叫做：静默注释<br>.c{color/<em>这块注释也不会出现在生成的css文件中</em>/ :red;}   </p></blockquote><h3 id="混合器"><a href="#混合器" class="headerlink" title="混合器"></a>混合器</h3><pre><code>@mixin background($color) {    background: $color;}body{    @include background(green);}</code></pre><p>例2：</p><pre><code>@mixin link-colors($normal:blue, $hover:red, $visited:green) {    //声明    color: $normal;    &amp;:hover { color: $hover; }    &amp;:visited { color: $visited; }}@include link-colors( $normal: blue, $visited: green, $hover: red);    //调用1@include link-colors( $hover: yellow);    //调用2@include link-colors( green);    //调用3</code></pre><blockquote><p><strong>less:声明：<font color=#ec7259>.className{}</font> 调用：<font color=#ec7259>.className()</font></strong></p></blockquote><h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><pre><code>.redC{    background:red;    margin:10px;}body{    @extend .redC;}</code></pre><blockquote><p>混合器主要用于展示性样式的重用，而类名用于语义化样式的重用</p></blockquote><h3 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h3><blockquote><p>+、-、*、/、%、calc()、</p></blockquote><h4 id="sass中的小技巧"><a href="#sass中的小技巧" class="headerlink" title="sass中的小技巧"></a>sass中的小技巧</h4><blockquote><p>在有引号的文本字符串中使用 #{} 插值语句可以添加动态的值。使用 #{}可以避免 Sass 运行运算表达式，直接编译 CSS</p></blockquote><p>例1：</p><pre><code>p:before {content: &quot;I ate #{5 + 10} pies!&quot;;}=&gt;p:before { content: &quot;I ate 15 pies!&quot;; }</code></pre><p>例2</p><pre><code>@mixin mar($dir,$size){margin-#{$dir} : $size;}.cont{@include mar(&#39;left&#39;,20px)}</code></pre><h4 id="for循环"><a href="#for循环" class="headerlink" title="@for循环"></a>@for循环</h4><blockquote><p>@for $i from 开始值 throuth 结束值（包括结束值）<br>@for $i from 开始值 to 结束值（不包括结束值）</p></blockquote><pre><code>@for $i from 1 throuth 3{    .item-#{$i}{width:(20px * $i)}}==&gt; .item-1{width:20px}    .item-2{width:40px}    .item-3{width:60px}</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> html+css </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> css </tag>
+            
+            <tag> sass </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Hello World</title>
+      <link href="2020/06/18/hello-world/"/>
+      <url>2020/06/18/hello-world/</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>$ hexo new page <span class="token string">"tags"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files-生成静态文件"><a href="#Generate-static-files-生成静态文件" class="headerlink" title="Generate static files | 生成静态文件"></a>Generate static files | 生成静态文件</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo generate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites-部署到远程站点"><a href="#Deploy-to-remote-sites-部署到远程站点" class="headerlink" title="Deploy to remote sites | 部署到远程站点"></a>Deploy to remote sites | 部署到远程站点</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo deploy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="如出现缓存引起的异常，可在生成命令执行前执行清除缓存命令"><a href="#如出现缓存引起的异常，可在生成命令执行前执行清除缓存命令" class="headerlink" title="如出现缓存引起的异常，可在生成命令执行前执行清除缓存命令"></a>如出现缓存引起的异常，可在生成命令执行前执行清除缓存命令</h3><pre class="line-numbers language-bash"><code class="language-bash">$ hexo clean<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre><h3 id="hexo-文档"><a href="#hexo-文档" class="headerlink" title="hexo 文档"></a><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">hexo 文档</a></h3><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>vue directive 指令</title>
+      <link href="2020/06/18/directives/"/>
+      <url>2020/06/18/directives/</url>
+      
+        <content type="html"><![CDATA[<h3 id="为什么要使用-VueDirective"><a href="#为什么要使用-VueDirective" class="headerlink" title="为什么要使用 VueDirective"></a>为什么要使用 VueDirective</h3><p>在 Vue 实例的方法中写 DOM 操作不可以吗？为什么使用 Vue Directive 来封装 DOM 操作呢？<br>为了实现 View 和 ViewModel 的分离，我们必须封装 DOM 操作，View 层负责页面上的显示，ViewModel 层负责改变操作数据，由于 Vue 是数据驱动的，属于 ViewModel 层，那么其中就不应该出现 View 层上的 DOM 操作，而且，使用 Vue Directive 是和 DOM 元素的创建、销毁绑定的。Vue Directive 的生命周期方法能让我们更优雅的去在合适的时机进行 DOM 的操作。而在 ViewModel 里则没有和 DOM 元素对应的方法。因为 Vue Directive 是属于 View 层面的，所以 DOM 操作应该被封装在 Vue Directive 里而不是出现在 Vue 实例中。</p><p><a href="https://github.com/qiuchunhong/vueProject/blob/master/src/views/directives/index.vue" target="_blank" rel="noopener">基础使用</a></p><h3 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h3><blockquote><ul><li>某个按钮按下去之前需要先判断它是否登陆，如果没有登陆需要跳转到对应的登陆页面，否则就继续该按钮之后的操作。</li></ul></blockquote><p><strong>store 需要 import 进来</strong></p><pre><code>const directive = Vue.directive(&#39;permission-click&#39;, {  bind: (el, binding, vnode) =&gt; {    el.addEventListener(&#39;click&#39;, (e) =&gt; {      if (!store.getters.isLogin) {        store.dispatch(&#39;showLogin&#39;)      } else {        typeof binding.value === &#39;function&#39; &amp;&amp; binding.value()      }    })  }})directives: {    permissionClick: {        bind (el, binding, vnode) {            el.addEventListener(&#39;click&#39;, (e) =&gt; {                if (!store.getters.isLogin) {                    store.dispatch(&#39;user/showLogin&#39;)                } else {                    typeof binding.value === &#39;function&#39; &amp;&amp; binding.value()                }            })        }    }}</code></pre><blockquote><ul><li>v-loading 全局加载</li></ul></blockquote><pre><code>&lt;div v-loading=&quot;loading&quot;&gt;&lt;/div&gt;&lt;div @click=&quot;showLoading&quot;&gt;change loading status&lt;/div&gt;methods: {    showLoading () {        this.loading = true        let timer = setTimeout(() =&gt; {            this.loading = false            // clearTimeout(timer)        }, 1000)    }}, Vue.directive(&#39;loading&#39;, {        update(el, binding, vnode) {          if (binding.value) {            const div = document.createElement(&#39;div&#39;)            div.innerText = &#39;加载中...&#39;            div.setAttribute(&#39;id&#39;, &#39;loading&#39;)            div.style.position = &#39;absolute&#39;            div.style.left = 0            div.style.top = 0            div.style.width = &#39;100%&#39;            div.style.height = &#39;100%&#39;            div.style.display = &#39;flex&#39;            div.style.justifyContent = &#39;center&#39;            div.style.alignItems = &#39;center&#39;            div.style.color = &#39;white&#39;            div.style.background = &#39;rgba(0, 0, 0, .7)&#39;            document.body.append(div)          } else {            document.body.removeChild(document.getElementById(&#39;loading&#39;))          }        }      })</code></pre><blockquote><ul><li>根据路由角色控制 DOM <strong>(一般是按钮多)</strong> 是否显示</li></ul></blockquote><pre><code> bind: function (el, binding, vnode) {  // 获取按钮权限  路由中 meta 中的角色  let btnPermissions = vnode.context.$route.meta.btnPermissions.split(&quot;,&quot;);  if (btnPermissions.indexOf(&#39;admin&#39;)&lt;0) {      // 不是admin 就不显示      // 当然此处也可以 将 el 样式隐藏也行   el.parentNode.removeChild(el);  }}</code></pre><blockquote><ul><li>根据后台下发 权限 字段，控制当前 DOM 是否展示</li></ul></blockquote><pre><code> // 很多时候，服务器下发了  showBtn 字段就代表 显示某个 按钮，前端一般把控制权限的数据都放在内存中 // 这样写 在 bind update 都会执行Vue.directive(&#39;check-permission&#39;, function (el, binding) {  var success = checkPermission(binding.value); // 拿到绑定的值  if(!success){    el.style.display = &#39;none&#39;;  }})function checkPermission(permissionKey) {  var values = localStorage.getItem(&quot;userPermissions&quot;);  if (!values) {    console.log(&#39;can not find permissions config from localstorage, function access will be denied.&#39;);    return false;  }  var ret = values.split(&#39;,&#39;).find(item =&gt; item === permissionKey) != null;  console.log(&#39;===========check permission, key:&#39; + permissionKey + &quot;, result:&quot; + ret + &quot;==========&quot;);  return ret;}// 使用v-check-permission=&quot;&#39;showBtn&#39;&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> vue </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> vue </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
