@@ -36,10 +36,16 @@
         <content type="html"><![CDATA[<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><blockquote><p>下面代码中，b是B类的实例，它的constructor方法就是B类原型的constructor方法。</p></blockquote><pre><code>class B {}  // === function B(){}let b = new B();b.constructor === B.prototype.constructor // true</code></pre><blockquote><p>由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。</p></blockquote><pre><code>// es5写法function U(){}U.prototype.say = function(){console.log(&#39;hi&#39;)}let u = new U()u.say()// es6写法class P{}Object.assign(P.prototype,{say(){console.log(&#39;hello&#39;)}})let p = new P()p.say()</code></pre><p><strong>实例1</strong></p><pre><code>class Point {  constructor(x,y){    this.x = x;    this.y = y;  }  sum(){    return this.x+ this.y  }  static hello() {    console.log(&#39;hello world&#39;);  }}class ColorPoint extends Point{  constructor(x,y,color){    // this.color = color; // ReferenceError    super(x,y)    this.color = color; // 正确  }  say(){    console.log(&#39;x=&#39;+this.x +&#39;, y=&#39;+this.y+&#39;, color=&#39;+this.color+&#39;, x+y=&#39;+this.sum())  }}let a  = new ColorPoint(12,3,&#39;green&#39;)a.say();  //x=12, y=3, color=green, x+y=15console.log( a instanceof ColorPoint );  // trueconsole.log( a instanceof Point ); // trueColorPoint.hello(); // hello world</code></pre><p><strong>解析：</strong></p><ul><li>super()必须写到子类的constructor中的最上方。只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。如果子类没有定义constructor方法，这个方法会被默认添加，代码如下<pre><code>class ColorPoint extends Point {}// 等同于class ColorPoint extends Point {constructor(...args) {  super(...args);}}</code></pre><blockquote><ul><li>super作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</li><li>super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</li></ul></blockquote></li></ul><pre><code>class A {  constructor() {    this.x = 1;  }}class B extends A {  constructor() {    super();    this.x = 2;    super.x = 3;    console.log(super.x); // undefined    console.log(this.x); // 3  }}let b = new B();</code></pre><p>上面代码中，super.x赋值为3，这时等同于对this.x赋值为3。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。</p><ul><li>父类的静态方法，也会被子类继承。hello()是A类的静态方法，B继承A，也继承了A的静态方法。</li></ul>]]></content>
       
       
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
+      
       
         <tags>
             
-            <tag> js </tag>
+            <tag> js继承 </tag>
             
         </tags>
       
@@ -57,14 +63,14 @@
       
       <categories>
           
-          <category> js原型、原型链 </category>
+          <category> js </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> js </tag>
+            <tag> js原型 </tag>
             
         </tags>
       
@@ -79,6 +85,12 @@
       
         <content type="html"><![CDATA[<p>相等操作符会先转换操作数（通常称为强制转型），然后比较它们的相等性。</p><p>在转换不同的数据类型时，相等操作符遵循下列基本规则：</p><ol><li><p>如果有一个操作数是布尔值，则在比较相等性之前，将其转换为数值；</p></li><li><p>如果一个操作数是字符串，另一个操作数是数值，在比较之前先将字符串转换为数值；</p></li><li><p>如果一个操作数是对象，另一个操作数不是，则调用对象的 valueOf() 方法，用得到的基本类型值按照前面的规则进行比较；</p></li><li><p>如果有一个操作数是 NaN，无论另一个操作数是什么，相等操作符都返回 false；</p></li><li><p>如果两个操作数都是对象，则比较它们是不是同一个对象。如果指向同一个对象，则相等操作符返回 true；</p></li><li><p>在比较相等性之前，不能将 null 和 undefined 转成其他值。</p></li><li><p>null 和 undefined 是相等的。</p></li></ol><h2 id="一、基本规则"><a href="#一、基本规则" class="headerlink" title="一、基本规则"></a>一、基本规则</h2><p>上面阐述的 1、2、3 三条规则，总结成一句话就是：</p><p>如果相等操作符两边的操作数，不包含 null 或者 undefined，且两个操作数不全是对象，<br>在执行相等比较之前，会先调用 Number() 将两个操作数强制转为 Number 类型，然后进行比较<br>所以在使用相等操作符的时候，会有以下情况：</p><pre><code>&#39;55&#39; == 55;       //Number(&#39;55&#39;) == 55 -&gt; truefalse == 0;       //Number(false) == 0 -&gt; true&quot;wise&quot; == 3;      //Number(&quot;wise&quot;) == 3 -&gt; NaN == 3 -&gt; false[] == 0;          //Number([]) == 0 -&gt; 0 == 0 -&gt; true</code></pre><p>但是在特殊情况下，也就是两边都有对象的时候，会产生看似不合理的结果：</p><pre><code>NaN == NaN;  //false （参考第4条规则）[] == [];    //false[] == ![];   //true{} == {};    //false{} == !{};   //false</code></pre><h2 id="二、-和"><a href="#二、-和" class="headerlink" title="二、[] == [] 和 {} == {}"></a>二、[] == [] 和 {} == {}</h2><p>在 JavaScript 中，<b>Object、Array、Function、RegExp、Date 都是引用类型</b></p><p>声明引用类型的时候，变量名保存在 js 的<b>栈内存</b>里面，而对应的值保存在<b>堆内存</b>里面</p><p>而这个变量在栈内存中实际保存的是：这个值在堆内存中的地址，也就是指针</p><p>所以 [] == [] 、{} == {} 都为false。</p><p><b>如果两个对象指向同一个对象，相等操作符返回 true</b></p><pre><code>let a =b;b == a;  // true（变量a保存的是b的指针，它们指向同一个对象）</code></pre><h2 id="三、-和"><a href="#三、-和" class="headerlink" title="三、[] == ![] 和 {} == !{}"></a>三、[] == ![] 和 {} == !{}</h2><blockquote><p>ECMAScript 中规定，<b>逻辑非 (!) </b>的优先级高于<b>相等操作符 ( == )</b></p></blockquote><p>在比较 [] == ![] 的时候，先计算 ![] 得到布尔值 false</p><p>所以实际上比较的是 [] == false</p><p>然后根据上面的第1条规则和第3条规则，将两个操作数转为数值类型：</p><pre><code>Number([]) == Number(false);   // -&gt;  0 == 0  -&gt;  true</code></pre><p>在比较 {} == !{} 的时候，也是遵守同样的规则：</p><pre><code>{} == !{}-&gt;  {} == Boolean(!{})-&gt;  {} == false-&gt;  Number({}) == Number(false)-&gt;  NaN == 0-&gt;  false</code></pre><p>然后第4条规则规定：<b>如果有一个操作数是 NaN，相等操作符返回 false</b></p><p>所以 {} == !{} 的结果是 false</p><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><pre><code>Boolean([]) // trueBoolean({}) // trueNumber([])  // 0Number({})  // NaN</code></pre>]]></content>
       
+      
+      <categories>
+          
+          <category> js </category>
+          
+      </categories>
       
       
         <tags>
@@ -120,7 +132,7 @@
       
       <categories>
           
-          <category> vue extends mixins </category>
+          <category> vue </category>
           
       </categories>
       
@@ -128,6 +140,10 @@
         <tags>
             
             <tag> vue </tag>
+            
+            <tag> extends </tag>
+            
+            <tag> mixins </tag>
             
         </tags>
       
@@ -177,7 +193,7 @@
       
         <tags>
             
-            <tag> css </tag>
+            <tag> css兼容 </tag>
             
         </tags>
       
@@ -388,7 +404,7 @@
       
         <tags>
             
-            <tag> vue </tag>
+            <tag> vue指令 </tag>
             
         </tags>
       
