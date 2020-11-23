@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="js原型、原型链, World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,12 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-synthwave84.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -442,16 +442,19 @@
 <blockquote>
 <p>除了Object的原型对象（Object.prototype）的<strong>proto</strong>指向null，其他内置函数对象的原型对象（例如：Array.prototype）和自定义构造函数的<br><strong>proto</strong>都指向Object.prototype, 因为原型对象本身是普通对象。<br>即：</p>
 </blockquote>
-<pre><code>Object.prototype.__proto__ = null;
-Array.prototype.__proto__ = Object.prototype;
-Foo.prototype.__proto__  = Object.prototype;</code></pre><h2 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h2><ol>
+<pre class="line-numbers language-javascript"><code class="language-javascript">Object<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+Foo<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__  <span class="token operator">=</span> Object<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h2><ol>
 <li>Person.prototype.constructor == Person<br>// <strong>准则1：原型对象（即Person.prototype）的constructor指向构造函数本身</strong></li>
 <li>person01.<strong>proto</strong> == Person.prototype<br>// <strong>准则2：实例（即person01）的<strong>proto</strong>和原型对象指向同一个地方</strong></li>
 </ol>
-<pre><code>Foo.__proto__ = Function.prototype; // 准则2
-Object.__proto__ = Function.prototype // 准则2 (Object本质也是函数)；
-Function.__proto__ = Function.prototype // 准则2</code></pre><pre><code>Foo.__proto__ == Function.prototype
-Foo.__proto__.__proto__ == Function.prototype.__proto__ == Object.prototype</code></pre><h2 id="测试题"><a href="#测试题" class="headerlink" title="测试题"></a>测试题</h2><ul>
+<pre class="line-numbers language-javascript"><code class="language-javascript">Foo<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> Function<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 准则2</span>
+Object<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> Function<span class="token punctuation">.</span>prototype <span class="token comment" spellcheck="true">// 准则2 (Object本质也是函数)；</span>
+Function<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> Function<span class="token punctuation">.</span>prototype <span class="token comment" spellcheck="true">// 准则2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript"><code class="language-javascript">Foo<span class="token punctuation">.</span>__proto__ <span class="token operator">==</span> Function<span class="token punctuation">.</span>prototype
+Foo<span class="token punctuation">.</span>__proto__<span class="token punctuation">.</span>__proto__ <span class="token operator">==</span> Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>__proto__ <span class="token operator">==</span> Object<span class="token punctuation">.</span>prototype<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="测试题"><a href="#测试题" class="headerlink" title="测试题"></a>测试题</h2><ul>
 <li><p>测试题1</p>
 <pre><code>function A(){}
 A.prototype.n = 1
@@ -1007,7 +1010,7 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
 </body>

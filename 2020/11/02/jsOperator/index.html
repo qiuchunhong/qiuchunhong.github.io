@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} ), World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,12 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-synthwave84.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -448,38 +448,44 @@
 </ol>
 <h2 id="一、基本规则"><a href="#一、基本规则" class="headerlink" title="一、基本规则"></a>一、基本规则</h2><p>上面阐述的 1、2、3 三条规则，总结成一句话就是：</p>
 <p>如果相等操作符两边的操作数，不包含 null 或者 undefined，且两个操作数不全是对象，<br>在执行相等比较之前，会先调用 Number() 将两个操作数强制转为 Number 类型，然后进行比较<br>所以在使用相等操作符的时候，会有以下情况：</p>
-<pre><code>&#39;55&#39; == 55;       //Number(&#39;55&#39;) == 55 -&gt; true
-false == 0;       //Number(false) == 0 -&gt; true
-&quot;wise&quot; == 3;      //Number(&quot;wise&quot;) == 3 -&gt; NaN == 3 -&gt; false
-[] == 0;          //Number([]) == 0 -&gt; 0 == 0 -&gt; true</code></pre><p>但是在特殊情况下，也就是两边都有对象的时候，会产生看似不合理的结果：</p>
-<pre><code>NaN == NaN;  //false （参考第4条规则）
-[] == [];    //false
-[] == ![];   //true
-{} == {};    //false
-{} == !{};   //false</code></pre><h2 id="二、-和"><a href="#二、-和" class="headerlink" title="二、[] == [] 和 {} == {}"></a>二、[] == [] 和 {} == {}</h2><p>在 JavaScript 中，<b>Object、Array、Function、RegExp、Date 都是引用类型</b></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token string">'55'</span> <span class="token operator">==</span> <span class="token number">55</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">//Number('55') == 55 -> true</span>
+<span class="token boolean">false</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">//Number(false) == 0 -> true</span>
+<span class="token string">"wise"</span> <span class="token operator">==</span> <span class="token number">3</span><span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">//Number("wise") == 3 -> NaN == 3 -> false</span>
+<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">;</span>          <span class="token comment" spellcheck="true">//Number([]) == 0 -> 0 == 0 -> true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<p>但是在特殊情况下，也就是两边都有对象的时候，会产生看似不合理的结果：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token number">NaN</span> <span class="token operator">==</span> <span class="token number">NaN</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//false （参考第4条规则）</span>
+<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//false</span>
+<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token operator">!</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//true</span>
+<span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">==</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">//false</span>
+<span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">==</span> <span class="token operator">!</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">//false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="二、-和"><a href="#二、-和" class="headerlink" title="二、[] == [] 和 {} == {}"></a>二、[] == [] 和 {} == {}</h2><p>在 JavaScript 中，<b>Object、Array、Function、RegExp、Date 都是引用类型</b></p>
 <p>声明引用类型的时候，变量名保存在 js 的<b>栈内存</b>里面，而对应的值保存在<b>堆内存</b>里面</p>
 <p>而这个变量在栈内存中实际保存的是：这个值在堆内存中的地址，也就是指针</p>
 <p>所以 [] == [] 、{} == {} 都为false。</p>
 <p><b>如果两个对象指向同一个对象，相等操作符返回 true</b></p>
-<pre><code>let a =b;
-b == a;  // true（变量a保存的是b的指针，它们指向同一个对象）</code></pre><h2 id="三、-和"><a href="#三、-和" class="headerlink" title="三、[] == ![] 和 {} == !{}"></a>三、[] == ![] 和 {} == !{}</h2><blockquote>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">let</span> a <span class="token operator">=</span>b<span class="token punctuation">;</span>
+b <span class="token operator">==</span> a<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// true（变量a保存的是b的指针，它们指向同一个对象）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="三、-和"><a href="#三、-和" class="headerlink" title="三、[] == ![] 和 {} == !{}"></a>三、[] == ![] 和 {} == !{}</h2><blockquote>
 <p>ECMAScript 中规定，<b>逻辑非 (!) </b>的优先级高于<b>相等操作符 ( == )</b></p>
 </blockquote>
 <p>在比较 [] == ![] 的时候，先计算 ![] 得到布尔值 false</p>
 <p>所以实际上比较的是 [] == false</p>
 <p>然后根据上面的第1条规则和第3条规则，将两个操作数转为数值类型：</p>
-<pre><code>Number([]) == Number(false);   // -&gt;  0 == 0  -&gt;  true</code></pre><p>在比较 {} == !{} 的时候，也是遵守同样的规则：</p>
-<pre><code>{} == !{}
--&gt;  {} == Boolean(!{})
--&gt;  {} == false
--&gt;  Number({}) == Number(false)
--&gt;  NaN == 0
--&gt;  false</code></pre><p>然后第4条规则规定：<b>如果有一个操作数是 NaN，相等操作符返回 false</b></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token function">Number</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">Number</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// ->  0 == 0  ->  true</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>在比较 {} == !{} 的时候，也是遵守同样的规则：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">==</span> <span class="token operator">!</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token operator">-</span><span class="token operator">></span>  <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">==</span> <span class="token function">Boolean</span><span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token operator">></span>  <span class="token punctuation">{</span><span class="token punctuation">}</span> <span class="token operator">==</span> <span class="token boolean">false</span>
+<span class="token operator">-</span><span class="token operator">></span>  <span class="token function">Number</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token operator">==</span> <span class="token function">Number</span><span class="token punctuation">(</span><span class="token boolean">false</span><span class="token punctuation">)</span>
+<span class="token operator">-</span><span class="token operator">></span>  <span class="token number">NaN</span> <span class="token operator">==</span> <span class="token number">0</span>
+<span class="token operator">-</span><span class="token operator">></span>  <span class="token boolean">false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>然后第4条规则规定：<b>如果有一个操作数是 NaN，相等操作符返回 false</b></p>
 <p>所以 {} == !{} 的结果是 false</p>
-<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><pre><code>Boolean([]) // true
-Boolean({}) // true
-Number([])  // 0
-Number({})  // NaN</code></pre>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token function">Boolean</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// true</span>
+<span class="token function">Boolean</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// true</span>
+<span class="token function">Number</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// 0</span>
+<span class="token function">Number</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  <span class="token comment" spellcheck="true">// NaN</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -946,7 +952,7 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
 </body>

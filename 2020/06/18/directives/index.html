@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="vue directive 指令, World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,12 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-synthwave84.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -428,7 +428,10 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="为什么要使用-VueDirective"><a href="#为什么要使用-VueDirective" class="headerlink" title="为什么要使用 VueDirective"></a>为什么要使用 VueDirective</h3><p>在 Vue 实例的方法中写 DOM 操作不可以吗？为什么使用 Vue Directive 来封装 DOM 操作呢？<br>为了实现 View 和 ViewModel 的分离，我们必须封装 DOM 操作，View 层负责页面上的显示，ViewModel 层负责改变操作数据，由于 Vue 是数据驱动的，属于 ViewModel 层，那么其中就不应该出现 View 层上的 DOM 操作，而且，使用 Vue Directive 是和 DOM 元素的创建、销毁绑定的。Vue Directive 的生命周期方法能让我们更优雅的去在合适的时机进行 DOM 的操作。而在 ViewModel 里则没有和 DOM 元素对应的方法。因为 Vue Directive 是属于 View 层面的，所以 DOM 操作应该被封装在 Vue Directive 里而不是出现在 Vue 实例中。</p>
+                <blockquote>
+<p>directive的使用以及记录指令的场景、实现</p>
+</blockquote>
+<h3 id="为什么要使用-VueDirective"><a href="#为什么要使用-VueDirective" class="headerlink" title="为什么要使用 VueDirective"></a>为什么要使用 VueDirective</h3><p>在 Vue 实例的方法中写 DOM 操作不可以吗？为什么使用 Vue Directive 来封装 DOM 操作呢？<br>为了实现 View 和 ViewModel 的分离，我们必须封装 DOM 操作，View 层负责页面上的显示，ViewModel 层负责改变操作数据，由于 Vue 是数据驱动的，属于 ViewModel 层，那么其中就不应该出现 View 层上的 DOM 操作，而且，使用 Vue Directive 是和 DOM 元素的创建、销毁绑定的。Vue Directive 的生命周期方法能让我们更优雅的去在合适的时机进行 DOM 的操作。而在 ViewModel 里则没有和 DOM 元素对应的方法。因为 Vue Directive 是属于 View 层面的，所以 DOM 操作应该被封装在 Vue Directive 里而不是出现在 Vue 实例中。</p>
 <p><a href="https://github.com/qiuchunhong/vueProject/blob/master/src/views/directives/index.vue" target="_blank" rel="noopener">基础使用</a></p>
 <h3 id="业务场景"><a href="#业务场景" class="headerlink" title="业务场景"></a>业务场景</h3><blockquote>
 <ul>
@@ -436,106 +439,110 @@
 </ul>
 </blockquote>
 <p><strong>store 需要 import 进来</strong></p>
-<pre><code>const directive = Vue.directive(&#39;permission-click&#39;, {
-  bind: (el, binding, vnode) =&gt; {
-    el.addEventListener(&#39;click&#39;, (e) =&gt; {
-      if (!store.getters.isLogin) {
-        store.dispatch(&#39;showLogin&#39;)
-      } else {
-        typeof binding.value === &#39;function&#39; &amp;&amp; binding.value()
-      }
-    })
-  }
-})
-directives: {
-    permissionClick: {
-        bind (el, binding, vnode) {
-            el.addEventListener(&#39;click&#39;, (e) =&gt; {
-                if (!store.getters.isLogin) {
-                    store.dispatch(&#39;user/showLogin&#39;)
-                } else {
-                    typeof binding.value === &#39;function&#39; &amp;&amp; binding.value()
-                }
-            })
-        }
-    }
-}</code></pre><blockquote>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">const</span> directive <span class="token operator">=</span> Vue<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'permission-click'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  bind<span class="token punctuation">:</span> <span class="token punctuation">(</span>el<span class="token punctuation">,</span> binding<span class="token punctuation">,</span> vnode<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>store<span class="token punctuation">.</span>getters<span class="token punctuation">.</span>isLogin<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token string">'showLogin'</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">typeof</span> binding<span class="token punctuation">.</span>value <span class="token operator">===</span> <span class="token string">'function'</span> <span class="token operator">&amp;&amp;</span> binding<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+directives<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    permissionClick<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        bind <span class="token punctuation">(</span>el<span class="token punctuation">,</span> binding<span class="token punctuation">,</span> vnode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            el<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+                <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>store<span class="token punctuation">.</span>getters<span class="token punctuation">.</span>isLogin<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                    store<span class="token punctuation">.</span><span class="token function">dispatch</span><span class="token punctuation">(</span><span class="token string">'user/showLogin'</span><span class="token punctuation">)</span>
+                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+                    <span class="token keyword">typeof</span> binding<span class="token punctuation">.</span>value <span class="token operator">===</span> <span class="token string">'function'</span> <span class="token operator">&amp;&amp;</span> binding<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
 <ul>
 <li>v-loading 全局加载</li>
 </ul>
 </blockquote>
-<pre><code>&lt;div v-loading=&quot;loading&quot;&gt;&lt;/div&gt;
-&lt;div @click=&quot;showLoading&quot;&gt;change loading status&lt;/div&gt;
-methods: {
-    showLoading () {
-        this.loading = true
-        let timer = setTimeout(() =&gt; {
-            this.loading = false
-            // clearTimeout(timer)
-        }, 1000)
-    }
-},
- Vue.directive(&#39;loading&#39;, {
-        update(el, binding, vnode) {
-          if (binding.value) {
-            const div = document.createElement(&#39;div&#39;)
-            div.innerText = &#39;加载中...&#39;
-            div.setAttribute(&#39;id&#39;, &#39;loading&#39;)
-            div.style.position = &#39;absolute&#39;
-            div.style.left = 0
-            div.style.top = 0
-            div.style.width = &#39;100%&#39;
-            div.style.height = &#39;100%&#39;
-            div.style.display = &#39;flex&#39;
-            div.style.justifyContent = &#39;center&#39;
-            div.style.alignItems = &#39;center&#39;
-            div.style.color = &#39;white&#39;
-            div.style.background = &#39;rgba(0, 0, 0, .7)&#39;
-            document.body.append(div)
-          } else {
-            document.body.removeChild(document.getElementById(&#39;loading&#39;))
-          }
-        }
-      })</code></pre><blockquote>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>div v<span class="token operator">-</span>loading<span class="token operator">=</span><span class="token string">"loading"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+<span class="token operator">&lt;</span>div @click<span class="token operator">=</span><span class="token string">"showLoading"</span><span class="token operator">></span>change loading status<span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    showLoading <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">true</span>
+        <span class="token keyword">let</span> timer <span class="token operator">=</span> <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">false</span>
+            <span class="token comment" spellcheck="true">// clearTimeout(timer)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+ Vue<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'loading'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        <span class="token function">update</span><span class="token punctuation">(</span>el<span class="token punctuation">,</span> binding<span class="token punctuation">,</span> vnode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token keyword">if</span> <span class="token punctuation">(</span>binding<span class="token punctuation">.</span>value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">const</span> div <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span>
+            div<span class="token punctuation">.</span>innerText <span class="token operator">=</span> <span class="token string">'加载中...'</span>
+            div<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">'id'</span><span class="token punctuation">,</span> <span class="token string">'loading'</span><span class="token punctuation">)</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>position <span class="token operator">=</span> <span class="token string">'absolute'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>left <span class="token operator">=</span> <span class="token number">0</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>top <span class="token operator">=</span> <span class="token number">0</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token string">'100%'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>height <span class="token operator">=</span> <span class="token string">'100%'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">'flex'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>justifyContent <span class="token operator">=</span> <span class="token string">'center'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>alignItems <span class="token operator">=</span> <span class="token string">'center'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>color <span class="token operator">=</span> <span class="token string">'white'</span>
+            div<span class="token punctuation">.</span>style<span class="token punctuation">.</span>background <span class="token operator">=</span> <span class="token string">'rgba(0, 0, 0, .7)'</span>
+            document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>div<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'loading'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
 <ul>
 <li>根据路由角色控制 DOM <strong>(一般是按钮多)</strong> 是否显示</li>
 </ul>
 </blockquote>
-<pre><code> bind: function (el, binding, vnode) {
-  // 获取按钮权限  路由中 meta 中的角色
-  let btnPermissions = vnode.context.$route.meta.btnPermissions.split(&quot;,&quot;);
-  if (btnPermissions.indexOf(&#39;admin&#39;)&lt;0) {
-      // 不是admin 就不显示
-      // 当然此处也可以 将 el 样式隐藏也行
-   el.parentNode.removeChild(el);
-  }
-}</code></pre><blockquote>
+<pre class="line-numbers language-javascript"><code class="language-javascript"> bind<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>el<span class="token punctuation">,</span> binding<span class="token punctuation">,</span> vnode<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 获取按钮权限  路由中 meta 中的角色</span>
+  <span class="token keyword">let</span> btnPermissions <span class="token operator">=</span> vnode<span class="token punctuation">.</span>context<span class="token punctuation">.</span>$route<span class="token punctuation">.</span>meta<span class="token punctuation">.</span>btnPermissions<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>btnPermissions<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string">'admin'</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 不是admin 就不显示</span>
+      <span class="token comment" spellcheck="true">// 当然此处也可以 将 el 样式隐藏也行</span>
+   el<span class="token punctuation">.</span>parentNode<span class="token punctuation">.</span><span class="token function">removeChild</span><span class="token punctuation">(</span>el<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
 <ul>
 <li>根据后台下发 权限 字段，控制当前 DOM 是否展示</li>
 </ul>
 </blockquote>
-<pre><code> // 很多时候，服务器下发了  showBtn 字段就代表 显示某个 按钮，前端一般把控制权限的数据都放在内存中
- // 这样写 在 bind update 都会执行
-Vue.directive(&#39;check-permission&#39;, function (el, binding) {
-  var success = checkPermission(binding.value); // 拿到绑定的值
-  if(!success){
-    el.style.display = &#39;none&#39;;
-  }
-})
+<pre class="line-numbers language-javascript"><code class="language-javascript"> <span class="token comment" spellcheck="true">// 很多时候，服务器下发了  showBtn 字段就代表 显示某个 按钮，前端一般把控制权限的数据都放在内存中</span>
+ <span class="token comment" spellcheck="true">// 这样写 在 bind update 都会执行</span>
+Vue<span class="token punctuation">.</span><span class="token function">directive</span><span class="token punctuation">(</span><span class="token string">'check-permission'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>el<span class="token punctuation">,</span> binding<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> success <span class="token operator">=</span> <span class="token function">checkPermission</span><span class="token punctuation">(</span>binding<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 拿到绑定的值</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>success<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    el<span class="token punctuation">.</span>style<span class="token punctuation">.</span>display <span class="token operator">=</span> <span class="token string">'none'</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
 
-function checkPermission(permissionKey) {
-  var values = localStorage.getItem(&quot;userPermissions&quot;);
-  if (!values) {
-    console.log(&#39;can not find permissions config from localstorage, function access will be denied.&#39;);
-    return false;
-  }
-  var ret = values.split(&#39;,&#39;).find(item =&gt; item === permissionKey) != null;
-  console.log(&#39;===========check permission, key:&#39; + permissionKey + &quot;, result:&quot; + ret + &quot;==========&quot;);
-  return ret;
-}
+<span class="token keyword">function</span> <span class="token function">checkPermission</span><span class="token punctuation">(</span>permissionKey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> values <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">"userPermissions"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>values<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'can not find permissions config from localstorage, function access will be denied.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">var</span> ret <span class="token operator">=</span> values<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">','</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span>item <span class="token operator">=</span><span class="token operator">></span> item <span class="token operator">===</span> permissionKey<span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'===========check permission, key:'</span> <span class="token operator">+</span> permissionKey <span class="token operator">+</span> <span class="token string">", result:"</span> <span class="token operator">+</span> ret <span class="token operator">+</span> <span class="token string">"=========="</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> ret<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 
-// 使用
-v-check-permission=&quot;&#39;showBtn&#39;&quot;</code></pre>
+<span class="token comment" spellcheck="true">// 使用</span>
+v<span class="token operator">-</span>check<span class="token operator">-</span>permission<span class="token operator">=</span><span class="token string">"'showBtn'"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -999,7 +1006,7 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
 </body>

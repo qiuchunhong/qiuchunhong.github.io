@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="reduce - js, World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,12 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-synthwave84.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -468,99 +468,106 @@
 <li><a href="#item7">数组去重</a></li>
 <li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="noopener">更多…</a></li>
 </ul>
-<h4 id="数组求和"><a href="#数组求和" class="headerlink" title="数组求和"></a><font id="item1">数组求和</font></h4><pre><code>(()=&gt;{
-    var total = [ 0, 1, 2, 3 ].reduce(
-    ( acc, cur ) =&gt; acc + cur,
-    0
-    );
-    return total    // 6
-})()</code></pre><h4 id="累加对象数组里的值"><a href="#累加对象数组里的值" class="headerlink" title="累加对象数组里的值"></a><font id="item2">累加对象数组里的值</font></h4><pre><code>(()=&gt;{
-    var sum = [{x: 1}, {x:2}, {x:3}].reduce(
-        (accumulator, currentValue) =&gt; accumulator + currentValue.x
-        ,0
-    );
-    return sum  // 6
-})()</code></pre><h4 id="将二维数组转化为一维"><a href="#将二维数组转化为一维" class="headerlink" title="将二维数组转化为一维"></a><font id="item3">将二维数组转化为一维</font></h4><pre><code>(()=&gt;{
-    var flattened = [[0, 1], [2, 3], [4, 5]].reduce(
-    function(a, b) {
-        return a.concat(b);
-    },[]);
-    return flattened    // [0, 1, 2, 3, 4, 5]
-})()</code></pre><h4 id="计算数组中每个元素出现的次数"><a href="#计算数组中每个元素出现的次数" class="headerlink" title="计算数组中每个元素出现的次数"></a><font id="item4">计算数组中每个元素出现的次数</font></h4><pre><code>(()=&gt;{
-    var names = [&#39;Alice&#39;, &#39;Bob&#39;, &#39;Tiff&#39;, &#39;Bruce&#39;, &#39;Alice&#39;];
-    var countNames = names.reduce((allNames,name)=&gt;{
-        if(name in allNames){
-            allNames[name]++
-        }else{
-            allNames[name] = 1
-        }
-        return allNames
-    },{})
-    return countNames
-    // {Alice: 2, Bob: 1, Tiff: 1, Bruce: 1}
-})()</code></pre><h4 id="按属性对-object-分类"><a href="#按属性对-object-分类" class="headerlink" title="按属性对 object 分类"></a><font id="item5">按属性对 object 分类</font></h4><pre><code>(()=&gt;{
-    var people = [
-    { name: &#39;Alice&#39;, age: 21 },
-    { name: &#39;Max&#39;, age: 20 },
-    { name: &#39;Jane&#39;, age: 20 }
-    ];
-    function groupBy(arr,attr){
-        return a = arr.reduce((acc,cur)=&gt;{
-            if(cur[attr] in acc){
-                acc[cur[attr]].push(acc)
-            }else{
-                acc[cur[attr]] = [acc]
-            }
-            return acc
-        },{})
-    }
-    return groupBy(people,&#39;age&#39;)
-    // { 
-    //   20: [
-    //     { name: &#39;Max&#39;, age: 20 }, 
-    //     { name: &#39;Jane&#39;, age: 20 }
-    //   ], 
-    //   21: [{ name: &#39;Alice&#39;, age: 21 }] 
-    // }
-})()</code></pre><h4 id="使用扩展运算符和-initialValue-绑定包含在对象数组中的数组"><a href="#使用扩展运算符和-initialValue-绑定包含在对象数组中的数组" class="headerlink" title="使用扩展运算符和 initialValue 绑定包含在对象数组中的数组"></a><font id="item6">使用扩展运算符和 initialValue 绑定包含在对象数组中的数组</font></h4><pre><code>(()=&gt;{
-    var friends = [{
-        name: &#39;Anna&#39;,
-        books: [&#39;Bible&#39;, &#39;Harry Potter&#39;],
-        age: 21
-    }, {
-        name: &#39;Bob&#39;,
-        books: [&#39;War and peace&#39;, &#39;Romeo and Juliet&#39;],
-        age: 26
-    }, {
-        name: &#39;Alice&#39;,
-        books: [&#39;The Lord of the Rings&#39;, &#39;The Shining&#39;],
-        age: 18
-    }];
-    var allbooks = friends.reduce((prev, curr) =&gt;{
-        return [...prev, ...curr.books];
-    }, [&#39;Alphabet&#39;]);
-    return allbooks
-    // [&quot;Alphabet&quot;, &quot;Bible&quot;, &quot;Harry Potter&quot;, &quot;War and peace&quot;, &quot;Romeo and Juliet&quot;, &quot;The Lord of the Rings&quot;, &quot;The Shining&quot;]
-})()</code></pre><h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><font id="item7">数组去重</font></h4><pre><code>(()=&gt;{
-    var myArray = [&#39;a&#39;, &#39;b&#39;, &#39;a&#39;, &#39;b&#39;, &#39;c&#39;, &#39;e&#39;, &#39;e&#39;, &#39;c&#39;, &#39;d&#39;, &#39;d&#39;, &#39;d&#39;, &#39;d&#39;];
-    var res = myArray.reduce((acc,cur)=&gt;{
-        if(!acc.includes(cur) ){    //acc.indexOf(cur) == -1 
-            acc.push(cur)
-        }
-        return acc
-    },[])
-    return res  // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;e&quot;, &quot;d&quot;]
-})()
-(()=&gt;{
-    var myArray = [1,2,1,2,3,5,4,5,3,4,4,4,4];
-    var res = myArray.sort((a,b)=&gt;a-b).reduce((acc,cur)=&gt;{
-        if( acc.length ===0 || acc[acc.length - 1] !== cur){
-            acc.push(cur)
-        }
-        return acc
-    },[])
-    console.log( res ) // [1, 2, 3, 4, 5]
-})()</code></pre>
+<h4 id="数组求和"><a href="#数组求和" class="headerlink" title="数组求和"></a><font id="item1">数组求和</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> total <span class="token operator">=</span> <span class="token punctuation">[</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>
+    <span class="token punctuation">(</span> acc<span class="token punctuation">,</span> cur <span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> acc <span class="token operator">+</span> cur<span class="token punctuation">,</span>
+    <span class="token number">0</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> total    <span class="token comment" spellcheck="true">// 6</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="累加对象数组里的值"><a href="#累加对象数组里的值" class="headerlink" title="累加对象数组里的值"></a><font id="item2">累加对象数组里的值</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> sum <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>x<span class="token punctuation">:</span><span class="token number">2</span><span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>x<span class="token punctuation">:</span><span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>
+        <span class="token punctuation">(</span>accumulator<span class="token punctuation">,</span> currentValue<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> accumulator <span class="token operator">+</span> currentValue<span class="token punctuation">.</span>x
+        <span class="token punctuation">,</span><span class="token number">0</span>
+    <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> sum  <span class="token comment" spellcheck="true">// 6</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="将二维数组转化为一维"><a href="#将二维数组转化为一维" class="headerlink" title="将二维数组转化为一维"></a><font id="item3">将二维数组转化为一维</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> flattened <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>
+    <span class="token keyword">function</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span>b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> flattened    <span class="token comment" spellcheck="true">// [0, 1, 2, 3, 4, 5]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="计算数组中每个元素出现的次数"><a href="#计算数组中每个元素出现的次数" class="headerlink" title="计算数组中每个元素出现的次数"></a><font id="item4">计算数组中每个元素出现的次数</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> names <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'Alice'</span><span class="token punctuation">,</span> <span class="token string">'Bob'</span><span class="token punctuation">,</span> <span class="token string">'Tiff'</span><span class="token punctuation">,</span> <span class="token string">'Bruce'</span><span class="token punctuation">,</span> <span class="token string">'Alice'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> countNames <span class="token operator">=</span> names<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>allNames<span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>name <span class="token keyword">in</span> allNames<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            allNames<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token operator">++</span>
+        <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+            allNames<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">1</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> allNames
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> countNames
+    <span class="token comment" spellcheck="true">// {Alice: 2, Bob: 1, Tiff: 1, Bruce: 1}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="按属性对-object-分类"><a href="#按属性对-object-分类" class="headerlink" title="按属性对 object 分类"></a><font id="item5">按属性对 object 分类</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> people <span class="token operator">=</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">21</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">'Max'</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">'Jane'</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">20</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">function</span> <span class="token function">groupBy</span><span class="token punctuation">(</span>arr<span class="token punctuation">,</span>attr<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a <span class="token operator">=</span> arr<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span>cur<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+            <span class="token keyword">if</span><span class="token punctuation">(</span>cur<span class="token punctuation">[</span>attr<span class="token punctuation">]</span> <span class="token keyword">in</span> acc<span class="token punctuation">)</span><span class="token punctuation">{</span>
+                acc<span class="token punctuation">[</span>cur<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>acc<span class="token punctuation">)</span>
+            <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+                acc<span class="token punctuation">[</span>cur<span class="token punctuation">[</span>attr<span class="token punctuation">]</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>acc<span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+            <span class="token keyword">return</span> acc
+        <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token function">groupBy</span><span class="token punctuation">(</span>people<span class="token punctuation">,</span><span class="token string">'age'</span><span class="token punctuation">)</span>
+    <span class="token comment" spellcheck="true">// { </span>
+    <span class="token comment" spellcheck="true">//   20: [</span>
+    <span class="token comment" spellcheck="true">//     { name: 'Max', age: 20 }, </span>
+    <span class="token comment" spellcheck="true">//     { name: 'Jane', age: 20 }</span>
+    <span class="token comment" spellcheck="true">//   ], </span>
+    <span class="token comment" spellcheck="true">//   21: [{ name: 'Alice', age: 21 }] </span>
+    <span class="token comment" spellcheck="true">// }</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="使用扩展运算符和-initialValue-绑定包含在对象数组中的数组"><a href="#使用扩展运算符和-initialValue-绑定包含在对象数组中的数组" class="headerlink" title="使用扩展运算符和 initialValue 绑定包含在对象数组中的数组"></a><font id="item6">使用扩展运算符和 initialValue 绑定包含在对象数组中的数组</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> friends <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span> <span class="token string">'Anna'</span><span class="token punctuation">,</span>
+        books<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'Bible'</span><span class="token punctuation">,</span> <span class="token string">'Harry Potter'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        age<span class="token punctuation">:</span> <span class="token number">21</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span> <span class="token string">'Bob'</span><span class="token punctuation">,</span>
+        books<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'War and peace'</span><span class="token punctuation">,</span> <span class="token string">'Romeo and Juliet'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        age<span class="token punctuation">:</span> <span class="token number">26</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        name<span class="token punctuation">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
+        books<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">'The Lord of the Rings'</span><span class="token punctuation">,</span> <span class="token string">'The Shining'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        age<span class="token punctuation">:</span> <span class="token number">18</span>
+    <span class="token punctuation">}</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> allbooks <span class="token operator">=</span> friends<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> curr<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token operator">...</span>prev<span class="token punctuation">,</span> <span class="token operator">...</span>curr<span class="token punctuation">.</span>books<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'Alphabet'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> allbooks
+    <span class="token comment" spellcheck="true">// ["Alphabet", "Bible", "Harry Potter", "War and peace", "Romeo and Juliet", "The Lord of the Rings", "The Shining"]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h4 id="数组去重"><a href="#数组去重" class="headerlink" title="数组去重"></a><font id="item7">数组去重</font></h4><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> myArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token string">'b'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'e'</span><span class="token punctuation">,</span> <span class="token string">'c'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">,</span> <span class="token string">'d'</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> res <span class="token operator">=</span> myArray<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span>cur<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>acc<span class="token punctuation">.</span><span class="token function">includes</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">{</span>    <span class="token comment" spellcheck="true">//acc.indexOf(cur) == -1 </span>
+            acc<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> acc
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> res  <span class="token comment" spellcheck="true">// ["a", "b", "c", "e", "d"]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+    <span class="token keyword">var</span> myArray <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">5</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">,</span><span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> res <span class="token operator">=</span> myArray<span class="token punctuation">.</span><span class="token function">sort</span><span class="token punctuation">(</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span>b<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span>a<span class="token operator">-</span>b<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span>cur<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span> acc<span class="token punctuation">.</span>length <span class="token operator">===</span><span class="token number">0</span> <span class="token operator">||</span> acc<span class="token punctuation">[</span>acc<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">!==</span> cur<span class="token punctuation">)</span><span class="token punctuation">{</span>
+            acc<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>cur<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> acc
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> res <span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// [1, 2, 3, 4, 5]</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -1046,7 +1053,7 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
 </body>

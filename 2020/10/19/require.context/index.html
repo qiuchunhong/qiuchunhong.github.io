@@ -3,7 +3,7 @@
 
 
 <head>
-    <meta charset="utf-8">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
     <meta name="keywords" content="require.context(), World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,12 +29,12 @@
 
     <script src="/libs/jquery/jquery.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-synthwave84.css" type="text/css">
-<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 
 <body>
-    <header class="navbar-fixed">
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><header class="navbar-fixed">
     <nav id="headNav" class="bg-color nav-transparent">
         <div id="navContainer" class="nav-wrapper container">
             <div class="brand-logo">
@@ -429,10 +429,13 @@
         <div class="card-content article-card-content">
             <div id="articleContent">
                 <p>语法：</p>
-<pre><code>require.context(directory, useSubdirectories = true, regExp = /^\.\/.*$/, mode = &#39;sync&#39;);</code></pre><p>示例：</p>
-<pre><code>require.context(&#39;./test&#39;, false, /\.test\.js$/);
-//（创建出）一个 context，其中文件来自 test 目录，request 以 `.test.js` 结尾。</code></pre><pre><code>require.context(&#39;../&#39;, true, /\.stories\.js$/);
-// （创建出）一个 context，其中所有文件都来自父文件夹及其所有子级文件夹，request 以 `.stories.js` 结尾。</code></pre><h2 id="context-module-API"><a href="#context-module-API" class="headerlink" title="context module API"></a>context module API</h2><p>一个 context module 会导出一个（require）函数，此函数可以接收一个参数：request。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span>directory<span class="token punctuation">,</span> useSubdirectories <span class="token operator">=</span> <span class="token boolean">true</span><span class="token punctuation">,</span> regExp <span class="token operator">=</span> <span class="token regex">/^\.\/.*$/</span><span class="token punctuation">,</span> mode <span class="token operator">=</span> <span class="token string">'sync'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>示例：</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">'./test'</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token regex">/\.test\.js$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//（创建出）一个 context，其中文件来自 test 目录，request 以 `.test.js` 结尾。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript"><code class="language-javascript">require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">'../'</span><span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token regex">/\.stories\.js$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// （创建出）一个 context，其中所有文件都来自父文件夹及其所有子级文件夹，request 以 `.stories.js` 结尾。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<h2 id="context-module-API"><a href="#context-module-API" class="headerlink" title="context module API"></a>context module API</h2><p>一个 context module 会导出一个（require）函数，此函数可以接收一个参数：request。</p>
 <p>require.context函数接受三个参数</p>
 <ul>
 <li>directory {String} - 要搜索的目录</li>
@@ -450,55 +453,58 @@
 </blockquote>
 <h2 id="实例：组织路由"><a href="#实例：组织路由" class="headerlink" title="实例：组织路由"></a>实例：组织路由</h2><ol>
 <li><p>分割路由<br>首先为了方便我们管理，我们把router目录下的文件分割为以下结构</p>
-<pre><code>router                           // 路由文件夹
+<pre class="line-numbers language-base"><code class="language-base">router                           // 路由文件夹
 |__index.js                    // 路由组织器：用来初始化路由等等
 |__common.js                   // 通用路由：声明通用路由
 |__modules                     // 业务逻辑模块：所以的业务逻辑模块
      |__index.js              // 自动化处理文件：自动引入路由的核心文件
      |__home.js               // 业务模块home：业务模块
-     |__a.js                  // 业务模块a</code></pre></li>
+     |__a.js                  // 业务模块a<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
 <li><p>modules文件夹中处理业务模块</p>
 </li>
 </ol>
 <p>我们通过上面提到的require.context()接下来编写自动化的核心部分index.js</p>
-<pre><code>import Vue from &quot;vue&quot;;
-import VueRouter from &quot;vue-router&quot;;
-Vue.use(VueRouter);
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">"vue"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> VueRouter <span class="token keyword">from</span> <span class="token string">"vue-router"</span><span class="token punctuation">;</span>
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueRouter<span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-let routeOptions = []
-let files = require.context(&quot;.&quot;, false, /\.js$/);
-files.keys().forEach(key=&gt;{
-  if(key == &#39;./index.js&#39;) return ;
-  routeOptions = routeOptions.concat(files(key).default)
-})
-const routes = routeOptions.map(route=&gt;{
-  if(!route.component){
-    route = {
-      ...route,
-      component:()=&gt;import(`@/views/${route.filePath}`),
-      meta:{
-        ...route.meta
-      }
-    }
-  }
-  return route
-})
-const router = new VueRouter({
-  mode: &quot;history&quot;,
-  routes,
-  scrollBehavior(){
-    return{x:0,y:0}
-  }
-})
-export default router
-</code></pre><p>其他模块模板</p>
-<pre><code>export default [
-  {
-    path: &quot;/activityFroms&quot;,
-    name: &quot;activityFroms&quot;,
-    filePath: &quot;activity/activityFroms.vue&quot;
-  }
-];</code></pre>
+<span class="token keyword">let</span> routeOptions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token keyword">let</span> files <span class="token operator">=</span> require<span class="token punctuation">.</span><span class="token function">context</span><span class="token punctuation">(</span><span class="token string">"."</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token regex">/\.js$/</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+files<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>key<span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>key <span class="token operator">==</span> <span class="token string">'./index.js'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token punctuation">;</span>
+  routeOptions <span class="token operator">=</span> routeOptions<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token function">files</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> routes <span class="token operator">=</span> routeOptions<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>route<span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token operator">!</span>route<span class="token punctuation">.</span>component<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    route <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token operator">...</span>route<span class="token punctuation">,</span>
+      component<span class="token punctuation">:</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token keyword">import</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`@/views/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>route<span class="token punctuation">.</span>filePath<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      meta<span class="token punctuation">:</span><span class="token punctuation">{</span>
+        <span class="token operator">...</span>route<span class="token punctuation">.</span>meta
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> route
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  mode<span class="token punctuation">:</span> <span class="token string">"history"</span><span class="token punctuation">,</span>
+  routes<span class="token punctuation">,</span>
+  <span class="token function">scrollBehavior</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span><span class="token punctuation">{</span>x<span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">,</span>y<span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> router
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>其他模块模板</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    path<span class="token punctuation">:</span> <span class="token string">"/activityFroms"</span><span class="token punctuation">,</span>
+    name<span class="token punctuation">:</span> <span class="token string">"activityFroms"</span><span class="token punctuation">,</span>
+    filePath<span class="token punctuation">:</span> <span class="token string">"activity/activityFroms.vue"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
             </div>
             <hr/>
 
@@ -990,7 +996,7 @@ $(function () {
     
 
     
-    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    <script src="/libs/instantpage/instantpage.js" type="module"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
     
 
 </body>
