@@ -10,13 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="str.substr(start[, length]) 截取指定长度字符串    不推荐使用
-
-str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间
-
-str.slice(beginIndex[, endIndex])
-
-情景模式-参数为负数substr">
+        <meta name="description" content="继承是为了子类可以使用父类的所有功能，并且能对这些功能进行扩展。">
     
 
     <!--Author-->
@@ -26,10 +20,12 @@ str.slice(beginIndex[, endIndex])
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="js 字符串常用方法总结"/>
+        <meta property="og:title" content="js继承、class"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="继承是为了子类可以使用父类的所有功能，并且能对这些功能进行扩展。" />
     
 
     <!--Open Graph Site Name-->
@@ -48,7 +44,7 @@ str.slice(beginIndex[, endIndex])
 
     <!-- Title -->
     
-    <title>js 字符串常用方法总结 - World wide tour yayayaya yaya</title>
+    <title>js继承、class - World wide tour yayayaya yaya</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="/css/tachyons.min.css">
@@ -118,9 +114,9 @@ str.slice(beginIndex[, endIndex])
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">js 字符串常用方法总结</h1>
-            <p class="f4 fw3 tc tc-m tl-ns">2020-06-21</p>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">js继承、class</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-11-19</p>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">继承是为了子类可以使用父类的所有功能，并且能对这些功能进行扩展。</p>
         </div>
     </div>
 
@@ -146,38 +142,33 @@ str.slice(beginIndex[, endIndex])
                     
 
                     <!-- Main Post Content -->
-                    <ul>
-<li><p>str.substr(start[, length]) 截取指定长度字符串    不推荐使用</p>
-</li>
-<li><p>str.substring(indexStart[, indexEnd]) 开始索引到结束索引之间</p>
-</li>
-<li><p>str.slice(beginIndex[, endIndex])</p>
+                    <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><blockquote>
+<p>下面代码中，b是B类的实例，它的constructor方法就是B类原型的constructor方法。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">class B &#123;&#125;  &#x2F;&#x2F; &#x3D;&#x3D;&#x3D; function B()&#123;&#125;</span><br><span class="line">let b &#x3D; new B();</span><br><span class="line"></span><br><span class="line">b.constructor &#x3D;&#x3D;&#x3D; B.prototype.constructor &#x2F;&#x2F; true</span><br></pre></td></tr></table></figure>
+
 <blockquote>
-<p>情景模式-参数为负数<br>substr() 会将第一个负参数与字符串长度相加，第二个负参数转化为 0<br>substring() 将所有的负参数转化为 0<br>slice() 会将所有的负数于字符串的长度相加</p>
+<p>由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; es5写法</span><br><span class="line">function U()&#123;&#125;</span><br><span class="line">U.prototype.say &#x3D; function()&#123;console.log(&#39;hi&#39;)&#125;</span><br><span class="line">let u &#x3D; new U()</span><br><span class="line">u.say()</span><br><span class="line">&#x2F;&#x2F; es6写法</span><br><span class="line">class P&#123;&#125;</span><br><span class="line">Object.assign(P.prototype,&#123;say()&#123;console.log(&#39;hello&#39;)&#125;&#125;)</span><br><span class="line">let p &#x3D; new P()</span><br><span class="line">p.say()</span><br></pre></td></tr></table></figure>
+
+<p><strong>实例1</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">class Point &#123;</span><br><span class="line">  constructor(x,y)&#123;</span><br><span class="line">    this.x &#x3D; x;</span><br><span class="line">    this.y &#x3D; y;</span><br><span class="line">  &#125;</span><br><span class="line">  sum()&#123;</span><br><span class="line">    return this.x+ this.y</span><br><span class="line">  &#125;</span><br><span class="line">  static hello() &#123;</span><br><span class="line">    console.log(&#39;hello world&#39;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class ColorPoint extends Point&#123;</span><br><span class="line">  constructor(x,y,color)&#123;</span><br><span class="line">    &#x2F;&#x2F; this.color &#x3D; color; &#x2F;&#x2F; ReferenceError</span><br><span class="line">    super(x,y)</span><br><span class="line">    this.color &#x3D; color; &#x2F;&#x2F; 正确</span><br><span class="line">  &#125;</span><br><span class="line">  say()&#123;</span><br><span class="line">    console.log(&#39;x&#x3D;&#39;+this.x +&#39;, y&#x3D;&#39;+this.y+&#39;, color&#x3D;&#39;+this.color+&#39;, x+y&#x3D;&#39;+this.sum())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let a  &#x3D; new ColorPoint(12,3,&#39;green&#39;)</span><br><span class="line">a.say();  &#x2F;&#x2F;x&#x3D;12, y&#x3D;3, color&#x3D;green, x+y&#x3D;15</span><br><span class="line">console.log( a instanceof ColorPoint );  &#x2F;&#x2F; true</span><br><span class="line">console.log( a instanceof Point ); &#x2F;&#x2F; true</span><br><span class="line">ColorPoint.hello(); &#x2F;&#x2F; hello world</span><br></pre></td></tr></table></figure>
+<p><strong>解析：</strong></p>
+<ul>
+<li>super()必须写到子类的constructor中的最上方。只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。如果子类没有定义constructor方法，这个方法会被默认添加，代码如下<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class ColorPoint extends Point &#123;</span><br><span class="line">&#125;</span><br><span class="line">&#x2F;&#x2F; 等同于</span><br><span class="line">class ColorPoint extends Point &#123;</span><br><span class="line">  constructor(...args) &#123;</span><br><span class="line">    super(...args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<ul>
+<li>super作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</li>
+<li>super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</li>
+</ul>
 </blockquote>
 </li>
-<li><p>indexOf</p>
-</li>
-<li><p>lastIndexOf</p>
-</li>
-<li><p>includes str.includes(‘@’)</p>
-</li>
-<li><p>toUpperCase</p>
-</li>
-<li><p>toLowerCase</p>
-</li>
-<li><p>split 字符串转数组 </p>
-</li>
-<li><p>replace</p>
-</li>
-<li><p>match str.match(regexp)</p>
-</li>
-<li><p>trim 去掉两边的空格</p>
-</li>
-<li><p>trimEnd || trimRight</p>
-</li>
-<li><p>trimStart || trimLeft</p>
-</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">class A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    this.x &#x3D; 1;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class B extends A &#123;</span><br><span class="line">  constructor() &#123;</span><br><span class="line">    super();</span><br><span class="line">    this.x &#x3D; 2;</span><br><span class="line">    super.x &#x3D; 3;</span><br><span class="line">    console.log(super.x); &#x2F;&#x2F; undefined</span><br><span class="line">    console.log(this.x); &#x2F;&#x2F; 3</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">let b &#x3D; new B();</span><br></pre></td></tr></table></figure>
+<p>上面代码中，super.x赋值为3，这时等同于对this.x赋值为3。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。</p>
+<ul>
+<li>父类的静态方法，也会被子类继承。hello()是A类的静态方法，B继承A，也继承了A的静态方法。</li>
 </ul>
 
                     
@@ -213,18 +204,6 @@ str.slice(beginIndex[, endIndex])
                     <hr class="dn-l mw4 black-50 mt5" />
                     
                     <!-- Widget 2: Categories -->
-                    
-                        <div class="mt5 tc tl-l">
-    <h3>分类</h3>
-    
-        <p>
-            <a href="/categories/js/">js</a>
-        </p>
-    
-</div>
-
-
-                        <hr class="dn-l mw4 black-50 mt5" />
                     
 
                     <!-- Widget 3: Recent Posts -->

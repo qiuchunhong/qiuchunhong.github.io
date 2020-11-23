@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Description-->
+    
+        <meta name="description" content="js原型是指为其他对象提供共享属性的对象。在创建对象时，每个对象都包含一个隐式引用指向它的原型对象或者null。&lt;br&gt; 原型也是对象，因此它也有自己的原型，这样构成一个原型链。">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="Qch">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="js原型、原型链"/>
+    
+
+    <!--Open Graph Description-->
+    
+        <meta property="og:description" content="js原型是指为其他对象提供共享属性的对象。在创建对象时，每个对象都包含一个隐式引用指向它的原型对象或者null。&lt;br&gt; 原型也是对象，因此它也有自己的原型，这样构成一个原型链。" />
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="World wide tour yayayaya yaya"/>
+
+    <!--Type page-->
+    
+        <meta property="og:type" content="article" />
+    
+
+    <!--Page Cover-->
+    
+
+    <meta name="twitter:card" content="summary" />
+    
+
+    <!-- Title -->
+    
+    <title>js原型、原型链 - World wide tour yayayaya yaya</title>
+
+    <!-- Tachyons Core CSS -->
+    <link rel="stylesheet" href="/css/tachyons.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    <!-- Google Analytics -->
+    
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+
+    <!-- Main Content -->
+    <!-- Banner -->
+<!-- Banner -->
+<div class="w-100 bg-1 ph5-ns ph3 text-light">
+    
+    <nav class="db dt-l w-100 mw8 center border-box pv3">
+        <a class="db dtc-l v-mid link dim w-100 w-25-l tc tl-l mb2 mb0-l white" href="/" title="World wide tour yayayaya yaya">
+            <img src="/assets/anodyne.svg" class="dib h3" alt="World wide tour yayayaya yaya">
+        </a>
+        <div class="db dtc-l v-mid w-100 w-75-l tc tr-l">
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/" 
+                    title="首页">
+                    首页
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/archives" 
+                    title="列表">
+                    列表
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/tags" 
+                    title="标签">
+                    标签
+                </a>
+            
+                <a class="link dim f6 f5-l dib mr3 mr4-l white" 
+                    href="/cssEffects" 
+                    title="css技巧">
+                    css技巧
+                </a>
+            
+        </div>
+    </nav>
+
+    <!-- Title -->
+    <div class="w-100 mw8 center vh-40 dt">
+        <div class="dtc v-mid white">
+            <h1 class="f1-l f2-m tc tc-m tl-ns">js原型、原型链</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-11-16</p>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">js原型是指为其他对象提供共享属性的对象。在创建对象时，每个对象都包含一个隐式引用指向它的原型对象或者null。<br> 原型也是对象，因此它也有自己的原型，这样构成一个原型链。</p>
+        </div>
+    </div>
+
+    <!-- Icon -->
+    <div class="relative w-100 mw8 center white dn dn-m db-ns">
+        <i class="header-icon fa fa-file-text-o"></i>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="w-100 ph2 ph4-m ph5-l mv5 mv6-l">
+    <div class="content">
+        <div class="mw8 center">
+            <div class="cf">
+                <div class="fl w-100 w-70-l mw7 left fw3 lh-copy pr4-ns pr0-m post-content">
+                    <!-- Tags Vertical -->
+                    
+                        <div class="tags-container-vertical">
+                            <div class="tags-sub-container">
+                                <a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                            </div>
+                        </div>
+                    
+
+                    <!-- Main Post Content -->
+                    <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><ul>
+<li><p>js分为<strong>函数对象</strong>跟<strong>普通对象</strong>，每个对象都有<code>__proto__</code>属性，但只有函数对象才能<code>prototype</code>属性。</p>
+</li>
+<li><p>Object、Function都是js内置的函数，类似的还有我们常用到的Array、RegExp、Date、Boolean、Number、String。</p>
+</li>
+<li><p>属性<strong>proto</strong>是一个对象，它有两个属性，constructor和<strong>proto</strong>。</p>
+</li>
+<li><p>原型对象prototype有一个默认的constructor属性，用于记录实例是由哪个构造函数创建。</p>
+</li>
+</ul>
+<p><img src="./images/js%E5%8E%9F%E5%9E%8B-01.jpeg" alt="js原型、原型链"></p>
+<blockquote>
+<p>除了Object的原型对象（Object.prototype）的<strong>proto</strong>指向null，其他内置函数对象的原型对象（例如：Array.prototype）和自定义构造函数的<br><strong>proto</strong>都指向Object.prototype, 因为原型对象本身是普通对象。<br>即：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.prototype.__proto__ &#x3D; null;</span><br><span class="line">Array.prototype.__proto__ &#x3D; Object.prototype;</span><br><span class="line">Foo.prototype.__proto__  &#x3D; Object.prototype;</span><br></pre></td></tr></table></figure>
+
+<h2 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h2><ol>
+<li>Person.prototype.constructor == Person<br>// <strong>准则1：原型对象（即Person.prototype）的constructor指向构造函数本身</strong></li>
+<li>person01.<strong>proto</strong> == Person.prototype<br>// <strong>准则2：实例（即person01）的<strong>proto</strong>和原型对象指向同一个地方</strong></li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Foo.__proto__ &#x3D; Function.prototype; &#x2F;&#x2F; 准则2</span><br><span class="line">Object.__proto__ &#x3D; Function.prototype &#x2F;&#x2F; 准则2 (Object本质也是函数)；</span><br><span class="line">Function.__proto__ &#x3D; Function.prototype &#x2F;&#x2F; 准则2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Foo.__proto__ &#x3D;&#x3D; Function.prototype</span><br><span class="line">Foo.__proto__.__proto__ &#x3D;&#x3D; Function.prototype.__proto__ &#x3D;&#x3D; Object.prototype</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="测试题"><a href="#测试题" class="headerlink" title="测试题"></a>测试题</h2><ul>
+<li><p>测试题1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function A()&#123;&#125;</span><br><span class="line">A.prototype.n &#x3D; 1</span><br><span class="line">var b &#x3D; new A()</span><br><span class="line">A.prototype &#x3D; &#123;</span><br><span class="line">    n:2,</span><br><span class="line">    m:3</span><br><span class="line">&#125;</span><br><span class="line">var c &#x3D; new A()</span><br><span class="line">console.log(b.n,b.m,c.n,c.m)    &#x2F;&#x2F; 1 undefined 2 3</span><br></pre></td></tr></table></figure>
+<p>A.prototype = {}是重写原型，<strong>重写后跟重写前就已经实例化的对象没有关系的</strong>，所以n=2,m=3不生效。若要有效,添加以下代码<code>b.__proto__.m=4</code></p>
+</li>
+<li><p>测试题2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">var F&#x3D;function ()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">Object.prototype.a &#x3D; function()&#123;</span><br><span class="line">    console.log(&#39;a()&#39;)</span><br><span class="line">&#125;</span><br><span class="line">Function.prototype.b &#x3D; function()&#123;</span><br><span class="line">    console.log(&#39;b()&#39;)</span><br><span class="line">&#125;</span><br><span class="line">var f&#x3D; new F()</span><br><span class="line">f.a()&#x2F;&#x2F;a()</span><br><span class="line">f.b()&#x2F;&#x2F;无法执行b函数，报错</span><br><span class="line">F.a()&#x2F;&#x2F;a()</span><br><span class="line">F.b()&#x2F;&#x2F;b()</span><br></pre></td></tr></table></figure>
+<p><img src="./images/js%E5%8E%9F%E5%9E%8B-02.png" alt="分析"></p>
+</li>
+<li><p>测试题3</p>
+<figure class="highlight javascript"><figcaption><span>&#123;highlight</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">User</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">User.prototype.sayHello = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line"><span class="keyword">const</span> u1 = <span class="keyword">new</span> User()</span><br><span class="line"><span class="keyword">const</span> u2 = <span class="keyword">new</span> User()</span><br><span class="line"><span class="built_in">console</span>.log(u1.sayHello === u2.sayHello,<span class="number">1</span>); <span class="comment">// t</span></span><br><span class="line"><span class="built_in">console</span>.log(User.prototype.constructor,<span class="number">2</span>);    <span class="comment">//User</span></span><br><span class="line"><span class="built_in">console</span>.log(User.prototype === <span class="built_in">Function</span>.prototype,<span class="number">3</span>);    <span class="comment">//f</span></span><br><span class="line"><span class="built_in">console</span>.log(User.__proto__ === <span class="built_in">Function</span>.prototype,<span class="number">4</span>);    <span class="comment">//t</span></span><br><span class="line"><span class="built_in">console</span>.log(User.__proto__ === <span class="built_in">Function</span>.__proto__,<span class="number">5</span>);    <span class="comment">//f-t</span></span><br><span class="line"><span class="built_in">console</span>.log(u1.__proto__ === u2.__proto__,<span class="number">6</span>);        <span class="comment">//t</span></span><br><span class="line"><span class="built_in">console</span>.log(u1.__proto__ === User.__proto__,<span class="number">7</span>);        <span class="comment">//f</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.__proto__ === <span class="built_in">Object</span>.__proto__,<span class="number">8</span>);<span class="comment">//f-t</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype.__proto__,<span class="number">9</span>);    <span class="comment">//f</span></span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__===<span class="built_in">Object</span>.prototype);    <span class="comment">//t</span></span><br><span class="line"><span class="built_in">console</span>.log(u1.constructor == User )  <span class="comment">//t</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 总结：</span><br><span class="line">User.__proto__ &#x3D;&#x3D; Function.prototype</span><br><span class="line">Function.__proto__ &#x3D;&#x3D; Function.prototype</span><br><span class="line">Object.__proto__ &#x3D;&#x3D; Function.prototype</span><br><span class="line">&#x2F;&#x2F; ---分隔---</span><br><span class="line">15：u1.__proto__ &#x3D;&#x3D; User.prototype</span><br><span class="line">    User.prototype.__proto__ &#x3D;&#x3D; Object.prototype</span><br><span class="line">    User.prototype.constructor &#x3D;&#x3D; User</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试题4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function A()&#123;</span><br><span class="line">&#125;</span><br><span class="line">function B(a)&#123;</span><br><span class="line">　　this.a &#x3D; a;</span><br><span class="line">&#125;</span><br><span class="line">function C(a)&#123;</span><br><span class="line">　　if(a)&#123;</span><br><span class="line">this.a &#x3D; a;</span><br><span class="line">　　&#125;</span><br><span class="line">&#125;</span><br><span class="line">A.prototype.a &#x3D; 1;</span><br><span class="line">B.prototype.a &#x3D; 1;</span><br><span class="line">C.prototype.a &#x3D; 1;</span><br><span class="line"> </span><br><span class="line">console.log(new A().a);</span><br><span class="line">console.log(new B().a);</span><br><span class="line">console.log(new C(2).a);</span><br></pre></td></tr></table></figure>
+<p>console.log(new A().a);　　//new A()为构造函数创建的对象，本身没有a属性，所以向它的原型去找，发现原型的a属性的属性值为1，故该输出值为1；</p>
+</li>
+</ul>
+<p>console.log(new B().a);　　//new B()为构造函数创建的对象，该构造函数有参数a，但该对象没有传参，故该输出值为undefined;</p>
+<p>console.log(new C(2).a);　　//new C()为构造函数创建的对象，该构造函数有参数a，且传的实参为2，执行函数内部，发现if为真，执行this.a = 2,故属性a的值为2；</p>
+<p>故这三个的输出值分别为：1、undefined、2</p>
+
+                    
+                    <!-- Tags Bottom -->
+                    
+                        <div class="tags-container-bottom">
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js/">#js</a>
+                        </div>
+                    
+
+                    <!-- Comments -->
+                    
+
+
+
+                </div>
+                <div class="fl w-100 w-30-l center fw3 lh-copy pl4-ns tl black-50">
+                    
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 1: About -->
+                    <div class="mt5 mt0-l">
+    <article class="dt db-l mw8 mw8-m mw5-ns center ml0-l bg-white mv3">
+        <div class="dn dtc-m db-l v-mid tc pr4 pr0-l" style="min-width: 6rem;">
+            <img src="/assets/avatar_1.jpg" class="mb4-l br-100 h3 w3 h4-l w4-l dib" title="Qch">
+        </div>
+        <div class="dtc db-l v-mid lh-copy measure center f6 black-50 tj">
+            
+        </div>
+    </article>
+</div>
+
+                    <hr class="dn-l mw4 black-50 mt5" />
+                    
+                    <!-- Widget 2: Categories -->
+                    
+                        <div class="mt5 tc tl-l">
+    <h3>分类</h3>
+    
+        <p>
+            <a href="/categories/js原型、原型链/">js原型、原型链</a>
+        </p>
+    
+</div>
+
+
+                        <hr class="dn-l mw4 black-50 mt5" />
+                    
+
+                    <!-- Widget 3: Recent Posts -->
+                    <div class="mt5 tc tl-l">
+    <h3>近期文章</h3>
+    
+        <p>
+            <a href="/2020/11/20/js-call-apply/">js 中 call()、apply()、bind()</a>
+        </p>
+    
+        <p>
+            <a href="/2020/11/19/js-%E7%BB%A7%E6%89%BF/">js继承、class</a>
+        </p>
+    
+        <p>
+            <a href="/2020/11/16/js%E5%8E%9F%E5%9E%8B/">js原型、原型链</a>
+        </p>
+    
+        <p>
+            <a href="/2020/11/02/jsOperator/">JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !</a>
+        </p>
+    
+        <p>
+            <a href="/2020/10/20/vue-mixins/">vue中mixins的理解及使用</a>
+        </p>
+    
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    <!-- Footer -->
+    <div class="bg-1 ph2 ph5-ns pv5">
+        <div class="mv8">
+            <div class="center tc">
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://twitter.com/?lang=en" target="_blank">
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.facebook.com/" target="_blank">
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://dribbble.com/" target="_blank">
+                            <i class="fa fa-dribbble"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://github.com/klugjo/hexo-theme-anodyne" target="_blank">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://plus.google.com/" target="_blank">
+                            <i class="fa fa-google-plus"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://www.behance.net/" target="_blank">
+                            <i class="fa fa-behance"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="https://500px.com/" target="_blank">
+                            <i class="fa fa-500px"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="mailto:test@example.com" target="_blank">
+                            <i class="fa fa-envelope"></i>
+                        </a>
+                    </div>
+                
+                    <div class="dib mh3">
+                        <a class="f3 f2-ns white dim" href="/#" target="_blank">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </div>
+                
+            </div>
+            <div class="f6 f5-ns center tc white pt5 fw3">
+                @Untitled. All right reserved | Design & Hexo <a class="link dim white" href="http://www.codeblocq.com/" target="_blank" rel="noopener">Jonathan Klughertz</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- After Footer -->
+    <!-- Disqus Comments -->
+
+
+
+</body>
+
+</html>

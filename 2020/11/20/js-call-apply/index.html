@@ -10,17 +10,7 @@
 
     <!--Description-->
     
-        <meta name="description" content="css的选择符
-通配符选择器(*)
-id选择器
-类选择器
-标签选择器(div,h1,p)
-后代选择器(h1 p)
-相邻后代选择器(ul&amp;gt;li)
-兄弟选择器(li ~a)
-相邻兄弟选择器(li+a)
-属性选择器(a[rel=”ab”])
-伪元素选择器(a::before::after::firs">
+        <meta name="description" content="call()、apply()、bind() 都是用来重定义this这个对象的。">
     
 
     <!--Author-->
@@ -30,10 +20,12 @@ id选择器
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="css兼容问题"/>
+        <meta property="og:title" content="js 中 call()、apply()、bind()"/>
     
 
     <!--Open Graph Description-->
+    
+        <meta property="og:description" content="call()、apply()、bind() 都是用来重定义this这个对象的。" />
     
 
     <!--Open Graph Site Name-->
@@ -52,7 +44,7 @@ id选择器
 
     <!-- Title -->
     
-    <title>css兼容问题 - World wide tour yayayaya yaya</title>
+    <title>js 中 call()、apply()、bind() - World wide tour yayayaya yaya</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="/css/tachyons.min.css">
@@ -122,9 +114,9 @@ id选择器
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">css兼容问题</h1>
-            <p class="f4 fw3 tc tc-m tl-ns">2020-07-23</p>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns"></p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">js 中 call()、apply()、bind()</h1>
+            <p class="f4 fw3 tc tc-m tl-ns">2020-11-20</p>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">call()、apply()、bind() 都是用来重定义this这个对象的。</p>
         </div>
     </div>
 
@@ -144,34 +136,26 @@ id选择器
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/css/">#css</a>
+                                <a class="fw3 ph1 dib" href="/tags/js/">#js</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <h3 id="css的选择符"><a href="#css的选择符" class="headerlink" title="css的选择符"></a>css的选择符</h3><ol>
-<li>通配符选择器(*)</li>
-<li>id选择器</li>
-<li>类选择器</li>
-<li>标签选择器(div,h1,p)</li>
-<li>后代选择器(h1 p)</li>
-<li>相邻后代选择器(ul&gt;li)</li>
-<li>兄弟选择器(li ~a)</li>
-<li>相邻兄弟选择器(li+a)</li>
-<li>属性选择器(a[rel=”ab”])</li>
-<li>伪元素选择器(a::before::after::firstLetter::firstLine::selection) 【伪类、伪元素详细列表】</li>
-<li>伪类选择器：链接伪类(:link:visited:target)、动态伪类(:hover:active) LVHA、表单相关伪类(:enabled:disable:checked:focus)、结构性伪类(:nth-child(2n):first-child:last-child\nth-last-child(index):only-child:nth-of-type(index):first-of-type:last-of-type\nth-last-type(index):only-of-type:not:empty)</li>
-</ol>
-<h3 id="input-disabled后手机端颜色比设置的浅"><a href="#input-disabled后手机端颜色比设置的浅" class="headerlink" title="input disabled后手机端颜色比设置的浅"></a>input disabled后手机端颜色比设置的浅</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">input:disabled, input[disabled]&#123;</span><br><span class="line">    color: red;</span><br><span class="line">    -webkit-text-fill-color:red;</span><br><span class="line">    -webkit-opacity:1;</span><br><span class="line">    opacity: 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="一个文字渐变效果"><a href="#一个文字渐变效果" class="headerlink" title="一个文字渐变效果"></a>一个文字渐变效果</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text-fill-color&#123;</span><br><span class="line">    background:-webkit-linear-gradient(top,#eee,#aaa 50%,#333 51%,#000);</span><br><span class="line">	-webkit-background-clip:text;</span><br><span class="line">	-webkit-text-fill-color:transparent;</span><br><span class="line">	font:bold 95px&#x2F;1.231 georgia,sans-serif;</span><br><span class="line">	text-transform:uppercase;</span><br><span class="line">&#125;</span><br><span class="line">&lt;div class&#x3D;&quot;text-fill-color&quot;&gt;text-fill-color&lt;&#x2F;div&gt;</span><br></pre></td></tr></table></figure>
-<p><img src="/2020/07/23/css%E5%85%BC%E5%AE%B9/gradient.png" alt="一个文字渐变效果"></p>
+                    <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">let age &#x3D; 3;</span><br><span class="line">let obj &#x3D; &#123;</span><br><span class="line">    name:&#39;Jerry&#39;,</span><br><span class="line">    objAge:this.age,</span><br><span class="line">    myFun:function(fm,t)&#123;</span><br><span class="line">       console.log(this.name+&#39;年龄：&#39;+this.age+&#39;, 来自&#39;+fm+&#39;去往&#39;+t)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">let db &#x3D; &#123;</span><br><span class="line">    name:&#39;Spike&#39;,</span><br><span class="line">    age:5</span><br><span class="line">&#125;</span><br><span class="line">console.log(obj.objAge);    &#x2F;&#x2F; undefined</span><br><span class="line">obj.myFun(&#39;a&#39;,&#39;b&#39;);   &#x2F;&#x2F; Jerry年龄：undefined, 来自a去往b</span><br><span class="line">obj.myFun.call(db,&#39;成都&#39;,&#39;上海&#39;);   &#x2F;&#x2F; Spike年龄：5, 来自成都去往上海 </span><br><span class="line">obj.myFun.apply(db,[&#39;成都&#39;,&#39;上海&#39;]);   &#x2F;&#x2F; Spike年龄：5, 来自成都去往上海</span><br><span class="line">obj.myFun.bind(db,&#39;成都&#39;,&#39;上海&#39;)();   &#x2F;&#x2F; Spike年龄：5, 来自成都去往上海</span><br><span class="line">obj.myFun.bind(db,[&#39;成都&#39;,&#39;上海&#39;])();   &#x2F;&#x2F; Spike年龄：5, 来自成都,上海去往undefined</span><br></pre></td></tr></table></figure>
+<h2 id="模拟实现-call-和-apply"><a href="#模拟实现-call-和-apply" class="headerlink" title="模拟实现 call 和 apply"></a>模拟实现 call 和 apply</h2><p>可以从以下几点来考虑如何实现</p>
+<ul>
+<li>不传入第一个参数，那么默认为 window</li>
+<li>改变了 this 指向，让新的对象可以执行该函数。那么思路是否可以变成给新的对象添加一个函数，然后在执行完以后删除？</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myCall &#x3D; function(context)&#123;</span><br><span class="line">  let c &#x3D; context || window;</span><br><span class="line">  c.fn &#x3D; this;</span><br><span class="line">  let args &#x3D; [...arguments].slice(1)</span><br><span class="line">  let result &#x3D; c.fn(...args);</span><br><span class="line">  delete c.fn;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line">let a &#x3D; &#123;name:&#39;lee&#39;&#125;;</span><br><span class="line">let b &#x3D; &#123;</span><br><span class="line">  fn(f,t)&#123;</span><br><span class="line">    console.log(&#96;my name is $&#123;this.name&#125;, from $&#123;f&#125; to $&#123;t&#125;&#96;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">b.fn.myCall(null, &quot;上海&quot;, &quot;成都); &#x2F;&#x2F; &#x2F;&#x2F; my name is , from 上海 to 成都</span><br><span class="line">b.fn.myCall(undefined, &quot;上海&quot;, &quot;成都); &#x2F;&#x2F; &#x2F;&#x2F; my name is , from 上海 to 成都</span><br><span class="line">b.fn.myCall(a,&#39;上海&#39;,&#39;成都&#39;);  &#x2F;&#x2F; my name is lee, from 上海 to 成都</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Function.prototype.myApply &#x3D; function(context)&#123;</span><br><span class="line">  let c &#x3D; context || window;</span><br><span class="line">  c.fn &#x3D; this;</span><br><span class="line">  let result;</span><br><span class="line">  if(arguments[1])&#123;</span><br><span class="line">    result &#x3D; c.fn(...arguments[1]);</span><br><span class="line">  &#125;else&#123;</span><br><span class="line">    result &#x3D; c.fn()</span><br><span class="line">  &#125;</span><br><span class="line">  delete c.fn;</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line">let a &#x3D; &#123;</span><br><span class="line">  myfn(f,t)&#123;</span><br><span class="line">    console.log(&#39;我是&#39;+this.name+&#39;,我从&#39;+f +&#39;来，去往&#39;+t)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">b &#x3D; &#123;</span><br><span class="line">  name:&#39;lee&#39;</span><br><span class="line">&#125;</span><br><span class="line">a.myfn.myApply(b,[&#39;上海&#39;,&#39;成都&#39;]);  &#x2F;&#x2F; 我是lee,我从上海来，去往成都</span><br></pre></td></tr></table></figure>
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/css/">#css</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/js/">#js</a>
                         </div>
                     
 
@@ -205,7 +189,7 @@ id选择器
     <h3>分类</h3>
     
         <p>
-            <a href="/categories/css/">css</a>
+            <a href="/categories/js/">js</a>
         </p>
     
 </div>
