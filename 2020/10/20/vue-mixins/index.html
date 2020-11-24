@@ -449,287 +449,302 @@
 <p>extends 只能暴露一个 extends 对象，暴露多个 extends 不会执行</p>
 </blockquote>
 <h3 id="Vue-mixin-示例："><a href="#Vue-mixin-示例：" class="headerlink" title="Vue.mixin()示例："></a>Vue.mixin()示例：</h3><p><strong>先定义 mixin.js</strong></p>
-<pre><code>const mixins = {
-  data() {
-    return {
-      globalName: &quot;这是全局名称&quot;,
-      name: &#39;name&#39;
-    }
-  }
-  methods: {
-    two(num){
-        return num * num
-    }
-  }
-}
-export defaullt mixins</code></pre><p><strong>在 main.js 文件全局引入</strong></p>
-<pre><code>import mixin from &#39;./mixin&#39;
-Vue.mixin(mixin)</code></pre><p><strong>其他 vue 页面里面就可以使用 mixin 里面定义好的变量、方法，如：</strong></p>
-<pre><code>{{globalName}}  // 这是全局名称
-{{name}}        // abc
-data() {
-  return {
-    name: &quot;abc&quot;,
-    square: this.two(3) // 9
-  }
-}</code></pre><h3 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h3><blockquote>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">const</span> mixins <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      globalName<span class="token punctuation">:</span> <span class="token string">"这是全局名称"</span><span class="token punctuation">,</span>
+      name<span class="token punctuation">:</span> <span class="token string">'name'</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">two</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> num <span class="token operator">*</span> num
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> defaullt mixins<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p><strong>在 main.js 文件全局引入</strong></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> mixin <span class="token keyword">from</span> <span class="token string">'./mixin'</span>
+Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span>mixin<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p><strong>其他 vue 页面里面就可以使用 mixin 里面定义好的变量、方法，如：</strong></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token punctuation">{</span><span class="token punctuation">{</span>globalName<span class="token punctuation">}</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">// 这是全局名称</span>
+<span class="token punctuation">{</span><span class="token punctuation">{</span>name<span class="token punctuation">}</span><span class="token punctuation">}</span>        <span class="token comment" spellcheck="true">// abc</span>
+<span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token string">"abc"</span><span class="token punctuation">,</span>
+    square<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">two</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 9</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h3><blockquote>
 <p>在组件的调用中，mixins 的数据是独立的、不想干扰的如：</p>
 </blockquote>
-<p><img src="./images/mixins1.gif" alt="在组件的调用中，mixins 的数据是独立的、不想干扰的"></p>
-<pre><code>&lt;template&gt;
-  &lt;div&gt;
-    &lt;child&gt;&lt;/child&gt;
-    &lt;child&gt;&lt;/child&gt;
-    &lt;kid&gt;&lt;/kid&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
-import Vue from &quot;vue&quot;;
-import mixins2 from &quot;./mixins2&quot;;
-// const mixins2 = {
-//   data() {
-//     return {
-//       msg: 1,
-//     };
-//   },
-//   methods: {
-//     foo() {
-//       this.msg++;
-//     },
-//   },
-// };
-// export default mixins2
-Vue.component(&quot;child&quot;, {
-  template: &#39;&lt;h1 @click=&quot;foo&quot;&gt;child component- {{msg}}&lt;/h1&gt;&#39;,
-  mixins: [mixins2],
-});
-Vue.component(&quot;kid&quot;, {
-  template: &#39;&lt;h1 @click=&quot;foo&quot;&gt;kid component- {{msg}}&lt;/h1&gt;&#39;,
-  mixins: [mixins2],
-});
-export default {};
-&lt;/script&gt;</code></pre><blockquote>
+<p><img src="./mixins1.gif" alt="在组件的调用中，mixins 的数据是独立的、不想干扰的"></p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>child</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>child</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>child</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>kid</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>kid</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script<span class="token operator">></span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">"vue"</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> mixins2 <span class="token keyword">from</span> <span class="token string">"./mixins2"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// const mixins2 = {</span>
+<span class="token comment" spellcheck="true">//   data() {</span>
+<span class="token comment" spellcheck="true">//     return {</span>
+<span class="token comment" spellcheck="true">//       msg: 1,</span>
+<span class="token comment" spellcheck="true">//     };</span>
+<span class="token comment" spellcheck="true">//   },</span>
+<span class="token comment" spellcheck="true">//   methods: {</span>
+<span class="token comment" spellcheck="true">//     foo() {</span>
+<span class="token comment" spellcheck="true">//       this.msg++;</span>
+<span class="token comment" spellcheck="true">//     },</span>
+<span class="token comment" spellcheck="true">//   },</span>
+<span class="token comment" spellcheck="true">// };</span>
+<span class="token comment" spellcheck="true">// export default mixins2</span>
+Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">"child"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token string">'&lt;h1 @click="foo">child component- {{msg}}&lt;/h1>'</span><span class="token punctuation">,</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span>mixins2<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">"kid"</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token string">'&lt;h1 @click="foo">kid component- {{msg}}&lt;/h1>'</span><span class="token punctuation">,</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span>mixins2<span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
 <p>data 组件中引用 代替 mixins 中引用</p>
 </blockquote>
 <blockquote>
 <p>methods 组件中调用 代替 mixins 中调用</p>
 </blockquote>
 <blockquote>
-<p>生命周期调用顺序<img src="./images/lifeCycle.png" alt="生命周期调用顺序"></p>
+<p>生命周期调用顺序<img src="./lifeCycle.png" alt="生命周期调用顺序"></p>
 </blockquote>
 <h2 id="实践-1：状态码统一过滤"><a href="#实践-1：状态码统一过滤" class="headerlink" title="实践 1：状态码统一过滤"></a>实践 1：状态码统一过滤</h2><p>一般情况下不要全局使用，因为会污染 vue 所有实例，这里通过一个简单的应用展示 mixin 的使用技巧，在所有 vue 实例中添加统一状态码过滤器。</p>
 <p>因为自定义方法会在所有的实例中混入，如果按照以前的方法，难免会有覆盖原先的方法的危险，按照官方的建议，混入的自定义方法名增加前缀 $_ 用作区分。</p>
 <p>创建一个 config.js 文件，用于保存状态码对应的含义，将其暴露出去</p>
-<pre><code>export const typeConfig = {
-  1: &quot;type one&quot;,
-  2: &quot;type two&quot;,
-  3: &quot;type three&quot;
-}</code></pre><p>再创建一个 filters.js 文件，用于保存所有的自定义函数</p>
-<pre><code>import { typeConfig } from &quot;./config&quot;
-export default {
-  filters: {
-    $_filterType: (value) =&gt; {
-      return typeConfig[value] || &quot;type undefined&quot;
-    }
-  }
-}</code></pre><p>最后，在 main.js 中引入我们的 filters 方法集</p>
-<pre><code>import filter from &quot;./filters&quot;
-Vue.mixin(filter)</code></pre><p>接下来，我们就可以在 .vue 的模板文件中随意使用自定义函数了</p>
-<pre><code>&lt;template&gt;
-  &lt;div&gt;{{typeStatus | $_filterType}}&lt;div&gt;
-&lt;/template&gt;</code></pre><h2 id="实践-2：大量表格页面中的分页功能"><a href="#实践-2：大量表格页面中的分页功能" class="headerlink" title="实践 2：大量表格页面中的分页功能"></a>实践 2：大量表格页面中的分页功能</h2><p>简单通用混入 list.js</p>
-<pre><code>const list = {
-  data () {
-    return {
-      // 这些东西我们在list中处理，就不需要在每个页面再去手动的做这个了。
-      loading: false, // 伴随loading状态
-      pageNo: 1, // 页码
-      pageSize: 15, // 页长
-      totalCount: 0, // 总个数
-      pageSizes: [15, 20, 25, 30], //页长数
-      pageLayout: &#39;total, sizes, prev, pager, next, jumper&#39;, // 分页布局
-      list: []
-    }
-  },
-  methods: {
-    // 分页回掉事件
-    handleSizeChange(val) {
-      this.pageSize = val
-      // todo
-    },
-    handleCurrentChange (val) {
-      this.pageNo = val
-      // todo
-    },
-    /**
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">export</span> <span class="token keyword">const</span> typeConfig <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token number">1</span><span class="token punctuation">:</span> <span class="token string">"type one"</span><span class="token punctuation">,</span>
+  <span class="token number">2</span><span class="token punctuation">:</span> <span class="token string">"type two"</span><span class="token punctuation">,</span>
+  <span class="token number">3</span><span class="token punctuation">:</span> <span class="token string">"type three"</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>再创建一个 filters.js 文件，用于保存所有的自定义函数</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> <span class="token punctuation">{</span> typeConfig <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./config"</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  filters<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    $_filterType<span class="token punctuation">:</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> typeConfig<span class="token punctuation">[</span>value<span class="token punctuation">]</span> <span class="token operator">||</span> <span class="token string">"type undefined"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>最后，在 main.js 中引入我们的 filters 方法集</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> filter <span class="token keyword">from</span> <span class="token string">"./filters"</span>
+Vue<span class="token punctuation">.</span><span class="token function">mixin</span><span class="token punctuation">(</span>filter<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<p>接下来，我们就可以在 .vue 的模板文件中随意使用自定义函数了</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>{{typeStatus | $_filterType}}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h2 id="实践-2：大量表格页面中的分页功能"><a href="#实践-2：大量表格页面中的分页功能" class="headerlink" title="实践 2：大量表格页面中的分页功能"></a>实践 2：大量表格页面中的分页功能</h2><p>简单通用混入 list.js</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">const</span> list <span class="token operator">=</span> <span class="token punctuation">{</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 这些东西我们在list中处理，就不需要在每个页面再去手动的做这个了。</span>
+      loading<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 伴随loading状态</span>
+      pageNo<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 页码</span>
+      pageSize<span class="token punctuation">:</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 页长</span>
+      totalCount<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 总个数</span>
+      pageSizes<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token number">15</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">25</span><span class="token punctuation">,</span> <span class="token number">30</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">//页长数</span>
+      pageLayout<span class="token punctuation">:</span> <span class="token string">'total, sizes, prev, pager, next, jumper'</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 分页布局</span>
+      list<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 分页回掉事件</span>
+    <span class="token function">handleSizeChange</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>pageSize <span class="token operator">=</span> val
+      <span class="token comment" spellcheck="true">// todo</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    handleCurrentChange <span class="token punctuation">(</span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>pageNo <span class="token operator">=</span> val
+      <span class="token comment" spellcheck="true">// todo</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
      * 表格数据请求成功的回调 处理完公共的部分（分页，loading取消）之后把控制权交给页面
      * @param {*} apiResult
      * @returns {*} promise
-     */
-    listSuccessCb (apiResult = {}) {
-      return new Promise((reslove, reject) =&gt; {
-        let tempList = [] // 临时list
-        try {
-          this.loading = false
-          // todo
-          // 直接抛出
-          reslove(tempList)
-        } catch (error) {
-          reject(error)
-        }
-      })
-    },
-    /**
+     */</span>
+    listSuccessCb <span class="token punctuation">(</span>apiResult <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>reslove<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> tempList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// 临时list</span>
+        <span class="token keyword">try</span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">false</span>
+          <span class="token comment" spellcheck="true">// todo</span>
+          <span class="token comment" spellcheck="true">// 直接抛出</span>
+          <span class="token function">reslove</span><span class="token punctuation">(</span>tempList<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">error</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          <span class="token function">reject</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
      * 处理异常情况
-     * ==&gt; 简单处理  仅仅是对表格处理为空以及取消loading
-     */
-    listExceptionCb (error) {
-      this.loading = false
-      console.error(error)
-    }
-  },
-  created() {
-    // 这个生命周期是在使用组件的生命周期之前
-    this.$nextTick().then(() =&gt; {
-      // todo
-    })
-  }
-}
-export default list</code></pre><p>下面我们直接在组件中使用这个 mixins</p>
-<pre><code>import mixin from &#39;@/mixins/list&#39; // 引入
-import {getList} from &#39;@/api/demo&#39;
-export default {
-  name: &#39;mixins-demo&#39;,
-  mixins: [mixin], // 使用mixins
-  data () {
-    return {
-    }
-  },
-  methods: {
-    // 加载列表
-    load () {
-      const para = {
-      }
-      this.loading = true
-      getList(para).then((result) =&gt; {
-        this.listSuccessCb(result).then((list) =&gt; {
-          this.list = list
-        }).catch((err) =&gt; {
-          console.log(err)
-        })
-      }).catch((err) =&gt; {
-        this.listExceptionCb(err)
-      })
-    }
-  },
-  created() {
-    this.load()
-  }
-}</code></pre><h2 id="实践-3：mixins-做公共数据的管理"><a href="#实践-3：mixins-做公共数据的管理" class="headerlink" title="实践 3：mixins 做公共数据的管理"></a>实践 3：mixins 做公共数据的管理</h2><p>有些时候我们有一些公共的数据它可能 3，4 个模块取使用但是又达不到全局的这种规模。这个时候我们就可以用 mixins 去管理他们，比如我们有几个模块要使用用户类型这个列表，我们来看使用 mixins 来实现共享。</p>
-<pre><code>// types.js
-import {getTypes} from &#39;@/api/demo&#39; // ajax
-export default {
-  data () {
-    return {
-      types: [] // ==&gt;  {name: &#39;&#39;, value: &#39;&#39;}
-    }
-  },
-  methods: {
-    // 获取列表
-    getAllTypesList () {
-      getApiList().then((result) =&gt; {
-        // todo
-        this.types = result // 假设result就是我们需要使用的数据
-      }).catch((err) =&gt; {
-        console.error(err)
-      })
-    }
-  },
-  created() {
-    // 在需要使用这个mixins的时候取自动请求数据  这个可要可不要  你想在父组件中执行也是ok的
-    this.getAllTypesList()
-  }
-}</code></pre><p>在组件中引用</p>
-<pre><code>import typeMixin from &#39;@/mixins/types&#39;
-export default {
-  name: &#39;template&#39;,
-  mixins: [typeMixin],
-  data () {
-    return {
-      // types这个数组在使用组件中不用多余的定义，直接拿来用就行
-      type: &#39;&#39;
-    }
-  },
-  methods: {
-  }
-}</code></pre><p>至于 mixins 中得数据我们可以在组件中直接使用</p>
-<pre><code>&lt;el-select v-model=&quot;type&quot; clearable placeholder=&quot;请选择类型&quot;&gt;
-  &lt;el-option v-for=&quot;item in types&quot; :key=&quot;item.id&quot; :label=&quot;item.templateName&quot; :value=&quot;item.id&quot;&gt;&lt;/el-option&gt;
-&lt;/el-select&gt;</code></pre><p>我们这样就可以不用 vuex 来去管理那些只有在模块间复用几次的数据，而且非常方便得去取我们想要得数据，连定义都省了。但是这有一个缺点。就是每次都会去重新请求这些数据。如果你不在乎这一点点瑕疵的话，我觉得用起来是完全 ok 得。</p>
+     * ==> 简单处理  仅仅是对表格处理为空以及取消loading
+     */</span>
+    listExceptionCb <span class="token punctuation">(</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">false</span>
+      console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>error<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 这个生命周期是在使用组件的生命周期之前</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">$nextTick</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// todo</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>下面我们直接在组件中使用这个 mixins</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> mixin <span class="token keyword">from</span> <span class="token string">'@/mixins/list'</span> <span class="token comment" spellcheck="true">// 引入</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>getList<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/api/demo'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'mixins-demo'</span><span class="token punctuation">,</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span>mixin<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 使用mixins</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 加载列表</span>
+    load <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> para <span class="token operator">=</span> <span class="token punctuation">{</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span>loading <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token function">getList</span><span class="token punctuation">(</span>para<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">listSuccessCb</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">this</span><span class="token punctuation">.</span>list <span class="token operator">=</span> list
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">listExceptionCb</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h2 id="实践-3：mixins-做公共数据的管理"><a href="#实践-3：mixins-做公共数据的管理" class="headerlink" title="实践 3：mixins 做公共数据的管理"></a>实践 3：mixins 做公共数据的管理</h2><p>有些时候我们有一些公共的数据它可能 3，4 个模块取使用但是又达不到全局的这种规模。这个时候我们就可以用 mixins 去管理他们，比如我们有几个模块要使用用户类型这个列表，我们来看使用 mixins 来实现共享。</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// types.js</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span>getTypes<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'@/api/demo'</span> <span class="token comment" spellcheck="true">// ajax</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      types<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment" spellcheck="true">// ==>  {name: '', value: ''}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 获取列表</span>
+    getAllTypesList <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">getApiList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// todo</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>types <span class="token operator">=</span> result <span class="token comment" spellcheck="true">// 假设result就是我们需要使用的数据</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">error</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 在需要使用这个mixins的时候取自动请求数据  这个可要可不要  你想在父组件中执行也是ok的</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">getAllTypesList</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>在组件中引用</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">import</span> typeMixin <span class="token keyword">from</span> <span class="token string">'@/mixins/types'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">'template'</span><span class="token punctuation">,</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span>typeMixin<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  data <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// types这个数组在使用组件中不用多余的定义，直接拿来用就行</span>
+      type<span class="token punctuation">:</span> <span class="token string">''</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>至于 mixins 中得数据我们可以在组件中直接使用</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-select</span> <span class="token attr-name">v-model</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>type<span class="token punctuation">"</span></span> <span class="token attr-name">clearable</span> <span class="token attr-name">placeholder</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>请选择类型<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>el-option</span> <span class="token attr-name">v-for</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item in types<span class="token punctuation">"</span></span> <span class="token attr-name">:key</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item.id<span class="token punctuation">"</span></span> <span class="token attr-name">:label</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item.templateName<span class="token punctuation">"</span></span> <span class="token attr-name">:value</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>item.id<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-option</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>el-select</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<p>我们这样就可以不用 vuex 来去管理那些只有在模块间复用几次的数据，而且非常方便得去取我们想要得数据，连定义都省了。但是这有一个缺点。就是每次都会去重新请求这些数据。如果你不在乎这一点点瑕疵的话，我觉得用起来是完全 ok 得。</p>
 <h4 id="extends、-mixins-、组件的执行顺序"><a href="#extends、-mixins-、组件的执行顺序" class="headerlink" title="extends、 mixins 、组件的执行顺序"></a><font id="item1">extends、 mixins 、组件的执行顺序</font></h4><p>mixinsExtends.js</p>
-<pre><code>//暴露两个mixins对象
-export const mixinsTest = {
-  methods: {
-    hello() {
-      console.log(&quot;mixinsTest 的created&quot;);
-    },
-  },
-  beforeCreate() {
-    console.log(&quot;mixinsTest的beforeCreated&quot;);
-  },
-  created() {
-    this.hello();
-  },
-};
-export const mixinsTest2 = {
-  methods: {
-    hello2() {
-      console.log(&quot;mixinsTest2 的created&quot;);
-    },
-  },
-  beforeCreate() {
-    console.log(&quot;mixinsTest2 的beforeCreated&quot;);
-  },
-  created() {
-    this.hello2();
-  },
-};
-//只能使用一个extends对象，多个无效，extends会先于mixins执行
-export const extendsTest = {
-  methods: {
-    hello3() {
-      console.log(&quot;extendsTest 的created&quot;);
-    },
-  },
-  beforeCreate() {
-    console.log(&quot;extendsTest 的beforeCreate&quot;);
-  },
-  created() {
-    this.hello3();
-  },
-};</code></pre><p>index.vue</p>
-<pre><code>&lt;template&gt;
-  &lt;div&gt;home&lt;/div&gt;
-&lt;/template&gt;
-&lt;script&gt;
-import { mixinsTest, mixinsTest2, extendsTest } from &quot;./mixinsExtends&quot;;
-export default {
-  name: &quot;Home&quot;,
-  data() {
-    return {};
-  },
-  beforeCreate() {
-    console.log(&quot;组件的beforeCreated&quot;);
-  },
-  created() {
-    console.log(&quot;组件的created&quot;);
-  },
-  mixins: [mixinsTest2, mixinsTest], // 先调用那个mixins对象，就先执行哪个
-  extends: extendsTest, // 使用extends
-};
-&lt;/script&gt;
-&lt;style lang=&quot;css&quot; scoped&gt;&lt;/style&gt;</code></pre><blockquote>
-<p>运行结果<br><img src="./images/mixinsExtends.png" alt=""></p>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//暴露两个mixins对象</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> mixinsTest <span class="token operator">=</span> <span class="token punctuation">{</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"mixinsTest 的created"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"mixinsTest的beforeCreated"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> mixinsTest2 <span class="token operator">=</span> <span class="token punctuation">{</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">hello2</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"mixinsTest2 的created"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"mixinsTest2 的beforeCreated"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">hello2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//只能使用一个extends对象，多个无效，extends会先于mixins执行</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> extendsTest <span class="token operator">=</span> <span class="token punctuation">{</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token function">hello3</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"extendsTest 的created"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"extendsTest 的beforeCreate"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">hello3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<p>index.vue</p>
+<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>home<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token operator">&lt;</span>script<span class="token operator">></span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> mixinsTest<span class="token punctuation">,</span> mixinsTest2<span class="token punctuation">,</span> extendsTest <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"./mixinsExtends"</span><span class="token punctuation">;</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token punctuation">:</span> <span class="token string">"Home"</span><span class="token punctuation">,</span>
+  <span class="token function">data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">beforeCreate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"组件的beforeCreated"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">created</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"组件的created"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  mixins<span class="token punctuation">:</span> <span class="token punctuation">[</span>mixinsTest2<span class="token punctuation">,</span> mixinsTest<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 先调用那个mixins对象，就先执行哪个</span>
+  <span class="token keyword">extends</span><span class="token punctuation">:</span> extendsTest<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// 使用extends</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+<span class="token operator">&lt;</span>style lang<span class="token operator">=</span><span class="token string">"css"</span> scoped<span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>style<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>运行结果<br><img src="./mixinsExtends.png" alt=""></p>
 </blockquote>
 
             </div>
@@ -876,6 +891,10 @@ export default {
                     
                     <a href="/tags/Webpack/">
                         <span class="chip bg-color">Webpack</span>
+                    </a>
+                    
+                    <a href="/tags/require-context/">
+                        <span class="chip bg-color">require.context</span>
                     </a>
                     
                 </div>
