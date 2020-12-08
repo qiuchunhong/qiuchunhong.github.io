@@ -455,7 +455,14 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
             document.activeElement.scrollIntoViewIfNeeded();
         }
     }
-})</code></pre><h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><blockquote>
+})</code></pre><blockquote>
+<p>iphone x 高度:100%; 兼容设置</p>
+</blockquote>
+<ol>
+<li>让客户端设置webview的高度为100%;</li>
+<li>html代码里面添加 viewport-fit=cover ，这个ios11的新属性可以使得页面内容完全覆盖整个窗口<br>相关代码：<pre><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, viewport-fit=cover&quot;&gt;</code></pre></li>
+</ol>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><blockquote>
 <p>浏览器是<code>60Hz</code>的刷新率，每<code>16ms</code>才会更新一次</p>
 </blockquote>
 <h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol>
