@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="正则实例, World wide tour yayayaya yaya">
+    <meta name="keywords" content="Object.defineProperty()的参数及使用, World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>正则实例 | World wide tour yayayaya yaya</title>
+    <title>Object.defineProperty()的参数及使用 | World wide tour yayayaya yaya</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -265,12 +265,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/3.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/17.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">正则实例</h1>
+                    <h1 class="description center-align post-title">Object.defineProperty()的参数及使用</h1>
                 </div>
             </div>
         </div>
@@ -412,7 +412,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2021-04-25
+                    2021-04-27
                 </div>
                 
 
@@ -428,10 +428,64 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="获取一个字符串中的数字字符，并按数组形式输出，如"><a href="#获取一个字符串中的数字字符，并按数组形式输出，如" class="headerlink" title="获取一个字符串中的数字字符，并按数组形式输出，如"></a>获取一个字符串中的数字字符，并按数组形式输出，如</h3><p>dgfhfgh254bhku289fgdhdy675gfh<br>输出[254,289,675]</p>
-<pre class="line-numbers language-js"><code class="language-js"><span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token string">"23dgfhfgh254bhku289fgdhdy675gfh1"</span><span class="token punctuation">;</span>
-<span class="token keyword">return</span> a<span class="token punctuation">.</span><span class="token function">match</span><span class="token punctuation">(</span><span class="token regex">/\d+/g</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
-<p>###</p>
+                <blockquote>
+<p>Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。</p>
+</blockquote>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>Object.defineProperty(obj, attr, descriptor)</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>obj : 对象<br>attr : 要定义或编辑的对象属性名<br>descriptor : 对象类型，要定义或修改属性的描述</p>
+<h4 id="descriptor描述分类"><a href="#descriptor描述分类" class="headerlink" title="descriptor描述分类"></a>descriptor描述分类</h4><ul>
+<li>数据描述符 &amp; 存取描述符 特性<ul>
+<li>configurable: 是否可以重新定义 默认false</li>
+<li>enumerable: 是否可枚举 默认false</li>
+<li>value: 属性初始值 默认 undefined</li>
+<li>writable: 是否可以修改属性值，默认false</li>
+</ul>
+</li>
+<li>存取描述符 特性<ul>
+<li>get: 回调函数，根据其他属性动态计算得到当前属性值。默认为 undefined。</li>
+<li>set: 回调函数，监视当前属性值的变化，更新其他相关的属性值。默认为 undefined。</li>
+</ul>
+</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+    firstName<span class="token punctuation">:</span><span class="token string">'A'</span><span class="token punctuation">,</span>
+    lastName<span class="token punctuation">:</span><span class="token string">'B'</span>
+<span class="token punctuation">}</span>
+Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span><span class="token string">'fullName'</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    <span class="token keyword">get</span><span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>firstName<span class="token operator">+</span><span class="token string">'-'</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>lastName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token keyword">set</span><span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>firstName <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>lastName <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">'-'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>fullName<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// A-B </span>
+obj<span class="token punctuation">.</span>firstName <span class="token operator">=</span> <span class="token string">"C"</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>lastName <span class="token operator">=</span> <span class="token string">"D"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>fullName<span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// C-D</span>
+obj<span class="token punctuation">.</span>fullName <span class="token operator">=</span> <span class="token string">"E-F"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>firstName<span class="token punctuation">,</span> obj<span class="token punctuation">.</span>lastName<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// E F</span>
+
+Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span><span class="token string">'fullName2'</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+    configurable<span class="token punctuation">:</span><span class="token boolean">false</span><span class="token punctuation">,</span>
+    enumerable<span class="token punctuation">:</span><span class="token boolean">true</span><span class="token punctuation">,</span>
+    value<span class="token punctuation">:</span><span class="token string">'G-H'</span><span class="token punctuation">,</span>
+    writable<span class="token punctuation">:</span><span class="token boolean">false</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>fullName2<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// G-H</span>
+obj<span class="token punctuation">.</span>fullName2 <span class="token operator">=</span> <span class="token string">"J-K"</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>fullName2<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// G-H    // writable:false不可修改</span>
+<span class="token comment" spellcheck="true">// Object.defineProperty(obj,'fullName2',{    // typeError cannot redefine property:fullName2 // configurable:false, 不可重新定义</span>
+<span class="token comment" spellcheck="true">//     configurable:false,</span>
+<span class="token comment" spellcheck="true">//     enumerable:true,</span>
+<span class="token comment" spellcheck="true">//     value:'J-K',</span>
+<span class="token comment" spellcheck="true">//     writable:false</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+<span class="token comment" spellcheck="true">// Object.keys 可得到属性自身可枚举属性的属性名</span>
+<span class="token keyword">let</span> names <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>names<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// ["firstName","lastName","fullName2"]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -488,9 +542,66 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2021/04/27/defineProperty/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Object.defineProperty()的参数及使用">
+                        
+                        <span class="card-title">Object.defineProperty()的参数及使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        <a href="/2021/04/27/defineProperty/">
+                            
+                                
+Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+
+语法Object.defineProperty(obj, attr, descriptor)
+参数obj 
+                            
+                        </a>
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-27
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/js/" class="post-category">
+                                    js
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2021/04/25/jsRegExp01/">
                     <div class="card-image">
@@ -511,9 +622,9 @@
                         </a>
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2021-04-25
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-04-25
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -535,57 +646,6 @@
                     
                     <a href="/tags/%E6%AD%A3%E5%88%99/">
                         <span class="chip bg-color">正则</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2020/12/10/webpack-source-map/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/14.jpg" class="responsive-img" alt="source-map">
-                        
-                        <span class="card-title">source-map</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        <a href="/2020/12/10/webpack-source-map/">
-                            
-                                一种 提供源代码到构建后代码映射 技术 (如果构建后代码出错了，通过映射可以追踪源代码错误)
-                            
-                        </a>
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-10
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/webpack/" class="post-category">
-                                    webpack
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/source-map/">
-                        <span class="chip bg-color">source-map</span>
                     </a>
                     
                 </div>

@@ -432,7 +432,10 @@
 <p>添加 this.$forceUpdate();进行强制渲染，效果实现</p>
 </blockquote>
 <h3 id="vue-cli-显示-webpack-配置文件命令："><a href="#vue-cli-显示-webpack-配置文件命令：" class="headerlink" title="vue-cli 显示 webpack 配置文件命令："></a>vue-cli 显示 webpack 配置文件命令：</h3><pre><code>vue inspect --mode=development &gt; webpack.dev.js
-vue inspect --mode=production &gt; webpack.prod.js</code></pre><hr>
+vue inspect --mode=production &gt; webpack.prod.js</code></pre><h3 id="vue-不兼容ie哪个浏览器？"><a href="#vue-不兼容ie哪个浏览器？" class="headerlink" title="vue 不兼容ie哪个浏览器？"></a>vue 不兼容ie哪个浏览器？</h3><blockquote>
+<p>vue 不兼容ie8，因为在vue中的数据绑定、数组代理使用的defineProperty是es5的语法，不支持ie8</p>
+</blockquote>
+<hr>
 <h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h3 id="git-reset"><a href="#git-reset" class="headerlink" title="git reset"></a>git reset</h3><blockquote>
 <p>–hard : 回退版本库，暂存区，工作区。（因此我们修改过的代码在本地就没了）<br><br>–mixed: 回退版本库，暂存区。(–mixed 为 git reset 的默认参数，即当任何参数都不加的时候的参数)<br><br>–soft: 回退版本库。</p>
 </blockquote>
