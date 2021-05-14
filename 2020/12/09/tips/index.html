@@ -428,9 +428,7 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2><h3 id="页面-v-for-中修改-item-属性值后页面-v-if-不改变的问题"><a href="#页面-v-for-中修改-item-属性值后页面-v-if-不改变的问题" class="headerlink" title="页面 v-for 中修改 item 属性值后页面 v-if 不改变的问题"></a>页面 v-for 中修改 item 属性值后页面 v-if 不改变的问题</h3><blockquote>
-<p>添加 this.$forceUpdate();进行强制渲染，效果实现</p>
-</blockquote>
+                <h2 id="vue"><a href="#vue" class="headerlink" title="vue"></a>vue</h2><h3 id="页面-v-for-中修改-item-属性值后页面-v-if-不改变的问题"><a href="#页面-v-for-中修改-item-属性值后页面-v-if-不改变的问题" class="headerlink" title="页面 v-for 中修改 item 属性值后页面 v-if 不改变的问题"></a>页面 v-for 中修改 item 属性值后页面 v-if 不改变的问题</h3><p>添加 this.$forceUpdate();进行强制渲染，效果实现</p>
 <h3 id="vue-cli-显示-webpack-配置文件命令："><a href="#vue-cli-显示-webpack-配置文件命令：" class="headerlink" title="vue-cli 显示 webpack 配置文件命令："></a>vue-cli 显示 webpack 配置文件命令：</h3><pre><code>vue inspect --mode=development &gt; webpack.dev.js
 vue inspect --mode=production &gt; webpack.prod.js</code></pre><h3 id="vue-不兼容ie哪个浏览器？"><a href="#vue-不兼容ie哪个浏览器？" class="headerlink" title="vue 不兼容ie哪个浏览器？"></a>vue 不兼容ie哪个浏览器？</h3><blockquote>
 <p>vue 不兼容ie8，因为在vue中的数据绑定、数组代理使用的defineProperty是es5的语法，不支持ie8</p>
@@ -458,21 +456,13 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 <h3 id="iphone-x-高度-100-兼容设置"><a href="#iphone-x-高度-100-兼容设置" class="headerlink" title="iphone x 高度:100%; 兼容设置"></a>iphone x 高度:100%; 兼容设置</h3><ol>
-<li>html 代码里面添加 viewport-fit=cover ，这个 ios11 的新属性可以使得页面内容完全覆盖可视窗口</li>
-</ol>
-<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width<span class="token punctuation">=</span>device-width, viewport-fit<span class="token punctuation">=</span>cover<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-<ol start="2">
-<li>将页面主体设置在安全区域内</li>
-</ol>
-<p>这一步视实际场景而定，可以不设置，带来的影响就是会出现底部区域的内容会被挡住；</p>
-<p>env() 和 constant()是IOS11新增的css函数，有四个预定义的变量safe-area-inset-bottom、safe-area-inset-top、safe-area-inset-left、safe-area-inset-right，分别是安全区域到各边界的距离，此时我们只需要关心afe-area-inset-bottom(横竖屏的情况下是不一样的)。对于不支持这两个属性的情况，浏览器会忽略。</p>
-<p>注意，constant()在IOS11.2之后是不可使用的，因此要向后兼容，即env()，且二者位置不可调换；</p>
-<p>constant(): 兼容IOS &lt; 11.2<br>env(): 兼容IOS &gt;= 11.2</p>
-<pre class="line-numbers language-css"><code class="language-css"><span class="token selector">body </span><span class="token punctuation">{</span>
-    <span class="token property">padding-bottom</span><span class="token punctuation">:</span> <span class="token function">constant</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token property">padding-bottom</span><span class="token punctuation">:</span> <span class="token function">env</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<li>html 代码里面添加 viewport-fit=cover ，这个 ios11 的新属性可以使得页面内容完全覆盖可视窗口<pre class="line-numbers language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>viewport<span class="token punctuation">"</span></span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>width<span class="token punctuation">=</span>device-width, viewport-fit<span class="token punctuation">=</span>cover<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>将页面主体设置在安全区域内<br>这一步视实际场景而定，可以不设置，带来的影响就是会出现底部区域的内容会被挡住；<br>env() 和 constant()是IOS11新增的css函数，有四个预定义的变量safe-area-inset-bottom、safe-area-inset-top、safe-area-inset-left、safe-area-inset-right，分别是安全区域到各边界的距离，此时我们只需要关心afe-area-inset-bottom(横竖屏的情况下是不一样的)。对于不支持这两个属性的情况，浏览器会忽略。<br>注意，constant()在IOS11.2之后是不可使用的，因此要向后兼容，即env()，且二者位置不可调换；<br>constant(): 兼容IOS &lt; 11.2<br>env(): 兼容IOS &gt;= 11.2<pre class="line-numbers language-css"><code class="language-css"><span class="token selector">body </span><span class="token punctuation">{</span>
+ <span class="token property">padding-bottom</span><span class="token punctuation">:</span> <span class="token function">constant</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
+ <span class="token property">padding-bottom</span><span class="token punctuation">:</span> <span class="token function">env</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<ol start="3">
+</li>
 <li>设置目标元素(fixed)的高度<br>对于目标元素，可设置bottom、padding-bottom、margin-bottom 均可：<pre class="line-numbers language-css"><code class="language-css"><span class="token selector"><span class="token class">.fixed</span> </span><span class="token punctuation">{</span>
  <span class="token property">bottom</span><span class="token punctuation">:</span> <span class="token function">constant</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
  <span class="token property">bottom</span><span class="token punctuation">:</span> <span class="token function">env</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -490,7 +480,9 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
         <span class="token property">margin-bottom</span><span class="token punctuation">:</span>  <span class="token function">env</span><span class="token punctuation">(</span>safe-area-inset-bottom<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><h3 id="浏览器是60Hz的刷新率，每16ms才会更新一次"><a href="#浏览器是60Hz的刷新率，每16ms才会更新一次" class="headerlink" title="浏览器是60Hz的刷新率，每16ms才会更新一次"></a>浏览器是<code>60Hz</code>的刷新率，每<code>16ms</code>才会更新一次</h3><h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol>
+<hr>
+<h2 id="浏览器"><a href="#浏览器" class="headerlink" title="浏览器"></a>浏览器</h2><h3 id="浏览器是60Hz的刷新率，每16ms才会更新一次"><a href="#浏览器是60Hz的刷新率，每16ms才会更新一次" class="headerlink" title="浏览器是60Hz的刷新率，每16ms才会更新一次"></a>浏览器是<code>60Hz</code>的刷新率，每<code>16ms</code>才会更新一次</h3><hr>
+<h2 id="面试题"><a href="#面试题" class="headerlink" title="面试题"></a>面试题</h2><ol>
 <li>vue key 作用 diff 算法</li>
 <li>vue 组件传参</li>
 <li><a href="/2020/12/01/js-promise/">实现 promise.allsettled</a></li>
@@ -505,6 +497,7 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
 <li>babel webpack</li>
 <li>webpack 的 plugin 跟 loader</li>
 </ol>
+<hr>
 <h2 id="vscode-插件"><a href="#vscode-插件" class="headerlink" title="vscode 插件"></a>vscode 插件</h2><ul>
 <li><code>Npm Intellisense</code> 可自动完成导入语句中的 npm 模块</li>
 <li><code>Better Comments</code> 丰富注释颜色，让注释也具有生命力，如需自定义样式，需要写入配置代码</li>
