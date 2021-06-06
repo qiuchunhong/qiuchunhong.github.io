@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="js继承、class, World wide tour yayayaya yaya">
+    <meta name="keywords" content="nodejs中fs的常用方法, World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>js继承、class | World wide tour yayayaya yaya</title>
+    <title>nodejs中fs的常用方法 | World wide tour yayayaya yaya</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -265,12 +265,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">js继承、class</h1>
+                    <h1 class="description center-align post-title">nodejs中fs的常用方法</h1>
                 </div>
             </div>
         </div>
@@ -387,8 +387,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/js%E7%BB%A7%E6%89%BF/">
-                                <span class="chip bg-color">js继承</span>
+                            <a href="/tags/nodejs/">
+                                <span class="chip bg-color">nodejs</span>
+                            </a>
+                        
+                            <a href="/tags/fs/">
+                                <span class="chip bg-color">fs</span>
                             </a>
                         
                     </div>
@@ -399,8 +403,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/js/" class="post-category">
-                                js
+                            <a href="/categories/nodejs/" class="post-category">
+                                nodejs
                             </a>
                         
                     </div>
@@ -412,7 +416,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-12-09
+                    2021-06-04
                 </div>
                 
 
@@ -428,93 +432,212 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><blockquote>
-<p>下面代码中，b是B类的实例，它的constructor方法就是B类原型的constructor方法。</p>
-</blockquote>
-<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">// === function B(){}</span>
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">let</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span>
 
-b<span class="token punctuation">.</span>constructor <span class="token operator">===</span> B<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>constructor <span class="token comment" spellcheck="true">// true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<p>由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。</p>
-</blockquote>
-<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">// es5写法</span>
-<span class="token keyword">function</span> <span class="token function">U</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-U<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>say <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hi'</span><span class="token punctuation">)</span><span class="token punctuation">}</span>
-<span class="token keyword">let</span> u <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">U</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-u<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment" spellcheck="true">// es6写法</span>
-<span class="token keyword">class</span> <span class="token class-name">P</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
-Object<span class="token punctuation">.</span><span class="token function">assign</span><span class="token punctuation">(</span>P<span class="token punctuation">.</span>prototype<span class="token punctuation">,</span><span class="token punctuation">{</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
-<span class="token keyword">let</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">P</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-p<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>实例1</strong></p>
-<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> x<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>y <span class="token operator">=</span> y<span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-  <span class="token function">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>y
-  <span class="token punctuation">}</span>
-  <span class="token keyword">static</span> <span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'hello world'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/**
+flag &lt;string> 参见文件系统 flag 的支持。 默认值: 'w'。
+    - w 写入
+    - r 读取
+    - a 追回
+ */</span>
 
-<span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span><span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">,</span>color<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    <span class="token comment" spellcheck="true">// this.color = color; // ReferenceError</span>
-    <span class="token keyword">super</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span>y<span class="token punctuation">)</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>color <span class="token operator">=</span> color<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 正确</span>
-  <span class="token punctuation">}</span>
-  <span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'x='</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">+</span><span class="token string">', y='</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>y<span class="token operator">+</span><span class="token string">', color='</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>color<span class="token operator">+</span><span class="token string">', x+y='</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">sum</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">let</span> a  <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ColorPoint</span><span class="token punctuation">(</span><span class="token number">12</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token string">'green'</span><span class="token punctuation">)</span>
-a<span class="token punctuation">.</span><span class="token function">say</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">//x=12, y=3, color=green, x+y=15</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a <span class="token keyword">instanceof</span> <span class="token class-name">ColorPoint</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// true</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a <span class="token keyword">instanceof</span> <span class="token class-name">Point</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
-ColorPoint<span class="token punctuation">.</span><span class="token function">hello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// hello world</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p><strong>解析：</strong></p>
-<ul>
-<li>super()必须写到子类的constructor中的最上方。只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，基于父类实例，只有super方法才能调用父类实例。如果子类没有定义constructor方法，这个方法会被默认添加，代码如下<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-<span class="token punctuation">}</span>
-<span class="token comment" spellcheck="true">// 等同于</span>
-<span class="token keyword">class</span> <span class="token class-name">ColorPoint</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
-<span class="token function">constructor</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<blockquote>
-<ul>
-<li>super作为函数时，super()只能用在子类的构造函数之中，用在其他地方就会报错。</li>
-<li>super作为对象时，在普通方法中，指向父类的原型对象；在静态方法中，指向父类。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
 
-<span class="token keyword">class</span> <span class="token class-name">B</span> <span class="token keyword">extends</span> <span class="token class-name">A</span> <span class="token punctuation">{</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-    <span class="token keyword">super</span><span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">super</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// undefined</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 3</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">B</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<p>上面代码中，super.x赋值为3，这时等同于对this.x赋值为3。而当读取super.x的时候，读的是A.prototype.x，所以返回undefined。</p>
-<ul>
-<li>父类的静态方法，也会被子类继承。hello()是A类的静态方法，B继承A，也继承了A的静态方法。</li>
-</ul>
+<span class="token comment" spellcheck="true">/**
+ * 打开文件
+ * fs.open(path[, flags[, mode]], callback)
+ * fs.openSync(path[, flags, mode])
+ * 
+ * 将 string 写入到 fd 指定的文件
+ * fs.write(fd, string[, position[, encoding]], callback)
+ * fs.writeSync(fd, buffer[, offset[, length[, position]]])
+ * 
+ * 关闭fd文件
+ * fs.close(fd, callback)
+ * fs.closeSync(fd)
+ */</span>
+
+<span class="token comment" spellcheck="true">// 同步方法：</span>
+<span class="token comment" spellcheck="true">// let fd = fs.openSync('hello.txt','w')</span>
+<span class="token comment" spellcheck="true">// fs.writeSync(fd,'同步方法写入\n')</span>
+<span class="token comment" spellcheck="true">// fs.closeSync(fd)</span>
+
+<span class="token comment" spellcheck="true">// 异步方法：</span>
+<span class="token comment" spellcheck="true">// fs.open('hello.txt','a',function(err,fd){</span>
+<span class="token comment" spellcheck="true">//     if (err) throw err;</span>
+<span class="token comment" spellcheck="true">//     fs.write(fd,'异步方法写入\n',function(err){</span>
+<span class="token comment" spellcheck="true">//         if(err) throw err;</span>
+<span class="token comment" spellcheck="true">//         fs.close(fd,function(){</span>
+<span class="token comment" spellcheck="true">//             if(err) throw err;</span>
+<span class="token comment" spellcheck="true">//             console.log('异步写入成功，关闭')</span>
+<span class="token comment" spellcheck="true">//         })</span>
+<span class="token comment" spellcheck="true">//     })</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+
+<span class="token comment" spellcheck="true">/**
+ * 简单文件写入
+ * fs.writeFile(file, data[, options], callback)
+ * fs.writeFileSync(file, data[, options])
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.writeFile('hello.txt', '简单方式写入\n',{flag:'a'}, function(err){</span>
+<span class="token comment" spellcheck="true">//     if(err) throw err;</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+<span class="token comment" spellcheck="true">// fs.writeFileSync('hello.txt','简单方式写入，同步方法\n',{flag:'a'})</span>
+
+
+<span class="token comment" spellcheck="true">/**
+ * 同步、异步、简单文件写入都不适合大文件的写入，性能较差，容易导致内存溢出
+ * 
+ * 流式文件写入
+ * fs.createWriteStream(path[, options])
+ * 流式文件读取
+ * fs.createReadStream(path[, options])
+ */</span>
+
+<span class="token comment" spellcheck="true">// let fw = fs.createWriteStream('a.mp3',{flags:'w'})</span>
+<span class="token comment" spellcheck="true">// let fr = fs.createReadStream('b.mp3')</span>
+<span class="token comment" spellcheck="true">// fw.once('open',function(){</span>
+<span class="token comment" spellcheck="true">//     console.log('流式文件写入打开')</span>
+<span class="token comment" spellcheck="true">// })</span>
+<span class="token comment" spellcheck="true">// fw.once('close',function(){</span>
+<span class="token comment" spellcheck="true">//     console.log('流式文件写入关闭')</span>
+<span class="token comment" spellcheck="true">// })</span>
+<span class="token comment" spellcheck="true">// fr.once('open',function(){</span>
+<span class="token comment" spellcheck="true">//     console.log('流式文件读取打开')</span>
+<span class="token comment" spellcheck="true">// })</span>
+<span class="token comment" spellcheck="true">// fr.once('close',function(){</span>
+<span class="token comment" spellcheck="true">//     console.log('流式文件读取关闭')</span>
+<span class="token comment" spellcheck="true">//     // 读取结束后，关闭写入流</span>
+<span class="token comment" spellcheck="true">//     fw.close()</span>
+<span class="token comment" spellcheck="true">// })</span>
+<span class="token comment" spellcheck="true">// // 读取可读流中的数据，必须为可读流绑定一个data事件，data事件绑定完毕，它会自动开始读取数据</span>
+<span class="token comment" spellcheck="true">// // data最长长度为65536</span>
+<span class="token comment" spellcheck="true">// fr.on('data',function(data){</span>
+<span class="token comment" spellcheck="true">//     // 将读取到的数据写入到可写流中</span>
+<span class="token comment" spellcheck="true">//     fw.write(data);</span>
+<span class="token comment" spellcheck="true">//     // 读完后关闭可写流</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+
+<span class="token comment" spellcheck="true">/**
+ * 简单文件读取
+ * fs.readFile(path[, options], callback)
+ *         读取的文件返回的data格式是BUffer格式
+ * fs.readFileSync(path[, options])
+ * 
+ * 简单文件写入
+ * fs.writeFile(file, data[, options], callback)
+ * fs.writeFileSync(file, data[, options])
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.readFile('hello.txt',function(err,data){</span>
+<span class="token comment" spellcheck="true">//     console.log(data.toString())</span>
+<span class="token comment" spellcheck="true">//     fs.writeFile('hello2.txt', data, function(err){</span>
+<span class="token comment" spellcheck="true">//         if(err) throw err</span>
+<span class="token comment" spellcheck="true">//     })</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+<span class="token comment" spellcheck="true">// let data = fs.readFileSync('hello.txt')</span>
+<span class="token comment" spellcheck="true">// console.log(data.toString())</span>
+<span class="token comment" spellcheck="true">// fs.writeFileSync('hello3.txt',data)</span>
+
+
+<span class="token comment" spellcheck="true">/**
+ * 通过检查文件系统来测试给定的路径是否存在
+ * fs.exists(path, callback)    弃用
+ * fs.existsSync(path)
+ *         返回结果：true:存在，false:不存在
+ */</span>
+<span class="token keyword">let</span> res <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">existsSync</span><span class="token punctuation">(</span><span class="token string">'a23.mp3'</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// console.log(res)</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 获取文件的状态
+ * fs.stat(path[, options], callback)
+ * fs.statSync(path[, options])
+ * 返回一个对象，对象中保存当前文件状态的相关信息
+ *         size:文件的大小
+ *         isFile:是否是一个文件
+ *         isDirectory:是否是一个目录
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.stat('a.mp3', function(err,stats){</span>
+<span class="token comment" spellcheck="true">//     console.log(stats)</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 删除文件或符号链接
+ * 对空或非空的目录均不起作用。 若要删除目录，则使用 fs.rmdir()。
+ * fs.unlink(path, callback)
+ * fs.unlinkSync(path)
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.unlinkSync('01.txt')</span>
+
+
+<span class="token comment" spellcheck="true">/**
+ * 读取目录的内容
+ * fs.readdir(path[, options], callback)
+ * fs.readdirSync(path[, options])
+ *         返回的files是一个字符串数组，每个元素就是一个文件夹或文件的名字
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.readdir('.', function(err,files){</span>
+<span class="token comment" spellcheck="true">//     console.log(files)</span>
+<span class="token comment" spellcheck="true">// })</span>
+
+<span class="token comment" spellcheck="true">// let dir = fs.readdirSync('.')</span>
+<span class="token comment" spellcheck="true">// console.log(dir)</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 截断文件，将文件截断为指定长度
+ * fs.truncate(path[, len], callback)
+ * fs.truncateSync(path[, len])
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.truncateSync('02-1.txt',10)</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 创建一个目录
+ * fs.mkdir(path[, options], callback)
+ * fs.mkdirSync(path[, options])
+ *         options:
+ *                 recursive:指示是否要创建父目录 默认false;如果不使用这个参数创建一个已经存在的目录会报错
+ * 删除一个目录
+ * fs.rmdir(path[, options], callback)
+ * fs.rmdirSync(path[, options])
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.mkdirSync('./目录11')</span>
+<span class="token comment" spellcheck="true">// fs.mkdir('./目录1/目录2/目录3', { recursive: true }, (err) => {</span>
+<span class="token comment" spellcheck="true">//   if (err) throw err;</span>
+<span class="token comment" spellcheck="true">// });</span>
+
+<span class="token comment" spellcheck="true">// fs.rmdirSync('./目录11')</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 把 oldPath 文件重命名为 newPath 提供的路径名; 可移动文件
+ * fs.rename(oldPath, newPath, callback)
+ * fs.renameSync(oldPath, newPath)
+ */</span>
+<span class="token comment" spellcheck="true">// fs.renameSync('01-1.txt', './目录1/a.txt')</span>
+
+<span class="token comment" spellcheck="true">/**
+ * 监视文件的修改，每当访问文件时都会调用 listener 回调。
+ * fs.watchFile(filename[, options], listener)
+ * options对象：
+ *         interval 属性，指示轮询目标的频率（以毫秒为单位）
+ * listener回调的两个参数：(两个参数都是stats对象)
+ *         curr：当前文件状态
+ *         prev：修改前文件状态
+ */</span>
+
+<span class="token comment" spellcheck="true">// fs.watchFile('hello.txt',{interval:1000}, function(curr,prev){</span>
+<span class="token comment" spellcheck="true">//     console.log(curr.size,prev.size)</span>
+<span class="token comment" spellcheck="true">// })</span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
@@ -528,8 +651,12 @@ ColorPoint<span class="token punctuation">.</span><span class="token function">h
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/js%E7%BB%A7%E6%89%BF/">
-                                    <span class="chip bg-color">js继承</span>
+                                <a href="/tags/nodejs/">
+                                    <span class="chip bg-color">nodejs</span>
+                                </a>
+                            
+                                <a href="/tags/fs/">
+                                    <span class="chip bg-color">fs</span>
                                 </a>
                             
                         </div>
@@ -571,52 +698,65 @@ ColorPoint<span class="token punctuation">.</span><span class="token function">h
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/12/09/jsArrayRecude/">
+                <a href="/2021/06/04/nodejs-fs%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="reduce - js">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="nodejs中fs的常用方法">
                         
-                        <span class="card-title">reduce - js</span>
+                        <span class="card-title">nodejs中fs的常用方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/jsArrayRecude/">
+                        <a href="/2021/06/04/nodejs-fs%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
                             
-                                reduce方法 && reduce实例
+                                let fs = require('fs')
+
+/**
+flag &lt;string> 参见文件系统 flag 的支持。 默认值: 'w'。
+    - w 写入
+    - r 读取
+    - a 追回
+ */
+
+
+/**
+ * 打开
                             
                         </a>
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-04
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/js/" class="post-category">
-                                    js
+                            <a href="/categories/nodejs/" class="post-category">
+                                    nodejs
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/js/">
-                        <span class="chip bg-color">js</span>
+                    <a href="/tags/nodejs/">
+                        <span class="chip bg-color">nodejs</span>
                     </a>
                     
-                    <a href="/tags/reduce/">
-                        <span class="chip bg-color">reduce</span>
+                    <a href="/tags/fs/">
+                        <span class="chip bg-color">fs</span>
                     </a>
                     
                 </div>
@@ -630,33 +770,35 @@ ColorPoint<span class="token punctuation">.</span><span class="token function">h
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/09/js-call-apply/">
+                <a href="/2021/05/14/vue3/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="js 中 call()、apply()、bind()">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="vue3">
                         
-                        <span class="card-title">js 中 call()、apply()、bind()</span>
+                        <span class="card-title">vue3</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/js-call-apply/">
+                        <a href="/2021/05/14/vue3/">
                             
-                                call()、apply()、bind() 都是用来重定义this这个对象的。
+                                vue2.0和vue3.0的区别
+打包方式：2.0是通过:npm run dev3.0是：npm run serve至于为什么会变，来看一下package.json
+文件夹目录：3.0取消掉了config目录、build目录、static目
                             
                         </a>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-14
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/js/" class="post-category">
-                                    js
+                            <a href="/categories/vue/" class="post-category">
+                                    vue
                                 </a>
                             
                             
@@ -666,8 +808,12 @@ ColorPoint<span class="token punctuation">.</span><span class="token function">h
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/js/">
-                        <span class="chip bg-color">js</span>
+                    <a href="/tags/vue/">
+                        <span class="chip bg-color">vue</span>
+                    </a>
+                    
+                    <a href="/tags/vue3/">
+                        <span class="chip bg-color">vue3</span>
                     </a>
                     
                 </div>
