@@ -4,7 +4,7 @@
 
 <head>
     <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
-    <meta name="keywords" content="js 中 call()、apply()、bind(), World wide tour yayayaya yaya">
+    <meta name="keywords" content="高阶函数、高阶组件, World wide tour yayayaya yaya">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>js 中 call()、apply()、bind() | World wide tour yayayaya yaya</title>
+    <title>高阶函数、高阶组件 | World wide tour yayayaya yaya</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -265,12 +265,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">js 中 call()、apply()、bind()</h1>
+                    <h1 class="description center-align post-title">高阶函数、高阶组件</h1>
                 </div>
             </div>
         </div>
@@ -412,7 +412,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-12-09
+                    2021-07-22
                 </div>
                 
 
@@ -428,70 +428,29 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>call()、apply()、bind() 都是用来重定义this这个对象的。</p>
-</blockquote>
-<pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">let</span> age <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
-    name<span class="token punctuation">:</span><span class="token string">'Jerry'</span><span class="token punctuation">,</span>
-    objAge<span class="token punctuation">:</span><span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token punctuation">,</span>
-    myFun<span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span>fm<span class="token punctuation">,</span>t<span class="token punctuation">)</span><span class="token punctuation">{</span>
-       console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token operator">+</span><span class="token string">'年龄：'</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token operator">+</span><span class="token string">', 来自'</span><span class="token operator">+</span>fm<span class="token operator">+</span><span class="token string">'去往'</span><span class="token operator">+</span>t<span class="token punctuation">)</span>
-    <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">let</span> db <span class="token operator">=</span> <span class="token punctuation">{</span>
-    name<span class="token punctuation">:</span><span class="token string">'Spike'</span><span class="token punctuation">,</span>
-    age<span class="token punctuation">:</span><span class="token number">5</span>
-<span class="token punctuation">}</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">.</span>objAge<span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// undefined</span>
-obj<span class="token punctuation">.</span><span class="token function">myFun</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">,</span><span class="token string">'b'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// Jerry年龄：undefined, 来自a去往b</span>
-obj<span class="token punctuation">.</span>myFun<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span><span class="token string">'成都'</span><span class="token punctuation">,</span><span class="token string">'上海'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// Spike年龄：5, 来自成都去往上海 </span>
-obj<span class="token punctuation">.</span>myFun<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">'成都'</span><span class="token punctuation">,</span><span class="token string">'上海'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// Spike年龄：5, 来自成都去往上海</span>
-obj<span class="token punctuation">.</span>myFun<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span><span class="token string">'成都'</span><span class="token punctuation">,</span><span class="token string">'上海'</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// Spike年龄：5, 来自成都去往上海</span>
-obj<span class="token punctuation">.</span>myFun<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span>db<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">'成都'</span><span class="token punctuation">,</span><span class="token string">'上海'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// Spike年龄：5, 来自成都,上海去往undefined</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<h2 id="模拟实现-call-和-apply"><a href="#模拟实现-call-和-apply" class="headerlink" title="模拟实现 call 和 apply"></a>模拟实现 <code>call</code> 和 <code>apply</code></h2><p>可以从以下几点来考虑如何实现</p>
+                <h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>高阶函数是一类特别的函数，满足以下两点任一点就是高阶函数</p>
 <ul>
-<li>不传入第一个参数，那么默认为 window</li>
-<li>改变了 this 指向，让新的对象可以执行该函数。那么思路是否可以变成给新的对象添加一个函数，然后在执行完以后删除？</li>
+<li>接受函数类型的参数</li>
+<li>返回值是函数</li>
 </ul>
-<pre class="line-numbers language-javascript"><code class="language-javascript">Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>myCall <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">{</span>
-  <span class="token keyword">let</span> c <span class="token operator">=</span> context <span class="token operator">||</span> window<span class="token punctuation">;</span>
-  c<span class="token punctuation">.</span>fn <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-  <span class="token keyword">let</span> args <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token operator">...</span>arguments<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-  <span class="token keyword">let</span> result <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">delete</span> c<span class="token punctuation">.</span>fn<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">{</span>name<span class="token punctuation">:</span><span class="token string">'lee'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-<span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token function">fn</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span>t<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`my name is </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">, from </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>f<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> to </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>t<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-b<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function">myCall</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token string">"上海"</span><span class="token punctuation">,</span> <span class="token string">"成都"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// // my name is , from 上海 to 成都</span>
-b<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function">myCall</span><span class="token punctuation">(</span>undefined<span class="token punctuation">,</span> <span class="token string">"上海"</span><span class="token punctuation">,</span> <span class="token string">"成都"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// // my name is , from 上海 to 成都</span>
-b<span class="token punctuation">.</span>fn<span class="token punctuation">.</span><span class="token function">myCall</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span><span class="token string">'上海'</span><span class="token punctuation">,</span><span class="token string">'成都'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// my name is lee, from 上海 to 成都</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-<pre class="line-numbers language-javascript"><code class="language-javascript">Function<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>myApply <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>context<span class="token punctuation">)</span><span class="token punctuation">{</span>
-  <span class="token keyword">let</span> c <span class="token operator">=</span> context <span class="token operator">||</span> window<span class="token punctuation">;</span>
-  c<span class="token punctuation">.</span>fn <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-  <span class="token keyword">let</span> result<span class="token punctuation">;</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span>arguments<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-    result <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>arguments<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
-    result <span class="token operator">=</span> c<span class="token punctuation">.</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-  <span class="token keyword">delete</span> c<span class="token punctuation">.</span>fn<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> result<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token punctuation">{</span>
-  <span class="token function">myfn</span><span class="token punctuation">(</span>f<span class="token punctuation">,</span>t<span class="token punctuation">)</span><span class="token punctuation">{</span>
-    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'我是'</span><span class="token operator">+</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token operator">+</span><span class="token string">',我从'</span><span class="token operator">+</span>f <span class="token operator">+</span><span class="token string">'来，去往'</span><span class="token operator">+</span>t<span class="token punctuation">)</span>
-  <span class="token punctuation">}</span>
-<span class="token punctuation">}</span>
-b <span class="token operator">=</span> <span class="token punctuation">{</span>
-  name<span class="token punctuation">:</span><span class="token string">'lee'</span>
-<span class="token punctuation">}</span>
-a<span class="token punctuation">.</span>myfn<span class="token punctuation">.</span><span class="token function">myApply</span><span class="token punctuation">(</span>b<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token string">'上海'</span><span class="token punctuation">,</span><span class="token string">'成都'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 我是lee,我从上海来，去往成都</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="常见的高阶函数有"><a href="#常见的高阶函数有" class="headerlink" title="常见的高阶函数有"></a>常见的高阶函数有</h3><ul>
+<li>定时器：setTimeout()/setInterval()</li>
+<li>Promise:Promise(() =&gt; {}) then(value =&gt; {},reason =&gt; {})</li>
+<li>数组遍历相关的方法：forEach()/filter()/map()/reduce()/find()/findIndex()</li>
+<li>函数对象的bind()</li>
+<li>Form.create()() / getFieldDecorator()()</li>
+</ul>
+<h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>高阶函数更新动态，更加具有扩展性</p>
+<h2 id="高阶组件"><a href="#高阶组件" class="headerlink" title="高阶组件"></a>高阶组件</h2><h3 id="定义-1"><a href="#定义-1" class="headerlink" title="定义"></a>定义</h3><ul>
+<li>本质就是一个函数</li>
+<li>接收一个组件(被包装组件)，返回一个新的组件(包装组件)，包装组件会向被包装组件传入特定属性</li>
+<li>作用：扩展组件的功能</li>
+<li>高阶组件也是高阶函数：接收一个组件函数，返回是一个新的组件函数</li>
+</ul>
+<h2 id="高阶组件与高阶函数的关系"><a href="#高阶组件与高阶函数的关系" class="headerlink" title="高阶组件与高阶函数的关系"></a>高阶组件与高阶函数的关系</h2><ul>
+<li>高阶组件是特别的高阶函数</li>
+<li>接收一个组件函数, 返回是一个新的组件函数</li>
+</ul>
 
             </div>
             <hr/>
@@ -548,38 +507,32 @@ a<span class="token punctuation">.</span>myfn<span class="token punctuation">.</
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/12/09/jsArrayMethods/">
+                <a href="/2021/07/22/js-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="js Array 方法总结">
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="高阶函数、高阶组件">
                         
-                        <span class="card-title">js Array 方法总结</span>
+                        <span class="card-title">高阶函数、高阶组件</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/jsArrayMethods/">
+                        <a href="/2021/07/22/js-%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/">
                             
-                                改变原数组的方法
-push  数组末尾追加元素
-pop   删除数组最后元素
-unshift   数组开始添加元素
-shift     删除数组开始元素
-splice   实现数组的增加、删除、修改
-sort  数组排序
-reverse  
+                                对高阶函数、高阶组件的介绍
                             
                         </a>
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-12-09
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-07-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -592,6 +545,7 @@ reverse
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -610,33 +564,33 @@ reverse
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/09/git/">
+                <a href="/2021/06/04/nodejs-fs%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="git">
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="nodejs中fs的常用方法">
                         
-                        <span class="card-title">git</span>
+                        <span class="card-title">nodejs中fs的常用方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/git/">
+                        <a href="/2021/06/04/nodejs-fs%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95/">
                             
-                                工作区、暂存区、本地仓库、远程仓库的理解，git的常用命令总结。
+                                nodejs 中 fs的一些常用方法总结、案例列举
                             
                         </a>
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-12-09
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-06-04
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/git/" class="post-category">
-                                    git
+                            <a href="/categories/nodejs/" class="post-category">
+                                    nodejs
                                 </a>
                             
                             
@@ -646,8 +600,12 @@ reverse
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/git/">
-                        <span class="chip bg-color">git</span>
+                    <a href="/tags/nodejs/">
+                        <span class="chip bg-color">nodejs</span>
+                    </a>
+                    
+                    <a href="/tags/fs/">
+                        <span class="chip bg-color">fs</span>
                     </a>
                     
                 </div>
