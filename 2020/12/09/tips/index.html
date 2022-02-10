@@ -409,8 +409,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/">
-                                <span class="chip bg-color">小技巧</span>
+                            <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%90%9C%E7%B4%A2%E8%BF%87/">
+                                <span class="chip bg-color">小技巧 搜索过</span>
                             </a>
                         
                     </div>
@@ -518,6 +518,8 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
 <li>新需求下来，要做哪些准备</li>
 <li>babel webpack</li>
 <li>webpack 的 plugin 跟 loader</li>
+<li>[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么</li>
+<li>flex 与 grid</li>
 </ol>
 <hr>
 <h2 id="vscode-插件"><a href="#vscode-插件" class="headerlink" title="vscode 插件"></a>vscode 插件</h2><ul>
@@ -527,6 +529,27 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
 </ul>
 <hr>
 <h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h2><h3 id="LRU-算法是什么"><a href="#LRU-算法是什么" class="headerlink" title="LRU 算法是什么"></a>LRU 算法是什么</h3><p><img src="./lru.png" alt="LRU算法"><br>LRU 的核心思想是如果数据最近被访问过，那么将来被访问的几率也更高，所以我们将命中缓存的组件 key 重新插入到 this.keys 的尾部，这样一来，this.keys 中越往头部的数据即将来被访问几率越低，所以当缓存数量达到最大值时，我们就删除将来被访问几率最低的数据，即 this.keys 中第一个缓存的组件。</p>
+<h2 id="微信小程序"><a href="#微信小程序" class="headerlink" title="微信小程序"></a>微信小程序</h2><h3 id="微信开发者工具配置"><a href="#微信开发者工具配置" class="headerlink" title="微信开发者工具配置"></a>微信开发者工具配置</h3><pre><code>{
+    ...
+    &quot;editor.wordSeparators&quot;: &quot;`~!@#$%^&amp;*()=+[{]}\\|;:&#39;\&quot;,.&lt;&gt;/?&quot;,// 双击选中连字符
+    &quot;editor.formatOnSave&quot;: true,    // 保存后实现自动格式化
+}
+</code></pre><h3 id="背景图不显示"><a href="#背景图不显示" class="headerlink" title="背景图不显示"></a>背景图不显示</h3><blockquote>
+<p>本地资源图片无法通过 WXSS 获取</p>
+</blockquote>
+<p>background-image : 可以使用网络图片，或者base64，或者使用<image />标签</p>
+<h3 id="image跟view标签上下会有间隙"><a href="#image跟view标签上下会有间隙" class="headerlink" title="image跟view标签上下会有间隙"></a>image跟view标签上下会有间隙</h3><ul>
+<li><p>原因：<br>图片文字等inline元素默许是跟父级元素的baseline对齐，而baseline又和父级底边有必定间距</p>
+</li>
+<li><p>解决方案</p>
+<ul>
+<li>方法一 将图片转换为块级对象即，设置img为：<pre class="line-numbers language-css"><code class="language-css"><span class="token property">display</span><span class="token punctuation">:</span>block<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li>方法二 设置图片对齐方式<pre class="line-numbers language-css"><code class="language-css"><span class="token property">vertical-align</span><span class="token punctuation">:</span> top<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+</ul>
+</li>
+</ul>
 
             </div>
             <hr/>
@@ -540,8 +563,8 @@ Math<span class="token punctuation">.</span><span class="token function">floor</
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7/">
-                                    <span class="chip bg-color">小技巧</span>
+                                <a href="/tags/%E5%B0%8F%E6%8A%80%E5%B7%A7-%E6%90%9C%E7%B4%A2%E8%BF%87/">
+                                    <span class="chip bg-color">小技巧 搜索过</span>
                                 </a>
                             
                         </div>

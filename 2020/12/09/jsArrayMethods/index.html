@@ -516,7 +516,50 @@
   <span class="token keyword">return</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>slice<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">var</span> list1 <span class="token operator">=</span> <span class="token function">list</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="‘1’-‘2’-‘3’-map-parseInt-结果是什么？"><a href="#‘1’-‘2’-‘3’-map-parseInt-结果是什么？" class="headerlink" title="[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么？"></a>[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么？</h3><ul>
+<li><p>Array.prototype.map这是数组实例方法，给map传入一个回调函数，map会遍历数组元素，将相关信息一起传入回调函数，并取这个回调函数的返回值做为新数组对应索引的值，并将这个新数组返回</p>
+<pre class="line-numbers language-javascript"><code class="language-javascript">  <span class="token comment" spellcheck="true">// 实现一下 Array.prototype.map</span>
+  Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>myMap <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>callbackfn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> newArr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Array</span><span class="token punctuation">(</span>arr<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>arr<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+          newArr<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">callbackArr</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">,</span>i<span class="token punctuation">,</span>arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> newArr<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p>parseInt 函数的作用是将一个字符串转换为数字</p>
+<blockquote>
+<p>parseInt(string [, radix]) 接受两个参数，第一个参数是我们需要转换的字符串。第二个参数是字符串的基数 radix，比如是 2 的话，就代表字符串是用二进制表达的。</p>
+<p>第二个参数如果省略，情况会变得复杂。如果字符串以 0x 或 0X 开头，它就会当作十六进制，否则被当作十进制</p>
+</blockquote>
+<pre class="line-numbers language-js"><code class="language-js">  <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 1    特殊情况，等价于parseInt('1')</span>
 
+  <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// NaN  没有一进制这种东西</span>
+
+  <span class="token function">parseInt</span><span class="token punctuation">(</span><span class="token string">'3'</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// NaN  没能找到合法字符，虽然 3 是数字，但它无法用来表达二进制，二进制只能为 0 和 1。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+</ul>
+<p>所以 [‘1’, ‘2’, ‘3’].map(parseInt) 的结果是[1, NaN, NaN]</p>
+<p>正确写法：</p>
+<pre class="line-numbers language-js"><code class="language-js"><span class="token punctuation">[</span><span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token string">'2'</span><span class="token punctuation">,</span> <span class="token string">'3'</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token function">parseInt</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="二进制转换方法"><a href="#二进制转换方法" class="headerlink" title="二进制转换方法"></a>二进制转换方法</h3><p>十转二：134<br>方法：采用”除2取余，逆序排列”法</p>
+<pre><code>    134/2    余0
+    67/2    余1
+    33/2    余1
+    16/2    余0
+    8/2        余0
+    4/2        余0
+    2/2        余0
+    1        1
+结果：10000110
+</code></pre><p>二转十：1011011</p>
+<pre><code>1*2^0 + 1*2^1 + 0*2^3 + 1*2^4 + 1*2^5 + 0*2^6 + 1*2^7
+= 1 + 2 + 0 + 8 + 16 + 64
+= 91</code></pre>
             </div>
             <hr/>
 
@@ -576,25 +619,20 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/12/09/jsOperator/">
+                <a href="/2020/12/09/jsArrayRecude/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="reduce - js">
                         
-                        <span class="card-title">JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )</span>
+                        <span class="card-title">reduce - js</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/jsOperator/">
+                        <a href="/2020/12/09/jsArrayRecude/">
                             
-                                相等操作符会先转换操作数（通常称为强制转型），然后比较它们的相等性。
-在转换不同的数据类型时，相等操作符遵循下列基本规则：
-
-如果有一个操作数是布尔值，则在比较相等性之前，将其转换为数值；
-
-如果一个操作数是字符串，另一个操作数是数值，在比
+                                reduce方法 && reduce实例
                             
                         </a>
                     </div>
@@ -621,6 +659,10 @@
                         <span class="chip bg-color">js</span>
                     </a>
                     
+                    <a href="/tags/reduce/">
+                        <span class="chip bg-color">reduce</span>
+                    </a>
+                    
                 </div>
                 
             </div>
@@ -632,20 +674,20 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/09/jsArrayRecude/">
+                <a href="/2020/12/09/js-call-apply/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="reduce - js">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="js 中 call()、apply()、bind()">
                         
-                        <span class="card-title">reduce - js</span>
+                        <span class="card-title">js 中 call()、apply()、bind()</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/jsArrayRecude/">
+                        <a href="/2020/12/09/js-call-apply/">
                             
-                                reduce方法 && reduce实例
+                                call()、apply()、bind() 都是用来重定义this这个对象的。
                             
                         </a>
                     </div>
@@ -670,10 +712,6 @@
                     
                     <a href="/tags/js/">
                         <span class="chip bg-color">js</span>
-                    </a>
-                    
-                    <a href="/tags/reduce/">
-                        <span class="chip bg-color">reduce</span>
                     </a>
                     
                 </div>
