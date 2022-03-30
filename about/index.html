@@ -511,7 +511,7 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2021-12","2022-01","2022-02"]
+            data: ["2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2021-12","2022-01","2022-02","2022-03"]
         },
         yAxis: {
             type: 'value',
@@ -521,7 +521,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,2,2,1,1,0,0,0,0,0,0,0],
+                data: [0,2,2,1,1,0,0,0,0,0,0,0,0],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -563,7 +563,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"js","value":12},{"name":"css","value":2},{"name":"vue","value":4},{"name":"git","value":1},{"name":"other","value":2},{"name":"Webpack","value":1},{"name":"性能","value":1},{"name":"nodejs","value":1},{"name":"webpack","value":1}],
+                data: [{"name":"css","value":2},{"name":"js","value":12},{"name":"vue","value":4},{"name":"git","value":1},{"name":"Webpack","value":1},{"name":"other","value":2},{"name":"nodejs","value":1},{"name":"webpack","value":1},{"name":"性能","value":1}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -587,7 +587,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["js","vue","css","vue指令","commonJs","js继承","git","reduce","正则","js原型"]
+                data: ["js","vue","css","vue指令","git","css兼容","js继承","reduce","正则","js 整合"]
             }
         ],
         yAxis: [
@@ -730,6 +730,12 @@
         <div class="tag-chips center-align">
             
             
+            <a href="/tags/css%E5%85%BC%E5%AE%B9/">
+                <span class="chip center-align waves-effect waves-light chip-default">css兼容</span>
+            </a>
+            
+            
+            
             <a href="/tags/commonJs/">
                 <span class="chip center-align waves-effect waves-light chip-default">commonJs</span>
             </a>
@@ -742,14 +748,14 @@
             
             
             
-            <a href="/tags/css%E5%85%BC%E5%AE%B9/">
-                <span class="chip center-align waves-effect waves-light chip-default">css兼容</span>
+            <a href="/tags/vue%E6%8C%87%E4%BB%A4/">
+                <span class="chip center-align waves-effect waves-light chip-default">vue指令</span>
             </a>
             
             
             
-            <a href="/tags/vue%E6%8C%87%E4%BB%A4/">
-                <span class="chip center-align waves-effect waves-light chip-default">vue指令</span>
+            <a href="/tags/git/">
+                <span class="chip center-align waves-effect waves-light chip-default">git</span>
             </a>
             
             
@@ -766,12 +772,6 @@
             
             
             
-            <a href="/tags/git/">
-                <span class="chip center-align waves-effect waves-light chip-default">git</span>
-            </a>
-            
-            
-            
             <a href="/tags/reduce/">
                 <span class="chip center-align waves-effect waves-light chip-default">reduce</span>
             </a>
@@ -784,14 +784,14 @@
             
             
             
-            <a href="/tags/js%E5%8E%9F%E5%9E%8B/">
-                <span class="chip center-align waves-effect waves-light chip-default">js原型</span>
+            <a href="/tags/js-%E6%95%B4%E5%90%88/">
+                <span class="chip center-align waves-effect waves-light chip-default">js 整合</span>
             </a>
             
             
             
-            <a href="/tags/js-%E6%95%B4%E5%90%88/">
-                <span class="chip center-align waves-effect waves-light chip-default">js 整合</span>
+            <a href="/tags/js%E5%8E%9F%E5%9E%8B/">
+                <span class="chip center-align waves-effect waves-light chip-default">js原型</span>
             </a>
             
             
@@ -826,22 +826,22 @@
             
             
             
-            
-            
-            <a href="/tags/components/">
-                <span class="chip center-align waves-effect waves-light chip-default">components</span>
-            </a>
-            
-            
-            
-            <a href="/tags/%E7%BC%93%E5%AD%98/">
-                <span class="chip center-align waves-effect waves-light chip-default">缓存</span>
-            </a>
-            
-            
-            
             <a href="/tags/promise/">
                 <span class="chip center-align waves-effect waves-light chip-default">promise</span>
+            </a>
+            
+            
+            
+            
+            
+            <a href="/tags/extends/">
+                <span class="chip center-align waves-effect waves-light chip-default">extends</span>
+            </a>
+            
+            
+            
+            <a href="/tags/mixins/">
+                <span class="chip center-align waves-effect waves-light chip-default">mixins</span>
             </a>
             
             
@@ -858,18 +858,6 @@
             
             
             
-            <a href="/tags/extends/">
-                <span class="chip center-align waves-effect waves-light chip-default">extends</span>
-            </a>
-            
-            
-            
-            <a href="/tags/mixins/">
-                <span class="chip center-align waves-effect waves-light chip-default">mixins</span>
-            </a>
-            
-            
-            
             <a href="/tags/source-map/">
                 <span class="chip center-align waves-effect waves-light chip-default">source-map</span>
             </a>
@@ -878,6 +866,18 @@
             
             <a href="/tags/vue3/">
                 <span class="chip center-align waves-effect waves-light chip-default">vue3</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E7%BC%93%E5%AD%98/">
+                <span class="chip center-align waves-effect waves-light chip-default">缓存</span>
+            </a>
+            
+            
+            
+            <a href="/tags/components/">
+                <span class="chip center-align waves-effect waves-light chip-default">components</span>
             </a>
             
             
