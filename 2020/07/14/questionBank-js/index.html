@@ -449,6 +449,7 @@
 <li><a href="#item4">箭头函数与普通函数的区别</a></li>
 <li><a href="#item5">this指向错题集</a></li>
 <li><a href="#item6">箭头函数避免使用的场景</a></li>
+<li><a href="#new">js的new操作符到底做了什么？</a></li>
 </ul>
 <h3 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a><font id="item0">数据类型</font></h3><p>值类型(基本类型)：字符串（String）、数字(Number)、布尔(Boolean)、对空（Null）、未定义（Undefined）、Symbol。<br>引用数据类型（对象类型）：对象(Object)、数组(Array)、函数(Function)，还有两个特殊的对象：正则（RegExp）和日期（Date）。</p>
 <h3 id="判断数据类型：typeof-、instanceof、constructor、Objece-prototype-toString-call"><a href="#判断数据类型：typeof-、instanceof、constructor、Objece-prototype-toString-call" class="headerlink" title="判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()"></a><font id="item1">判断数据类型：typeof()、instanceof、constructor、Objece.prototype.toString.call()</font></h3><ol>
@@ -760,6 +761,16 @@ button<span class="token punctuation">.</span><span class="token function">addEv
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">===</span> window<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// => true</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">'Clicked button'</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="js的new操作符到底做了什么？"><a href="#js的new操作符到底做了什么？" class="headerlink" title="js的new操作符到底做了什么？"></a><font id="new">js的new操作符到底做了什么？</font></h3><pre class="line-numbers language-javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">creat</span><span class="token punctuation">(</span>Constructor<span class="token punctuation">,</span><span class="token operator">...</span>arg<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 1.创建一个空的对象</span>
+  <span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 2.将空对象obj的__proto__属性指向构造函数的原型对象</span>
+  obj<span class="token punctuation">.</span>__proto__ <span class="token operator">=</span> Constructor<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 3.改变构造函数的this指向，并将剩余的参数传入</span>
+  <span class="token keyword">let</span> result <span class="token operator">=</span> Constructor<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span>arg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// 4.判断result是否是引用数据类型，如果是引用数据类型返回result，如果是基础数据类型返回空对象</span>
+  <span class="token keyword">return</span> result <span class="token keyword">instanceof</span> <span class="token class-name">Object</span> <span class="token operator">?</span> result <span class="token punctuation">:</span> obj<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
             </div>
             <hr/>
