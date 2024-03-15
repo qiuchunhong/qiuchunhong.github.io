@@ -516,7 +516,7 @@
   <span class="token keyword">return</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>slice<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 <span class="token keyword">var</span> list1 <span class="token operator">=</span> <span class="token function">list</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [1, 2, 3]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
-<h3 id="‘1’-‘2’-‘3’-map-parseInt-结果是什么？"><a href="#‘1’-‘2’-‘3’-map-parseInt-结果是什么？" class="headerlink" title="[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么？"></a>[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么？</h3><ul>
+<h3 id="‘1’-‘2’-‘3’-map-parseInt-结果是什么？"><a href="#‘1’-‘2’-‘3’-map-parseInt-结果是什么？" class="headerlink" title="[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么？"></a><font id="mapParseInt">[‘1’, ‘2’, ‘3’].map(parseInt) 结果是什么？</font></h3><ul>
 <li><p>Array.prototype.map这是数组实例方法，给map传入一个回调函数，map会遍历数组元素，将相关信息一起传入回调函数，并取这个回调函数的返回值做为新数组对应索引的值，并将这个新数组返回</p>
 <pre class="line-numbers language-javascript"><code class="language-javascript">  <span class="token comment" spellcheck="true">// 实现一下 Array.prototype.map</span>
   Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>myMap <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>callbackfn<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -634,20 +634,25 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/12/09/js-%E7%BB%A7%E6%89%BF/">
+                <a href="/2020/12/09/jsOperator/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="js继承、class">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )">
                         
-                        <span class="card-title">js继承、class</span>
+                        <span class="card-title">JavaScript 中的相等操作符 ( 详解 [] == []、[] == ![]、{} == !{} )</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/js-%E7%BB%A7%E6%89%BF/">
+                        <a href="/2020/12/09/jsOperator/">
                             
-                                继承是为了子类可以使用父类的所有功能，并且能对这些功能进行扩展。
+                                相等操作符会先转换操作数（通常称为强制转型），然后比较它们的相等性。
+在转换不同的数据类型时，相等操作符遵循下列基本规则：
+
+如果有一个操作数是布尔值，则在比较相等性之前，将其转换为数值；
+
+如果一个操作数是字符串，另一个操作数是数值，在比
                             
                         </a>
                     </div>
@@ -670,8 +675,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/js%E7%BB%A7%E6%89%BF/">
-                        <span class="chip bg-color">js继承</span>
+                    <a href="/tags/js/">
+                        <span class="chip bg-color">js</span>
                     </a>
                     
                 </div>
@@ -685,20 +690,20 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/12/09/js-call-apply/">
+                <a href="/2020/12/09/js-%E7%BB%A7%E6%89%BF/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="js 中 call()、apply()、bind()">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="js继承、class">
                         
-                        <span class="card-title">js 中 call()、apply()、bind()</span>
+                        <span class="card-title">js继承、class</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
-                        <a href="/2020/12/09/js-call-apply/">
+                        <a href="/2020/12/09/js-%E7%BB%A7%E6%89%BF/">
                             
-                                call()、apply()、bind() 都是用来重定义this这个对象的。
+                                继承是为了子类可以使用父类的所有功能，并且能对这些功能进行扩展。
                             
                         </a>
                     </div>
@@ -721,8 +726,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/js/">
-                        <span class="chip bg-color">js</span>
+                    <a href="/tags/js%E7%BB%A7%E6%89%BF/">
+                        <span class="chip bg-color">js继承</span>
                     </a>
                     
                 </div>
